@@ -9,10 +9,12 @@ namespace TeamProject
 {
     public class Player : stat
     {
+        public JobList job;
         public int Gold { get; set; }
-        public Player(int lv, int atk, int def, int hp)
+        public Player(int lv, JobList job, int atk, int def, int hp)
         {
             this.lv = lv;
+            this.job = job;
             this.atk = atk;
             this.def = def;
             this.hp = hp;
@@ -35,14 +37,14 @@ namespace TeamProject
         public void Status()
         {
             Console.WriteLine("Lv." + lv);
-            Console.WriteLine(Name + " ( " + Job + " )");
+            Console.WriteLine(Name + " ( " + job + " )");
             Console.WriteLine("공격력 : " + atk);
             Console.WriteLine("방어력 : " + def);
             Console.WriteLine("체  력 : " + hp);
             Console.WriteLine("Gold   : " + Gold);
         }
 
-        public static Player player = new Player(1, 50, 5, 1000);
+        public static Player player = new Player(1, JobList.검사, 50, 5, 1000);
         public static void PlayerStatus()
         {
         playerStatus:
@@ -87,15 +89,14 @@ namespace TeamProject
             bool IsCorrect = int. TryParse(Console.ReadLine(), out int num);
             //직업 스탯 
 
-            if(IsCorrect && num > 0 && num <= Enum.GetValues(typeof(Job)).Length) 
+            if(IsCorrect && num > 0 && num <= System.Enum.GetValues(typeof(JobList)).Length) 
             {
-                Job job = (Job)num;
 
                 switch(num)
                 {
                     case 1:
                         {
-                            Job = job.ToString();
+                            job = JobList.검사;
                             lv = 1;
                             atk = 180;
                             def = 150;
@@ -105,7 +106,7 @@ namespace TeamProject
                         }
                     case 2:
                         {
-                            Job = job.ToString();
+                            job = JobList.궁수;
                             lv = 1;
                             atk = 150;
                             def = 200;
@@ -115,7 +116,7 @@ namespace TeamProject
                         }
                     case 3:
                         {
-                            Job = job.ToString();
+                            job = JobList.주술사;
                             lv = 1;
                             atk = 180;
                             def = 180;
@@ -125,7 +126,7 @@ namespace TeamProject
                         }
                     case 4:
                         {
-                            Job = job.ToString();
+                            job = JobList.약사;
                             lv = 1;
                             atk = 180;
                             def = 180;

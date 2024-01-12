@@ -13,6 +13,7 @@ namespace TeamProject
             {
                 Player.NickName();
             }
+
             Scene.StartScene();
             
         }
