@@ -17,7 +17,7 @@ namespace TeamProject
             this.hp = hp;
             alive = true;
         }
-        public void Victim(int atk)
+        public int Victim(int atk,int hp)
         {
             hp -= atk;
             if (hp < 0)
@@ -28,6 +28,7 @@ namespace TeamProject
             {
                 alive = false;
             }
+            return hp;
         }
         public static List<Enemy> EnemySetting()
         {
