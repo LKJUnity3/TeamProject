@@ -1,9 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Net.Http.Headers;
-using static TeamProject.Program;
-
-namespace TeamProject
+﻿namespace TeamProject
 {
     internal class Program
     {

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using static TeamProject.Program;
-
-namespace TeamProject
+﻿namespace TeamProject
 {
     public class Scene
     {
