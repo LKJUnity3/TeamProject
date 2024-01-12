@@ -6,7 +6,7 @@ namespace TeamProject
     {
         public JobList job;
         public int Gold { get; set; }
-        public void victim(ref int atk, ref int hp)
+        public int victim(int atk,int hp)
         {
             int isDamage = atk - def;
             if (isDamage < 0)
@@ -19,6 +19,7 @@ namespace TeamProject
             {
                 hp = 0;
             }
+            return hp;
         }
 
         public void setStatus(JobList job, int lv, int atk, int def, int hp, int gold)

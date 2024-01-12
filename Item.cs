@@ -92,6 +92,12 @@ namespace TeamProject
                         goto invenMenu;
                 }
             }
+            else
+            {
+                Console.WriteLine("잘못 입력하셨습니다.");
+                Thread.Sleep(1000);
+                goto invenMenu;
+            }
         }
         // 인벤 장착 매뉴
         static void InvenEquipMenu()

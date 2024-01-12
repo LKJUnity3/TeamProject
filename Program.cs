@@ -5,10 +5,8 @@
         public static void Main(string[] args)
         {
 
-            if (Player.player.Name == null)
-            {
-                Player.NickName();
-            }
+            Player.NickName();
+            Player.player.GetJob();
             Item.ItemSetting();
             Scene.StartScene();
         }
