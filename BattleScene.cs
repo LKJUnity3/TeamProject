@@ -14,11 +14,9 @@ namespace TeamProject
             int Current_enemy_hp;
             // 어태커 빅팀 정보저장
             int indexHP = 0;
-            double DmgPersent = Math.Round(((double)Player.player.atk * 0.1d));
-            double MinDmg = Math.Round((double)Player.player.atk - DmgPersent);
-            double MaxDmg = Math.Round((double)Player.player.atk + DmgPersent);
-            Random random = new Random();
-            
+            double MinDmg = Math.Round((double)Player.player.atk * 0.9);
+            double MaxDmg = Math.Round((double)Player.player.atk * 1.1);
+            Random random = new Random();      
         battle:
             Console.Clear();
             Console.WriteLine("Battle!!\n");
