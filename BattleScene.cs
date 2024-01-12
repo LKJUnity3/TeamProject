@@ -1,13 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.Design;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
 namespace TeamProject
 {
     public class BattleScene
