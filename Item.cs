@@ -39,7 +39,7 @@ namespace TeamProject
         public void PrintItemStatus(bool purchaseSell = false, bool equip = false, int number = 0)
         {
             if (!purchaseSell && !equip) Console.Write("\n- ");
-            else Console.Write($"\n{number}.");
+            else Console.Write($"\n[{number}] ");
             if (Equip)
             {
                 Console.Write("[");
@@ -54,6 +54,8 @@ namespace TeamProject
             if (this.hp != 0) Console.Write($"체력 +{this.hp} | ");
             Console.Write($"{Info} | ");
         }
+        
+
         // 인벤 매뉴
         public static void InvenMenu()
         {
@@ -69,8 +71,8 @@ namespace TeamProject
             {
                 equipItems[i].PrintItemStatus();
             }
-            Console.WriteLine("\n\n1. 장착 관리");
-            Console.WriteLine("0. 나가기\n");
+            Console.WriteLine("\n\n[1] 장착 관리");
+            Console.WriteLine("[0] 나가기\n");
             Console.Write("원하시는 행동을 입력해주세요.\n>>> ");
             string index = Console.ReadLine();
             bool isInt = int.TryParse(index, out int num);
@@ -111,7 +113,7 @@ namespace TeamProject
             {
                 equipItems[i].PrintItemStatus(false, true, i + 1);
             }
-            Console.WriteLine("\n\n0. 나가기\n");
+            Console.WriteLine("\n\n[0] 나가기\n");
             Console.Write("원하시는 행동을 입력해주세요.\n>>> ");
             string index = Console.ReadLine();
             bool isInt = int.TryParse(index, out int num);
@@ -125,7 +127,20 @@ namespace TeamProject
                     default:
                         if (num <= equipItems.Count)
                         {
-                            equipItems[num - 1].Equip = !equipItems[num - 1].Equip;
+                            if (!equipItems[num - 1].Equip)
+                            {
+                                equipItems[num - 1].Equip = true;
+                                player.atk += equipItems[num - 1].atk;
+                                player.def += equipItems[num - 1].def;
+                                player.hp += equipItems[num - 1].hp;
+                            }
+                            else
+                            {
+                                equipItems[num - 1].Equip = false;
+                                player.atk -= equipItems[num - 1].atk;
+                                player.def -= equipItems[num - 1].def;
+                                player.hp -= equipItems[num - 1].hp;
+                            }
                         }
                         else
                         {
@@ -135,7 +150,31 @@ namespace TeamProject
                         goto invenEquipMenu;
                 }
             }
+            else
+            {
+                Console.WriteLine("잘못 입력하셨습니다.");
+                Thread.Sleep(1000);
+                goto invenEquipMenu;
+            }
         }
+        // 아이템 장착으로 인한 스탯변경
+        public static int AddStatus(Func<Item, int> addStatus) // Func 특정 스탯값을 반환한다는 소리
+        {
+            int sum = 0;
+            if (equipItems != null)
+            {
+                for (int i = 0; i < equipItems.Count; i++)
+                {
+                    if (equipItems[i].Equip)
+                    {
+                        sum += addStatus(equipItems[i]);
+                    }
+                }
+            }
+            return sum;
+        }
+
+
         // 상점 매뉴
         // 구매 및 판매 사용 X
         public static void StoreMenu()
@@ -155,8 +194,8 @@ namespace TeamProject
                 if (!items[i].PurchaseSell) Console.Write($"{items[i].Price}");
                 else Console.Write($"구매완료");
             }
-            Console.WriteLine("\n\n1. 아이템 구매");
-            Console.WriteLine("0. 나가기\n");
+            Console.WriteLine("\n\n[1] 아이템 구매");
+            Console.WriteLine("[0] 나가기\n");
             Console.Write("원하시는 행동을 입력해주세요.\n>>> ");
             string index = Console.ReadLine();
             bool isInt = int.TryParse(index, out int num);
@@ -175,6 +214,12 @@ namespace TeamProject
                         Thread.Sleep(1000);
                         goto storeMenu;
                 }
+            }
+            else
+            {
+                Console.WriteLine("잘못 입력하셨습니다.");
+                Thread.Sleep(1000);
+                goto storeMenu;
             }
         }
         // 구매 및 판매 사용 O
@@ -195,7 +240,7 @@ namespace TeamProject
                 if (!items[i].PurchaseSell) Console.Write($"{items[i].Price}");
                 else Console.Write($"구매완료");
             }
-            Console.WriteLine("\n\n0. 나가기\n");
+            Console.WriteLine("\n\n[0] 나가기\n");
             Console.Write("원하시는 행동을 입력해주세요.\n>>> ");
             string index = Console.ReadLine();
             bool isInt = int.TryParse(index, out int num);
@@ -235,6 +280,12 @@ namespace TeamProject
                         }
                         goto storePurchaseMenu;
                 }
+            }
+            else
+            {
+                Console.WriteLine("잘못 입력하셨습니다.");
+                Thread.Sleep(1000);
+                goto storePurchaseMenu;
             }
         }
     }
