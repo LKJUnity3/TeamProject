@@ -54,8 +54,6 @@ namespace TeamProject
             if (this.hp != 0) Console.Write($"체력 +{this.hp} | ");
             Console.Write($"{Info} | ");
         }
-
-
         // 인벤 매뉴
         public static void InvenMenu()
         {
@@ -138,8 +136,6 @@ namespace TeamProject
                 }
             }
         }
-
-
         // 상점 매뉴
         // 구매 및 판매 사용 X
         public static void StoreMenu()
