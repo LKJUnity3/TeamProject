@@ -49,7 +49,7 @@ namespace TeamProject
                 }
                 Console.WriteLine("");
                 Console.WriteLine("[내정보]");
-                Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.Job + ")");
+                Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
                 Console.WriteLine("HP " + Current_HP + "/" + Player.player.hp);
                 Console.WriteLine("\n[1] 공격");
                 Console.WriteLine("\n원하시는 행동을 입력해주세요.");
@@ -113,7 +113,7 @@ namespace TeamProject
                 }
                 Console.WriteLine("");
                 Console.WriteLine("[내정보]");
-                Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.Job + ")");
+                Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
                 Console.WriteLine("\n[0] 취소");
                 Console.WriteLine("\n대상을 선택해주세요.");
                 Console.Write(">>> ");
