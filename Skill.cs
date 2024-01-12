@@ -43,14 +43,15 @@ namespace TeamProject
             Defense,
             Heal,
             Support,
+            Special
         }
         public class Skill_DataSet
         {
-            SkillType skilltype;
-            private string skillname;
-            private string skillInfo;
-            private float skillDamage;
-            stat.JobList jobName;
+            public SkillType skilltype;
+            public string skillname;
+            public string skillInfo;
+            public float skillDamage;
+            public stat.JobList jobName;
             //stat.JobType jobName; //파일이름.enum명칭 변수명 선언가능
             // 검사, 궁수, 주술사, 힐러, 전부로 구분된 enum의 상수값을 받기 위한 변수
             StageType stagetype;//삼국시대, 조선, 대한민국, 전부로 구분된 enum의 상수값을 받기 위한 변수
@@ -67,6 +68,21 @@ namespace TeamProject
             public void SkillDamage()
             {
                 
+            }
+        }
+
+        public static void SetSkill(stat.JobList jobName) //직업에 맞는 스킬 2개를 랜덤하게 설정
+        {
+            int SkillCount = 0;
+            Random rand = new Random();
+            for(int i=0; SkillCount<1; i++)
+            {
+                int id = rand.Next(0, skilldatabase.Count());
+                if (skilldatabase[id].jobName == jobName)
+                {
+                    characterSkill.Add(skilldatabase[id]);
+                    SkillCount++;
+                }
             }
         }
 
