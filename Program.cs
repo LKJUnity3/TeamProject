@@ -8,6 +8,7 @@
             {
                 Player.NickName();
             }
+            Item.ItemSetting();
             Scene.StartScene();
             
         }
