@@ -10,7 +10,6 @@
             }
             Item.ItemSetting();
             Scene.StartScene();
-            
         }
     }
 }
