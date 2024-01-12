@@ -35,9 +35,12 @@ namespace TeamProject
         {
             Console.WriteLine("Lv." + lv);
             Console.WriteLine(Name + " ( " + job + " )");
-            Console.WriteLine("공격력 : " + atk);
-            Console.WriteLine("방어력 : " + def);
-            Console.WriteLine("체  력 : " + hp);
+            int addAtk = Item.AddStatus(item => item.atk);
+            Console.WriteLine($"공격력 : {atk}" + ( addAtk > 0 ? $"(+{addAtk})" : addAtk < 0 ? $"(-{addAtk})" : ""));
+            int addDef = Item.AddStatus(item => item.def);
+            Console.WriteLine($"방어력 : {def}" + (addDef > 0 ? $"(+{addDef})" : addDef < 0 ? $"(-{addDef})" : ""));
+            int addHp = Item.AddStatus(item => item.hp);
+            Console.WriteLine($"체력 : {hp}" + (addHp > 0 ? $"(+{addHp})" : addHp < 0 ? $"(-{addHp})" : ""));
             Console.WriteLine("Gold   : " + Gold);
         }
 
