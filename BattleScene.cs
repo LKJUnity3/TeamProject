@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.Design;
 using System.Data.Common;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -366,11 +367,31 @@ namespace TeamProject
                     else if (0 < num && num <= enemies.Count)
                     {
                         if (enemies[num - 1].alive)
-                        {
+                        {                            
                             int atk = random.Next((int)MinDmg, (int)MaxDmg);
+
+                            bool criticalTrue = false;
+                            int criticalAtk = Critical(atk, ref criticalTrue);
+
+                            bool avoidanceTrue = false;
+                            int avoidanceAtk = Avoidance(atk, ref avoidanceTrue);
+
                             Current_enemy_hp = enemies[num - 1].hp;
-                            enemies[num - 1].Victim(atk);
-                            playerPhase(num,atk);
+                            if(avoidanceTrue == true && criticalTrue == false)
+                            {                                
+                                enemies[num - 1].Victim(avoidanceAtk);
+                                playerPhase(num, avoidanceAtk, 1);
+                            }
+                            else if(criticalTrue == true && avoidanceTrue == false)
+                            {                                
+                                enemies[num - 1].Victim(criticalAtk);
+                                playerPhase(num, criticalAtk, 2);
+                            }
+                            else
+                            {                                
+                                enemies[num - 1].Victim(atk);
+                                playerPhase(num, atk, 3);
+                            }                            
                         }
                         else
                         {
@@ -383,14 +404,25 @@ namespace TeamProject
                 Thread.Sleep(600);
                 goto battlephase;
             }
-            void playerPhase(int enemy_list,int atk)
+            void playerPhase(int enemy_list,int atk,int avoidanceOrcri)
             {
             playerPhase:
                 Console.Clear();
                 int number = enemy_list - 1;
                 Console.WriteLine("Battle!!");
                 Console.WriteLine("\n" + Player.player.Name + "의 공격!");
-                Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + " 을(를) 맞췄습니다. [데미지 : " + atk + "]");
+                if(avoidanceOrcri == 1)
+                {
+                    Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + " 을(를) 못맞췄습니다. [데미지 : " + atk + "] - 회피");
+                }
+                else if(avoidanceOrcri == 2)
+                {
+                    Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + " 의 급소를 맞췄습니다. [데미지 : " + atk + "] - 치명타");
+                }
+                else if(avoidanceOrcri == 3)
+                {
+                    Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + " 을(를) 맞췄습니다. [데미지 : " + atk + "]");
+                }                
                 Console.WriteLine("\nLv." + enemies[number].lv + " " + enemies[number].Name);
                 if (enemies[number].alive)
                 {
@@ -439,14 +471,43 @@ namespace TeamProject
                 {
                     goto enemyPhase;
                 }
-                int isDmg = enemies[number].atk - Player.player.def;
+
+                //bool enemyAvoidanceTrue = false;
+                //int enemyAvoidanceAtk = Avoidance(enemies[number].atk - Player.player.def,ref enemyAvoidanceTrue);
+
+                //bool enemyCriticalTrue = false;
+                //int enemyCriticalAtk = Critical(enemies[number].atk - Player.player.def, ref enemyCriticalTrue);
+
+                int isDmg/* = enemies[number].atk - Player.player.def*/;
+                //if(enemyCriticalTrue == true && enemyAvoidanceTrue == false)
+                //{
+                //    isDmg = enemyCriticalAtk;
+                //}
+                //else if(enemyAvoidanceTrue == true && enemyCriticalTrue == false)
+                //{
+                //    isDmg = enemyAvoidanceAtk;
+                //}
+
+                
+                Current_HP = Player.player.victim(enemies[number].atk, Current_HP, out isDmg);
                 if (isDmg < 0)
                 {
                     isDmg = 0;
                 }
-                Current_HP = Player.player.victim(enemies[number].atk, Current_HP);
                 Console.WriteLine("Battle!!");
                 Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + "의 공격!");
+                //if (enemyCriticalTrue == true && enemyAvoidanceTrue == false)
+                //{
+                //    Console.WriteLine(Player.player.Name + " 의 급소를 맞췄습니다. [데미지 : " + isDmg + "] - 치명타");
+                //}
+                //else if (enemyAvoidanceTrue == true && enemyCriticalTrue == false)
+                //{
+                //    Console.WriteLine(Player.player.Name + " 을(를) 못맞췄습니다. [데미지 : " + isDmg + "] - 회피");
+                //}
+                //else
+                //{
+                //    Console.WriteLine(Player.player.Name + " 을(를) 맞췄습니다. [데미지 : " + isDmg + "]");
+                //}
                 Console.WriteLine(Player.player.Name + " 을(를) 맞췄습니다. [데미지 : " + isDmg + "]");
                 Console.WriteLine("\nLv." + Player.player.lv + " " + Player.player.Name);
                 if (Current_HP > 0)
@@ -516,6 +577,38 @@ namespace TeamProject
                     goto Battleresult;
                 }
             }
+        }
+
+        public static int Avoidance(int damage,ref bool isAvoidance)
+        {
+            int avoidance = new Random().Next(1, 100);
+            if (avoidance >= 10)
+            {
+                isAvoidance = false;
+            }
+            else
+            {
+                isAvoidance = true;
+                damage = 0;
+            }
+
+            return damage;
+        }
+
+        public static int Critical(int damage,ref bool isCritical)
+        {
+            int critical = new Random().Next(1, 100);
+            if (critical <= 15)
+            {
+                isCritical = true;
+                double criticalDamage = damage * 1.6;
+                damage = (int)Math.Round(criticalDamage);
+            }
+            else
+            {
+                isCritical = false;
+            }
+            return damage;
         }
     }
 }
