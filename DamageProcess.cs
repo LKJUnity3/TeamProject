@@ -13,10 +13,10 @@ namespace TeamProject
             isDamage = atk - Player.player.def;
 
             enemyAvoidanceTrue = false;
-            int enemyAvoidance = BattleScene.Avoidance(isDamage, ref enemyAvoidanceTrue);
+            int enemyAvoidance = Avoidance(isDamage, ref enemyAvoidanceTrue);
 
             enemyCriticalTrue = false;
-            int enemyCritical = BattleScene.Critical(isDamage, ref enemyCriticalTrue);
+            int enemyCritical = Critical(isDamage, ref enemyCriticalTrue);
 
             if (enemyCriticalTrue == true && enemyAvoidanceTrue == false)
             {
@@ -47,10 +47,10 @@ namespace TeamProject
             atk = new Random().Next((int)MinDmg, (int)MaxDmg);
             isDamage = atk;
             criticalTrue = false;
-            int criticalAtk = BattleScene.Critical(isDamage, ref criticalTrue);
+            int criticalAtk = Critical(isDamage, ref criticalTrue);
 
             avoidanceTrue = false;
-            int avoidanceAtk = BattleScene.Avoidance(isDamage, ref avoidanceTrue);
+            int avoidanceAtk = Avoidance(isDamage, ref avoidanceTrue);
 
             if (criticalTrue == true && avoidanceTrue == false)
             {
@@ -78,6 +78,38 @@ namespace TeamProject
             }
 
             return hp;
+        }
+
+        public static int Avoidance(int damage, ref bool isAvoidance)
+        {
+            int avoidance = new Random().Next(1, 100);
+            if (avoidance > 10)
+            {
+                isAvoidance = false;
+            }
+            else
+            {
+                isAvoidance = true;
+                damage = 0;
+            }
+
+            return damage;
+        }
+
+        public static int Critical(int damage, ref bool isCritical)
+        {
+            int critical = new Random().Next(1, 100);
+            if (critical <= 15)
+            {
+                isCritical = true;
+                double criticalDamage = damage * 1.6;
+                damage = (int)Math.Round(criticalDamage);
+            }
+            else
+            {
+                isCritical = false;
+            }
+            return damage;
         }
     }
 }

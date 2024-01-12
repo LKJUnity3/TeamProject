@@ -546,38 +546,6 @@ namespace TeamProject
                     goto Battleresult;
                 }
             }
-        }
-
-        public static int Avoidance(int damage,ref bool isAvoidance)
-        {
-            int avoidance = new Random().Next(1, 100);
-            if (avoidance >= 10)
-            {
-                isAvoidance = false;
-            }
-            else
-            {
-                isAvoidance = true;
-                damage = 0;
-            }
-
-            return damage;
-        }
-
-        public static int Critical(int damage,ref bool isCritical)
-        {
-            int critical = new Random().Next(1, 100);
-            if (critical <= 15)
-            {
-                isCritical = true;
-                double criticalDamage = damage * 1.6;
-                damage = (int)Math.Round(criticalDamage);
-            }
-            else
-            {
-                isCritical = false;
-            }
-            return damage;
-        }
+        }        
     }
 }
