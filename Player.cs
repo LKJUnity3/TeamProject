@@ -18,14 +18,14 @@ namespace TeamProject
             this.hp = hp;
             Gold = 1500;
         }
-        public int victim(int atk,int hp, out int isDamage)
+        public int victim(int atk, int hp, out int isDamage, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue)
         {            
             isDamage = atk - def;
 
-            bool enemyAvoidanceTrue = false;
+            enemyAvoidanceTrue = false;
             int enemyAvoidance = BattleScene.Avoidance(isDamage, ref enemyAvoidanceTrue);
 
-            bool enemyCriticalTrue = false;
+            enemyCriticalTrue = false;
             int enemyCritical = BattleScene.Critical(isDamage, ref enemyCriticalTrue);
 
             if(enemyCriticalTrue == true && enemyAvoidanceTrue == false)

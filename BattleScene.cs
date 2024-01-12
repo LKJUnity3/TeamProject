@@ -260,10 +260,9 @@ namespace TeamProject
             // 적 변수 저장.
             int Current_enemy_hp;
             // 어태커 빅팀 정보저장
-            int indexHP = 0;
-            double DmgPersent = Math.Round(((double)Player.player.atk * 0.1d));
-            double MinDmg = Math.Round((double)Player.player.atk - DmgPersent);
-            double MaxDmg = Math.Round((double)Player.player.atk + DmgPersent);
+            int indexHP = 0;             
+            //double MinDmg = Math.Round((double)Player.player.atk * 0.9);
+            //double MaxDmg = Math.Round((double)Player.player.atk * 1.1);
             Random random = new Random();
             
         battle:
@@ -367,30 +366,23 @@ namespace TeamProject
                     else if (0 < num && num <= enemies.Count)
                     {
                         if (enemies[num - 1].alive)
-                        {                            
-                            int atk = random.Next((int)MinDmg, (int)MaxDmg);
-
-                            bool criticalTrue = false;
-                            int criticalAtk = Critical(atk, ref criticalTrue);
-
-                            bool avoidanceTrue = false;
-                            int avoidanceAtk = Avoidance(atk, ref avoidanceTrue);
-
-                            Current_enemy_hp = enemies[num - 1].hp;
-                            if(avoidanceTrue == true && criticalTrue == false)
-                            {                                
-                                enemies[num - 1].Victim(avoidanceAtk);
-                                playerPhase(num, avoidanceAtk, 1);
+                        {
+                            //Current_enemy_hp = enemies[num - 1].hp;
+                            Current_enemy_hp = enemies[num - 1].Victim(Player.player.atk, Current_enemy_hp,out int isDamage, out bool criticalTrue, out bool avoidanceTrue);
+                            if (avoidanceTrue == true && criticalTrue == false)
+                            {
+                                enemies[num - 1].hp = Current_enemy_hp;
+                                playerPhase(num, isDamage, 1);
                             }
                             else if(criticalTrue == true && avoidanceTrue == false)
-                            {                                
-                                enemies[num - 1].Victim(criticalAtk);
-                                playerPhase(num, criticalAtk, 2);
+                            {
+                                enemies[num - 1].hp = Current_enemy_hp;
+                                playerPhase(num, isDamage, 2);
                             }
                             else
-                            {                                
-                                enemies[num - 1].Victim(atk);
-                                playerPhase(num, atk, 3);
+                            {
+                                enemies[num - 1].hp = Current_enemy_hp;
+                                playerPhase(num, isDamage, 3);
                             }                            
                         }
                         else
@@ -470,45 +462,27 @@ namespace TeamProject
                 if (!enemies[number].alive)
                 {
                     goto enemyPhase;
-                }
+                }                                                               
 
-                //bool enemyAvoidanceTrue = false;
-                //int enemyAvoidanceAtk = Avoidance(enemies[number].atk - Player.player.def,ref enemyAvoidanceTrue);
-
-                //bool enemyCriticalTrue = false;
-                //int enemyCriticalAtk = Critical(enemies[number].atk - Player.player.def, ref enemyCriticalTrue);
-
-                int isDmg/* = enemies[number].atk - Player.player.def*/;
-                //if(enemyCriticalTrue == true && enemyAvoidanceTrue == false)
-                //{
-                //    isDmg = enemyCriticalAtk;
-                //}
-                //else if(enemyAvoidanceTrue == true && enemyCriticalTrue == false)
-                //{
-                //    isDmg = enemyAvoidanceAtk;
-                //}
-
-                
-                Current_HP = Player.player.victim(enemies[number].atk, Current_HP, out isDmg);
+                Current_HP = Player.player.victim(enemies[number].atk, Current_HP, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
                 if (isDmg < 0)
                 {
                     isDmg = 0;
                 }
                 Console.WriteLine("Battle!!");
                 Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + "의 공격!");
-                //if (enemyCriticalTrue == true && enemyAvoidanceTrue == false)
-                //{
-                //    Console.WriteLine(Player.player.Name + " 의 급소를 맞췄습니다. [데미지 : " + isDmg + "] - 치명타");
-                //}
-                //else if (enemyAvoidanceTrue == true && enemyCriticalTrue == false)
-                //{
-                //    Console.WriteLine(Player.player.Name + " 을(를) 못맞췄습니다. [데미지 : " + isDmg + "] - 회피");
-                //}
-                //else
-                //{
-                //    Console.WriteLine(Player.player.Name + " 을(를) 맞췄습니다. [데미지 : " + isDmg + "]");
-                //}
-                Console.WriteLine(Player.player.Name + " 을(를) 맞췄습니다. [데미지 : " + isDmg + "]");
+                if (enemyCriticalTrue == true && enemyAvoidanceTrue == false)
+                {
+                    Console.WriteLine(Player.player.Name + " 의 급소를 맞췄습니다. [데미지 : " + isDmg + "] - 치명타");
+                }
+                else if (enemyAvoidanceTrue == true && enemyCriticalTrue == false)
+                {
+                    Console.WriteLine(Player.player.Name + " 을(를) 못맞췄습니다. [데미지 : " + isDmg + "] - 회피");
+                }
+                else
+                {
+                    Console.WriteLine(Player.player.Name + " 을(를) 맞췄습니다. [데미지 : " + isDmg + "]");
+                }                
                 Console.WriteLine("\nLv." + Player.player.lv + " " + Player.player.Name);
                 if (Current_HP > 0)
                 {

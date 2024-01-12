@@ -17,9 +17,37 @@ namespace TeamProject
             this.hp = hp;
             alive = true;
         }
-        public void Victim(int atk)
+        public int Victim(int atk, int hp, out int isDamage, out bool criticalTrue,out bool avoidanceTrue)
         {
-            hp -= atk;
+            double MinDmg = Math.Round((double)Player.player.atk * 0.9);
+            double MaxDmg = Math.Round((double)Player.player.atk * 1.1);
+
+            atk = new Random().Next((int)MinDmg, (int)MaxDmg);
+            isDamage = atk;
+            criticalTrue = false;
+            int criticalAtk = BattleScene.Critical(atk, ref criticalTrue);
+
+            avoidanceTrue = false;
+            int avoidanceAtk = BattleScene.Avoidance(atk, ref avoidanceTrue);
+            
+            if (criticalTrue == true && avoidanceTrue == false)
+            {
+                isDamage = criticalAtk;
+            }
+            else if (avoidanceTrue == true && criticalTrue == false)
+            {
+                isDamage = avoidanceAtk;
+            }
+
+            if (avoidanceTrue == true && criticalTrue == false)
+            {
+                hp -= isDamage;
+            }
+            else if (criticalTrue == true && avoidanceTrue == false)
+            {
+                hp -= isDamage;
+            }
+            
             if (hp < 0)
             {
                 hp = 0;
@@ -28,6 +56,8 @@ namespace TeamProject
             {
                 alive = false;
             }
+
+            return hp;
         }
         public static List<Enemy> EnemySetting()
         {
