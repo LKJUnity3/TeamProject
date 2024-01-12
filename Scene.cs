@@ -36,6 +36,7 @@ namespace TeamProject
                     case (int)SceneType.INVENTORY: break;
                     case (int)SceneType.SHOP: break;
                     case (int)SceneType.DUNGEON: BattleScene.Battle(); break;
+                    default: StartScene(); break;
                 }
             }
         }

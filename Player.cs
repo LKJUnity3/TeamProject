@@ -11,28 +11,29 @@ namespace TeamProject
     {
         public JobList job;
         public int Gold { get; set; }
-        public Player(int lv, JobList job, int atk, int def, int hp)
-        {
-            this.lv = lv;
-            this.job = job;
-            this.atk = atk;
-            this.def = def;
-            this.hp = hp;
-            Gold = 1500;
-        }
-        public int victim(int atk,int hp)
+        public void victim(ref int atk, ref int hp)
         {
             int isDamage = atk - def;
             if (isDamage < 0)
             {
                 isDamage = 0;
+                atk = isDamage;
             }
             hp -= isDamage;
             if (hp < 0)
             {
                 hp = 0;
             }
-            return hp;
+        }
+
+        public void setStatus(JobList job, int lv, int atk, int def, int hp, int gold)
+        {
+            player.atk = atk;
+            player.hp = hp;
+            player.job = job;
+            player.Gold = gold;
+            player.def = def;
+            player.lv = lv;
         }
         public void Status()
         {
@@ -44,7 +45,7 @@ namespace TeamProject
             Console.WriteLine("Gold   : " + Gold);
         }
 
-        public static Player player = new Player(1, JobList.검사, 50, 5, 1000);
+        public static Player player = new Player();
         public static void PlayerStatus()
         {
         playerStatus:
@@ -76,6 +77,7 @@ namespace TeamProject
             player.Name = Console.ReadLine();
         }
 
+
         public void GetJob()
         {
             Console.Clear();
@@ -86,57 +88,39 @@ namespace TeamProject
             Console.WriteLine("3. 홍길동(주술사)");
             Console.WriteLine("4. 허준(약사)");
 
-            bool IsCorrect = int. TryParse(Console.ReadLine(), out int num);
+            bool IsCorrect = int.TryParse(Console.ReadLine(), out int num);
             //직업 스탯 
 
-            if(IsCorrect && num > 0 && num <= System.Enum.GetValues(typeof(JobList)).Length) 
+            if (IsCorrect && num > 0 && num <= System.Enum.GetValues(typeof(JobList)).Length)
             {
 
-                switch(num)
+                switch (num)
                 {
                     case 1:
                         {
-                            job = JobList.검사;
-                            lv = 1;
-                            atk = 180;
-                            def = 150;
-                            hp = 250;
-                            Gold = 2000;
+                            setStatus(JobList.검사, 1, 180, 150, 250, 2000);
                             break;
                         }
                     case 2:
                         {
-                            job = JobList.궁수;
-                            lv = 1;
-                            atk = 150;
-                            def = 200;
-                            hp = 200;
-                            Gold = 2500;
+                            setStatus(JobList.궁수, 1, 150, 200, 200, 2500);
                             break;
                         }
                     case 3:
                         {
-                            job = JobList.주술사;
-                            lv = 1;
-                            atk = 180;
-                            def = 180;
-                            hp = 200;
-                            Gold = 3000;
+                            setStatus(JobList.주술사, 1, 180, 180, 200, 3000);
                             break;
                         }
                     case 4:
                         {
-                            job = JobList.약사;
-                            lv = 1;
-                            atk = 180;
-                            def = 180;
-                            hp = 200;
-                            Gold = 3000;
+                            setStatus(JobList.약사, 1, 180, 180, 200, 3000);
                             break;
                         }
 
                 }
+
             } // 코드가 깃허브에 올라와 있지는 않아서, 확인중
+            Console.WriteLine("\n원하시는 행동을 입력해주세요.");
         }
     }
 }

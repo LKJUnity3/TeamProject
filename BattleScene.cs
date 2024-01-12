@@ -208,7 +208,7 @@ namespace TeamProject
                 {
                     isDmg = 0;
                 }
-                Current_HP = Player.player.victim(enemies[number].atk, Current_HP);
+                Current_HP = Player.player.victim(enemies[number].atk,Current_HP);
                 Console.WriteLine("Battle!!");
                 Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + "의 공격!");
                 Console.WriteLine(Player.player.Name + " 을(를) 맞췄습니다. [데미지 : " + isDmg + "]");

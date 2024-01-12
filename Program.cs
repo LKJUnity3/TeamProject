@@ -9,13 +9,13 @@ namespace TeamProject
     {
         public static void Main(string[] args)
         {
-            if (Player.player.Name == null)
-            {
-                Player.NickName();
-            }
+            Player.NickName();
+            Player.player.GetJob();
+
+
 
             Scene.StartScene();
-            
+
         }
     }
 }
