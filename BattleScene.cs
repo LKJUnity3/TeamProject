@@ -331,7 +331,7 @@ namespace TeamProject
 
             battlephase:
                 Console.Clear();
-                indexHP = Current_HP;
+                indexHP = Current_HP;                
                 Console.WriteLine("Battle!!\n");
                 for (int i = 0; i < enemies.Count; i++)
                 {
@@ -367,21 +367,22 @@ namespace TeamProject
                     {
                         if (enemies[num - 1].alive)
                         {
+                            Current_enemy_hp = enemies[num - 1].hp;
                             //Current_enemy_hp = enemies[num - 1].hp;
-                            Current_enemy_hp = enemies[num - 1].Victim(Player.player.atk, Current_enemy_hp,out int isDamage, out bool criticalTrue, out bool avoidanceTrue);
+                            enemies[num - 1].hp = enemies[num - 1].Victim(Player.player.atk, Current_enemy_hp,out int isDamage, out bool criticalTrue, out bool avoidanceTrue);
                             if (avoidanceTrue == true && criticalTrue == false)
                             {
-                                enemies[num - 1].hp = Current_enemy_hp;
+                                //enemies[num - 1].hp = Current_enemy_hp;
                                 playerPhase(num, isDamage, 1);
                             }
                             else if(criticalTrue == true && avoidanceTrue == false)
                             {
-                                enemies[num - 1].hp = Current_enemy_hp;
+                                
                                 playerPhase(num, isDamage, 2);
                             }
                             else
                             {
-                                enemies[num - 1].hp = Current_enemy_hp;
+                                
                                 playerPhase(num, isDamage, 3);
                             }                            
                         }

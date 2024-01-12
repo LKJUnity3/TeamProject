@@ -33,20 +33,13 @@ namespace TeamProject
             if (criticalTrue == true && avoidanceTrue == false)
             {
                 isDamage = criticalAtk;
+                hp -= isDamage;
             }
             else if (avoidanceTrue == true && criticalTrue == false)
             {
                 isDamage = avoidanceAtk;
-            }
-
-            if (avoidanceTrue == true && criticalTrue == false)
-            {
                 hp -= isDamage;
-            }
-            else if (criticalTrue == true && avoidanceTrue == false)
-            {
-                hp -= isDamage;
-            }
+            }            
             
             if (hp < 0)
             {
