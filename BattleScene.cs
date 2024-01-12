@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -259,7 +260,7 @@ namespace TeamProject
             // 적 변수 저장.
             int Current_enemy_hp;
             Console.Clear();
-            Console.WriteLine("Battle!!\n");
+            Console.WriteLine("Battle!!\n");            
             if (!battle)
             {
                 for (int i = 0; i < enemies.Count; i++) 
@@ -302,8 +303,38 @@ namespace TeamProject
                 Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.Job + ")");
                 Console.WriteLine("\n[0] 취소");
                 Console.WriteLine("\n대상을 선택해주세요.");
-            }
+            }                        
+        }
 
+        public static int Avoidance(int damage, ref bool isAvoidance)
+        {
+            int avoidance = new Random().Next(1, 100);
+            if(avoidance > 10)
+            {
+                isAvoidance = false;
+            }
+            else
+            {                
+                isAvoidance = true;
+                damage = 0;
+            }
+            return damage;
+        }
+
+        public static int Critical(int damage, ref bool isCritical)
+        {
+            int critical = new Random().Next(1, 100);
+            if(critical <= 15)
+            {
+                isCritical = true;
+                double criticalDamage = damage * 1.6;
+                damage = (int)Math.Round(criticalDamage);
+            }
+            else
+            {
+                isCritical = false;
+            }
+            return damage;
         }
     }
 }
