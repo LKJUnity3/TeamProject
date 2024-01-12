@@ -1,13 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.Design;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
 namespace TeamProject
 {
     public class BattleScene
@@ -208,7 +198,7 @@ namespace TeamProject
                 {
                     isDmg = 0;
                 }
-                Current_HP = Player.player.victim(enemies[number].atk, Current_HP);
+                Current_HP = Player.player.victim(enemies[number].atk,Current_HP);
                 Console.WriteLine("Battle!!");
                 Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + "의 공격!");
                 Console.WriteLine(Player.player.Name + " 을(를) 맞췄습니다. [데미지 : " + isDmg + "]");
