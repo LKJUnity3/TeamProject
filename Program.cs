@@ -7,6 +7,7 @@
 
             Player.NickName();
             Player.player.GetJob();
+            Skill.SetSkill(Player.player.job);
             Item.ItemSetting();
             Scene.StartScene();
         }
