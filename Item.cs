@@ -9,7 +9,7 @@ namespace TeamProject
         public string Info { get; }
         public int Price { get; }
         public bool PurchaseSell { get; set; }
-        public bool Equip { get; }
+        public bool Equip { get; set; }
         public Item(string name, int atk, int def, int hp, string info, int price)
         {
             Name = name;
@@ -23,7 +23,7 @@ namespace TeamProject
 
         // 아이템 리스트 설정
         public static List<Item> items = new List<Item>(); // 기본 아이템 리스트
-        public static List<Item> equipitems = new List<Item>(); // 장착 가능한 아이템 리스트
+        public static List<Item> equipItems = new List<Item>(); // 장착 가능한 아이템 리스트
         public static void ItemSetting()
         {
             items.Add(new Item("수련자 갑옷", 0, 5, 0, "수련에 도움을 주는 갑옷입니다.", 1000));
@@ -42,17 +42,95 @@ namespace TeamProject
             else Console.Write($"\n{number}.");
             if (Equip)
             {
-                Console.WriteLine("[");
+                Console.Write("[");
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("E");
+                Console.Write("E");
                 Console.ResetColor();
-                Console.WriteLine("]");
+                Console.Write("]");
             }
             Console.Write($"{Name} | ");
             if (this.atk != 0) Console.Write($"공격력 +{this.atk} | ");
             if (this.def != 0) Console.Write($"방어력 +{this.def} | ");
             if (this.hp != 0) Console.Write($"체력 +{this.hp} | ");
             Console.Write($"{Info} | ");
+        }
+
+
+        // 인벤 매뉴
+        public static void InvenMenu()
+        {
+            invenMenu:
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("■ 인벤토리 ■");
+            Console.ResetColor();
+            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
+            Console.WriteLine("[아이템 목록]");
+            equipItems = items.Where(item => item.PurchaseSell).ToList();
+            for (int i = 0; i < equipItems.Count; i++)
+            {
+                equipItems[i].PrintItemStatus();
+            }
+            Console.WriteLine("\n\n1. 장착 관리");
+            Console.WriteLine("0. 나가기\n");
+            Console.Write("원하시는 행동을 입력해주세요.\n>>> ");
+            string index = Console.ReadLine();
+            bool isInt = int.TryParse(index, out int num);
+            if (isInt)
+            {
+                switch (num)
+                {
+                    case (int)SceneType.Menu:
+                        Scene.StartScene();
+                        break;
+                    case 1:
+                        InvenEquipMenu();
+                        break;
+                    default:
+                        Console.WriteLine("잘못 입력하셨습니다.");
+                        Thread.Sleep(1000);
+                        goto invenMenu;
+                }
+            }
+        }
+        // 인벤 장착 매뉴
+        static void InvenEquipMenu()
+        {
+            invenEquipMenu:
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("■ 인벤토리 - 장착관리 ■");
+            Console.ResetColor();
+            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
+            Console.WriteLine("[아이템 목록]");
+            for (int i = 0; i < equipItems.Count; i++)
+            {
+                equipItems[i].PrintItemStatus(false, true, i + 1);
+            }
+            Console.WriteLine("\n\n0. 나가기\n");
+            Console.Write("원하시는 행동을 입력해주세요.\n>>> ");
+            string index = Console.ReadLine();
+            bool isInt = int.TryParse(index, out int num);
+            if (isInt)
+            {
+                switch (num)
+                {
+                    case 0:
+                        InvenMenu();
+                        break;
+                    default:
+                        if (num <= equipItems.Count)
+                        {
+                            equipItems[num - 1].Equip = !equipItems[num - 1].Equip;
+                        }
+                        else
+                        {
+                            Console.WriteLine("잘못 입력하셨습니다.");
+                            Thread.Sleep(1000);
+                        }
+                        goto invenEquipMenu;
+                }
+            }
         }
 
 
@@ -148,8 +226,12 @@ namespace TeamProject
                                 Thread.Sleep(1000);
                             }
                         }
-                        StorePurchaseMenu();
-                        break;
+                        else
+                        {
+                            Console.WriteLine("잘못 입력하셨습니다.");
+                            Thread.Sleep(1000);
+                        }
+                        goto storePurchaseMenu;
                 }
             }
         }

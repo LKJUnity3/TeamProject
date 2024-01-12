@@ -25,7 +25,7 @@
                 switch (num)
                 {
                     case (int)SceneType.STATUS: Player.PlayerStatus(); break;
-                    case (int)SceneType.INVENTORY: break;
+                    case (int)SceneType.INVENTORY: Item.InvenMenu(); break;
                     case (int)SceneType.SHOP: Item.StoreMenu(); break;
                     case (int)SceneType.DUNGEON: BattleScene.Battle(); break;
                 }
