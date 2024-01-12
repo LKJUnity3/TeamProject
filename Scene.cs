@@ -10,6 +10,14 @@ namespace TeamProject
 {
     public class Scene
     {
+        public enum SceneType // Enum 
+        {
+            Menu = 0,
+            STATUS,
+            INVENTORY,
+            SHOP,
+            DUNGEON
+        }
         public static void StartScene()
         {
             Console.Clear();

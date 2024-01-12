@@ -248,14 +248,19 @@ namespace TeamProject
 
                   }
               }*/
-            bool Phase = false;
-            bool result = false;          
+            bool battle = false; // 배틀선택했는지
+            bool Phase = false; // 배틀페이지에 들어갔는지
+            bool result = false;  //결과값에 들어갔는지
             List<Enemy> enemies = new List<Enemy>();
             enemies = Enemy.EnemySetting();
             int alive = enemies.Count;
+            //플레이어 변수 저장
+            int Current_HP = Player.player.hp;
+            // 적 변수 저장.
+            int Current_enemy_hp;
             Console.Clear();
             Console.WriteLine("Battle!!\n");
-            if (!Phase)
+            if (!battle)
             {
                 for (int i = 0; i < enemies.Count; i++) 
                 {
@@ -274,7 +279,31 @@ namespace TeamProject
                 Console.WriteLine("[내정보]");
                 Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.Job + ")");
                 Console.WriteLine("\n[1] 공격");
+                Console.WriteLine("\n원하시는 행동을 입력해주세요.");
             }
+            else
+            {
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    Console.Write((i+1) + " ");
+                    if (enemies[i].alive)
+                    {
+                        Console.WriteLine("Lv." + enemies[i].lv + " " + enemies[i].Name + " HP " + enemies[i].hp);
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.WriteLine("Lv." + enemies[i].lv + " " + enemies[i].Name + " Dead ");
+                        Console.ResetColor();
+                    }
+                }
+                Console.WriteLine("");
+                Console.WriteLine("[내정보]");
+                Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.Job + ")");
+                Console.WriteLine("\n[0] 취소");
+                Console.WriteLine("\n대상을 선택해주세요.");
+            }
+
         }
     }
 }
