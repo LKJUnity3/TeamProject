@@ -211,7 +211,7 @@ namespace TeamProject
                         {
                             if (!items[num - 1].PurchaseSell)
                             {
-                                if (items[num - 1].Price < player.Gold)
+                                if (items[num - 1].Price <= player.Gold)
                                 {
                                     player.Gold -= items[num - 1].Price;
                                     items[num - 1].PurchaseSell = true;
