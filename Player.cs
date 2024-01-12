@@ -18,36 +18,36 @@ namespace TeamProject
             this.hp = hp;
             Gold = 1500;
         }
-        public int victim(int atk, int hp, out int isDamage, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue)
-        {            
-            isDamage = atk - def;
+        //public int victim(int atk, int hp, out int isDamage, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue)
+        //{            
+        //    isDamage = atk - def;
 
-            enemyAvoidanceTrue = false;
-            int enemyAvoidance = BattleScene.Avoidance(isDamage, ref enemyAvoidanceTrue);
+        //    enemyAvoidanceTrue = false;
+        //    int enemyAvoidance = BattleScene.Avoidance(isDamage, ref enemyAvoidanceTrue);
 
-            enemyCriticalTrue = false;
-            int enemyCritical = BattleScene.Critical(isDamage, ref enemyCriticalTrue);
+        //    enemyCriticalTrue = false;
+        //    int enemyCritical = BattleScene.Critical(isDamage, ref enemyCriticalTrue);
 
-            if(enemyCriticalTrue == true && enemyAvoidanceTrue == false)
-            {
-                isDamage = enemyCritical;
-            }
-            else if(enemyAvoidanceTrue == true && enemyCriticalTrue == false)
-            {
-                isDamage = enemyAvoidance;
-            }
+        //    if(enemyCriticalTrue == true && enemyAvoidanceTrue == false)
+        //    {
+        //        isDamage = enemyCritical;
+        //    }
+        //    else if(enemyAvoidanceTrue == true && enemyCriticalTrue == false)
+        //    {
+        //        isDamage = enemyAvoidance;
+        //    }
 
-            if (isDamage < 0)
-            {
-                isDamage = 0;
-            }
-            hp -= isDamage;
-            if (hp < 0)
-            {
-                hp = 0;
-            }
-            return hp;
-        }
+        //    if (isDamage < 0)
+        //    {
+        //        isDamage = 0;
+        //    }
+        //    hp -= isDamage;
+        //    if (hp < 0)
+        //    {
+        //        hp = 0;
+        //    }
+        //    return hp;
+        //}
         public void Status()
         {
             Console.WriteLine("Lv." + lv);

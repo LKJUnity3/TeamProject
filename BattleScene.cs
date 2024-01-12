@@ -5,6 +5,7 @@ using System.ComponentModel.Design;
 using System.Data.Common;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -253,6 +254,7 @@ namespace TeamProject
               }*/
             bool battle = false; // 배틀선택했는지
             List<Enemy> enemies = new List<Enemy>();
+            DamageProcess damageProcess = new DamageProcess();
             enemies = Enemy.EnemySetting();
             int alive = enemies.Count;
             //플레이어 변수 저장
@@ -367,29 +369,21 @@ namespace TeamProject
                     {
                         if (enemies[num - 1].alive)
                         {
-                            Current_enemy_hp = enemies[num - 1].hp;
-                            //Current_enemy_hp = enemies[num - 1].hp;
-                            enemies[num - 1].hp = enemies[num - 1].Victim(Player.player.atk, Current_enemy_hp,out int isDamage, out bool criticalTrue, out bool avoidanceTrue);
+                            Current_enemy_hp = enemies[num - 1].hp;                            
+                            enemies[num - 1].hp = damageProcess.Victim(enemies, num, Player.player.atk, Current_enemy_hp,out int isDamage, out bool criticalTrue, out bool avoidanceTrue);
                             if (avoidanceTrue == true && criticalTrue == false)
                             {
-                                //enemies[num - 1].hp = Current_enemy_hp;
                                 playerPhase(num, isDamage, 1);
                             }
-                            else if(criticalTrue == true && avoidanceTrue == false)
+                            else if (criticalTrue == true && avoidanceTrue == false)
                             {
-                                
                                 playerPhase(num, isDamage, 2);
                             }
                             else
                             {
-                                
                                 playerPhase(num, isDamage, 3);
-                            }                            
-                        }
-                        else
-                        {
-
-                        }
+                            }
+                        }                        
 
                     }
                 }
@@ -400,6 +394,7 @@ namespace TeamProject
             void playerPhase(int enemy_list,int atk,int avoidanceOrcri)
             {
             playerPhase:
+                
                 Console.Clear();
                 int number = enemy_list - 1;
                 Console.WriteLine("Battle!!");
@@ -463,9 +458,8 @@ namespace TeamProject
                 if (!enemies[number].alive)
                 {
                     goto enemyPhase;
-                }                                                               
-
-                Current_HP = Player.player.victim(enemies[number].atk, Current_HP, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
+                }                
+                Current_HP = damageProcess.victim(enemies[number].atk, Current_HP, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
                 if (isDmg < 0)
                 {
                     isDmg = 0;
