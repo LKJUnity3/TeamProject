@@ -39,7 +39,7 @@ namespace TeamProject
             return hp;
         }
 
-        public int Victim(List<Enemy> enemies, int num, float atk, int hp, out float isDamage, out bool criticalTrue, out bool avoidanceTrue)
+        public int Victim(List<Enemy> enemies, int num, int atk, int hp, out int isDamage, out bool criticalTrue, out bool avoidanceTrue)
         {
             double MinDmg = Math.Round((double)Player.player.atk * 0.9);
             double MaxDmg = Math.Round((double)Player.player.atk * 1.1);
@@ -47,24 +47,24 @@ namespace TeamProject
             atk = new Random().Next((int)MinDmg, (int)MaxDmg);
             isDamage = atk;
             criticalTrue = false;
-            int criticalAtk = Critical((int)isDamage, ref criticalTrue);
+            int criticalAtk = Critical(isDamage, ref criticalTrue);
 
             avoidanceTrue = false;
-            int avoidanceAtk = Avoidance((int)isDamage, ref avoidanceTrue);
+            int avoidanceAtk = Avoidance(isDamage, ref avoidanceTrue);
 
             if (criticalTrue == true && avoidanceTrue == false)
             {
                 isDamage = criticalAtk;
-                hp -= (int)isDamage;
+                hp -= isDamage;
             }
             else if (avoidanceTrue == true && criticalTrue == false)
             {
                 isDamage = avoidanceAtk;
-                hp -= (int)isDamage;                
+                hp -= isDamage;                
             }
             else
             {
-                hp -= (int)isDamage;
+                hp -= isDamage;
             }
 
             if (hp < 0)

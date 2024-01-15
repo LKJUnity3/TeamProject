@@ -10,13 +10,12 @@ namespace TeamProject
     public class Player : stat
     {
         public int Gold { get; set; }
-        public Player(int lv, float atk, int def, int hp, int exp)
+        public Player(int lv, int atk, int def, int hp)
         {
             this.lv = lv;
             this.atk = atk;
             this.def = def;
             this.hp = hp;
-            this.exp = exp;
             Gold = 1500;
         }
         //public int victim(int atk, int hp, out int isDamage, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue)
@@ -57,10 +56,9 @@ namespace TeamProject
             Console.WriteLine("방어력 : " + def);
             Console.WriteLine("체  력 : " + hp);
             Console.WriteLine("Gold   : " + Gold);
-            Console.WriteLine("EXP    : " + exp);
         }
 
-        public static Player player = new Player(1, 50, 5, 1000, 0);
+        public static Player player = new Player(1, 50, 5, 1000);
         public static void PlayerStatus()
         {
         playerStatus:
@@ -90,18 +88,6 @@ namespace TeamProject
             Console.WriteLine("원하시는 이름을 설정해주세요.");
             Console.Write(">>> ");
             player.Name = Console.ReadLine();
-        }
-
-        public static void LevelUp()
-        {
-            int fullExp = 10;
-            if(player.exp == fullExp)
-            {
-                player.lv += 1;
-                player.atk += 0.5f;
-                player.def += 1;
-                fullExp +=
-            }
         }
     }
 }
