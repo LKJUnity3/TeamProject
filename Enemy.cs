@@ -3,12 +3,13 @@
     internal class Enemy : stat
     {
         public bool alive { get; set; }
-        public Enemy(string name,int lv,int atk,int hp) 
+        public Enemy(string name, int lv, int hp, int atk, int def)
         {
             this.Name = name;
             this.lv = lv;
             this.atk = atk;
             this.hp = hp;
+            this.def = def;
             alive = true;
         }
 
@@ -32,24 +33,28 @@
             int Monster_count = random.Next(1, 5);
             for (int i = 0; i < Monster_count; i++)
             {
-                int Monster_type = random.Next(0, 3);
+                int Monster_type = random.Next(0, 4);
                 switch (Monster_type)
                 {
                     case 0:
-                        Enemy Japanese_Military = new Enemy("왜군", 2, 5, 15);
+                        Enemy Japanese_Military = new Enemy("왜군", 2, 20, 15, 10);
                         enemies.Add(Japanese_Military);
                         break;
                     case 1:
-                        Enemy Tang_Military = new Enemy("당나라군", 5, 10, 25);
+                        Enemy Tang_Military = new Enemy("당나라군", 3, 25, 20, 25);
                         enemies.Add(Tang_Military);
                         break;
                     case 2:
-                        Enemy Baek_Je_Military = new Enemy("백제군", 3, 9, 10);
+                        Enemy Baek_Je_Military = new Enemy("백제군", 4, 30, 25, 30);
                         enemies.Add(Baek_Je_Military);
                         break;
                     case 3:
-                        Enemy Tang_King = new Enemy("당태종", 3, 9, 10);
+                        Enemy Tang_King = new Enemy("당태종", 5, 35, 30, 40);
                         enemies.Add(Tang_King);
+                        break;
+                    case 4:
+                        Enemy King_Chair = new Enemy("의자왕", 10, 100, 50, 60);
+                        enemies.Add(King_Chair);
                         break;
                 }
             }
@@ -63,16 +68,28 @@
             int Monster_count = random.Next(1, 5);
             for (int i = 0; i < Monster_count; i++)
             {
-                int Monster_type = random.Next(0, 1);
+                int Monster_type = random.Next(0, 4);
                 switch (Monster_type)
                 {
                     case 0:
-                        Enemy Hwang_Hee = new Enemy("황희 정승", 2, 5, 15);
+                        Enemy Hwang_Hee = new Enemy("황희 정승", 6, 40, 35, 45 );
                         enemies.Add(Hwang_Hee);
                         break;
                     case 1:
-                        Enemy Jung_Yakyong = new Enemy("정약용", 5, 10, 25);
+                        Enemy Jung_Yakyong = new Enemy("정약용", 7, 50, 45, 50);
                         enemies.Add(Jung_Yakyong);
+                        break;
+                    case 2:
+                        Enemy Suyang_daegun = new Enemy("수양대군", 8, 60, 50, 60);
+                        enemies.Add(Suyang_daegun);
+                        break;
+                    case 3:
+                        Enemy Yi_Sunsin = new Enemy("이순신", 9, 70, 60, 70);
+                        enemies.Add(Yi_Sunsin);
+                        break;
+                    case 4:
+                        Enemy King_sejong = new Enemy("세종대왕", 15, 90, 80, 90);
+                        enemies.Add(King_sejong);
                         break;
 
                 }
@@ -87,73 +104,33 @@
             int Monster_count = random.Next(1, 5);
             for (int i = 0; i < Monster_count; i++)
             {
-                int Monster_type = random.Next(0, 1);
+                int Monster_type = random.Next(0, 4);
                 switch (Monster_type)
                 {
                     case 0:
-                        Enemy Kim_sangmu = new Enemy("김상무", 2, 5, 15);
+                        Enemy Kim_sangmu = new Enemy("김상무", 10, 80, 70, 80);
                         enemies.Add(Kim_sangmu);
                         break;
                     case 1:
-                        Enemy Kim_daeri = new Enemy("퇴사 일보직전 김대리", 5, 10, 25);
+                        Enemy Kim_daeri = new Enemy("퇴사 일보직전 김대리", 11, 90, 80, 90);
                         enemies.Add(Kim_daeri);
                         break;
-
+                    case 2:
+                        Enemy Pak_kwacang = new Enemy("만성피로 박과장", 12, 100,90, 100);
+                        enemies.Add(Pak_kwacang);
+                        break;
+                    case 3:
+                        Enemy Cha_hyun = new Enemy("워커홀릭 차현 본부장", 13, 105,95, 105);
+                        enemies.Add(Cha_hyun);
+                        break;
+                    case 4:
+                        Enemy Han_hyoseung_Manager = new Enemy("한효승 매니저님", 25, 200,150, 150);
+                        enemies.Add(Han_hyoseung_Manager);
+                        break;
                 }
             }
             return enemies;
         }
 
-        class BossMonster
-        {
-            public string Name { get; set; }
-            public int Hp { get; set; }
-            public int AtkDme { get; set; }
-            public string SpAbility { get; set; }
-
-            public string StageType { get; set; }
-
-            public BossMonster(string name, int hp, int atkdme, string spAbility, string stageType = null)
-            {
-                Name = name;
-                Hp = hp;
-                AtkDme = atkdme;
-                SpAbility = spAbility;
-                StageType = stageType;
-            }
-
-
-        }
-
-        class BossMonsters
-        {
-
-            void Main()
-            {
-                BossMonsterList();
-            }
-
-            void BossMonsterList()
-            {
-                List<BossMonster> bossMonsters = new List<BossMonster>();
-
-                // 보스 몬스터 리스트에 보스 몬스터 추가
-                bossMonsters.Add(new BossMonster("의자왕", 1000, 50, "백제의 분노"));
-                bossMonsters.Add(new BossMonster("세종", 1200, 60, "나랏말싸미 듕귁에 달아"));
-                bossMonsters.Add(new BossMonster("한효승 매니저", 1000, 70, "여러분, 열공중 인증하기 눌러주세요."));
-
-                // 보스 몬스터 정보 출력
-                foreach (var bossMonster in bossMonsters)
-                {
-                    Console.WriteLine($"Boss: {bossMonster.Name}");
-                    Console.WriteLine($"Health: {bossMonster.Hp}");
-                    Console.WriteLine($"Attack Damage: {bossMonster.AtkDme}");
-                    Console.WriteLine($"Special Ability: {bossMonster.SpAbility}");
-                    Console.WriteLine();
-                }
-
-            }
-
-        }
-    }
+    }    
 }
