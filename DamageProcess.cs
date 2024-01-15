@@ -50,11 +50,57 @@ namespace TeamProject
             }
             else if (type == Skill.SkillType.Heal)
             {
-                Player.player.hp += Skill.characterSkill[skillnumb].skillDamage;
+                int currentHp = BattleScene.Current_HP;
+                int resultHp = currentHp;
+
+                if (currentHp < Player.player.hp)
+                {
+                    resultHp += Skill.characterSkill[skillnumb].skillDamage;
+
+                    if (resultHp > Player.player.hp)
+                    {
+                        Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                        Console.WriteLine($"체력 스탯 변화 : {currentHp} ->{BattleScene.Current_HP}");
+                    }
+                    else
+                    {
+                        BattleScene.Current_HP = resultHp;
+                        Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                        Console.WriteLine($"체력 스탯 변화 : {currentHp} ->{resultHp}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    Console.WriteLine($"체력 스탯 변화 : {currentHp} ->{resultHp}");
+                }
             }
             else if (type == Skill.SkillType.HealPercent)
             {
-                Player.player.hp += Player.player.hp * Skill.characterSkill[skillnumb].skillDamage / 100;
+                int currentHp = BattleScene.Current_HP;
+                int resultHp = currentHp;
+
+                if (currentHp < Player.player.hp)
+                {
+                    resultHp += currentHp * Skill.characterSkill[skillnumb].skillDamage;
+
+                    if (resultHp > Player.player.hp)
+                    {
+                        Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                        Console.WriteLine($"체력 스탯 변화 : {currentHp} ->{BattleScene.Current_HP}");
+                    }
+                    else
+                    {
+                        BattleScene.Current_HP = resultHp;
+                        Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                        Console.WriteLine($"체력 스탯 변화 : {currentHp} ->{resultHp}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    Console.WriteLine($"체력 스탯 변화 : {currentHp} ->{resultHp}");
+                }
             }
             else if (type == Skill.SkillType.SupportAtk)
             {
@@ -74,11 +120,30 @@ namespace TeamProject
             }
             else if (type == Skill.SkillType.SupportHP)
             {
-                int hp_now = Player.player.hp;
-                Player.player.hp += Skill.characterSkill[skillnumb].skillDamage;
+                int currentHp = BattleScene.Current_HP;
+                int resultHp = currentHp;
+                
+                if(currentHp < Player.player.hp)
+                {
+                    resultHp += Skill.characterSkill[skillnumb].skillDamage;
 
-                Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
-                Console.WriteLine($"체력 스탯 변화 : {hp_now} ->{Player.player.hp}");
+                    if(resultHp > Player.player.hp)
+                    {
+                        Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                        Console.WriteLine($"체력 스탯 변화 : {currentHp} ->{BattleScene.Current_HP}");
+                    }
+                    else
+                    {
+                        BattleScene.Current_HP = resultHp;
+                        Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                        Console.WriteLine($"체력 스탯 변화 : {currentHp} ->{resultHp}");
+                    }              
+                }
+                else
+                {
+                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    Console.WriteLine($"체력 스탯 변화 : {currentHp} ->{resultHp}");
+                }        
             }
             else
             {
@@ -90,7 +155,7 @@ namespace TeamProject
 
 
                 }
-                if (Skill.characterSkill[skillnumb].skillname == "백전백승")
+                else if (Skill.characterSkill[skillnumb].skillname == "백전백승")
                 {
 
                 }

@@ -1,9 +1,10 @@
-namespace TeamProject
+﻿namespace TeamProject
 {
     public class BattleScene
     {
         public static int Player_Extra_Avoide = 0;
         public static int Enemy_Extra_Avoide = 0;
+        public static int Current_HP = 0;
         public static void Battle()
         {
             bool battle = false; // 배틀선택했는지
@@ -12,9 +13,11 @@ namespace TeamProject
             enemies = Enemy.SamGuk_EnemySetting();
             int alive = enemies.Count;
             //플레이어 변수 저장
-            int Current_HP = Player.player.hp;
+
+            Current_HP = Player.player.hp;
             int current_EXP = Player.player.exp;
             int remainEXP = 0;
+
             int Current_Defense = Player.player.def;
             int Current_Attack = Player.player.atk;
             // 적 변수 저장.
@@ -307,11 +310,7 @@ namespace TeamProject
                 }
                 else if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Heal || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.HealPercent)
                 {
-                    int hp_now = Player.player.hp;
                     DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
-
-                    Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}!!");
-                    Console.WriteLine($"체력 스탯 변화 : {hp_now} ->{Player.player.hp}");
                 }
                 else if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.SupportAtk || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.SupportDef || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.SupportHP)
                 {
