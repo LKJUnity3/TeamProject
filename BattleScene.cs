@@ -17,6 +17,7 @@
             Current_HP = Player.player.hp;
             int current_EXP = Player.player.exp;
             int remainEXP = 0;
+            int num;
 
             int Current_Defense = Player.player.def;
             int Current_Attack = Player.player.atk;
@@ -66,7 +67,6 @@
 
                 Console.Write(">>> ");
                 string index = Console.ReadLine();
-                int num;
                 bool isInt = int.TryParse(index, out num);
                 if (isInt)
                 {
@@ -220,11 +220,11 @@
             }
             void SkillPhase(int skillnumber) //kcw 스킬 페이지
             {
-                if (Skill.characterSkill[skillnumber].skilltype != Skill.SkillType.Attack)
+                if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Attack)
                 {
                     goto skillphaseSelectEnemy;
                 }
-                else if(Skill.characterSkill[skillnumber].skilltype != Skill.SkillType.AttackPercent)
+                else if(Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.AttackPercent)
                 {
                     goto skillphaseSelectEnemy;
                 }
@@ -260,13 +260,11 @@
                 Console.WriteLine("\n스킬 공격할 대상을 선택해주세요.");
                 Console.Write(">>> ");
                 string index = Console.ReadLine();
-                int num;
                 bool isInt = int.TryParse(index, out num);
                 if (isInt)
                 {
                     if (num == 0)
                     {
-
                         EnemyPhase();
                     }
                     else if (0 < num && num <= enemies.Count)
@@ -289,7 +287,7 @@
 
             skillResult:
                 Console.Clear();
-                Console.WriteLine("스킬 발현\n");
+                Console.WriteLine("[스킬 발현]\n");
                 Console.WriteLine("");
                 Console.WriteLine("\n[사용한 스킬]");
                 Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname} | {Skill.characterSkill[skillnumber].skillDamage} | {Skill.characterSkill[skillnumber].skillInfo}\n");
@@ -300,7 +298,7 @@
                 if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Attack || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.AttackPercent)
                 {
                     int atk = DamageProcess.SkillAttackEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
-                    Current_enemy_hp = enemies[num - 1].hp;
+                    Current_enemy_hp = enemies[num-1].hp;
                     enemies[num - 1].Victim(atk);
                     Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}으로 공격!");
                     Console.WriteLine($"Lv.{enemies[num - 1].lv} {enemies[num - 1].Name}가 데미지를 받았습니다");
@@ -407,7 +405,6 @@
                 Console.WriteLine("\n원하는 행동을 입력해주세요.");
                 Console.Write(">>> ");
                 string index = Console.ReadLine();
-                int num;
                 bool isInt = int.TryParse(index, out num);
                 if (isInt)
                 {
@@ -475,7 +472,6 @@
             enemyPhase:
                 Console.Write(">>> ");
                 string index = Console.ReadLine();
-                int num;
                 Player.player.def = Current_Defense; // kcw 만약 스킬을 사용했으면 다음 플레이어 턴에 방어력 복귀
                 bool isInt = int.TryParse(index, out num);
                 if (isInt)

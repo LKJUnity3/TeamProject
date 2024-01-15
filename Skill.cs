@@ -29,10 +29,9 @@ namespace TeamProject
             new Skill_DataSet(SkillType.SupportSpecial, "분신술", "분신술을 만들어서 회피력을 높이는 스킬", 20, stat.JobList.주술사,StageType.삼국시대),
             new Skill_DataSet(SkillType.SupportHP, "기도", "신의 의술을 가진 화타에게 기도하여 체력을 증가하는 스킬", 20, stat.JobList.약사,StageType.삼국시대),
 
-            new Skill_DataSet(SkillType.Special, "백전백승", "모든 전투에서 승리하는 스킬", 10000, stat.JobList.검사,StageType.삼국시대),
+ 
             new Skill_DataSet(SkillType.Special, "불패의 신화", "결코 패배하지 않는 전설", 10000, stat.JobList.검사,StageType.All),
             new Skill_DataSet(SkillType.Special, "천하무적", "세상에 적수가 없다", 10000, stat.JobList.궁수,StageType.All),
-            new Skill_DataSet(SkillType.Special, "명사수", "명석한 눈과 정확한 손놀림으로 활을 잘 쏘는 사람", 10000, stat.JobList.궁수,StageType.삼국시대),
             new Skill_DataSet(SkillType.Special, "의협심", "의리에 밝고 협조심이 많은 마음", 10000, stat.JobList.주술사,StageType.All),
             new Skill_DataSet(SkillType.Special, "민중의 영웅", "민중의 사랑을 받는 영웅", 10000, stat.JobList.주술사,StageType.조선),
             new Skill_DataSet(SkillType.Special, "명의", "모든 체력을 즉시 회복하고 다음 체력 회복 스킬부터는 효과 2배 상승", 10000, stat.JobList.약사,StageType.All),
