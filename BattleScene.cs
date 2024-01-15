@@ -20,6 +20,7 @@
 
             int Current_Defense = Player.player.def;
             int Current_Attack = Player.player.atk;
+            int existingGold = Player.player.Gold;
             // 적 변수 저장.
             int Current_enemy_hp;
             // 어태커 빅팀 정보저장
@@ -393,7 +394,8 @@
                         int e = Player.player.exp;
                         remainEXP = e - fullE;
                         Player.player.exp = Player.player.fullExp;
-                    }
+                    }                    
+                    Player.player.Gold += enemies[number].dropGold;
                     alive--;
                 }
                 Console.WriteLine("\n[0] 다음");
@@ -511,7 +513,10 @@
                         Console.WriteLine("\nLv." + Player.player.lv + " " + Player.player.Name);
                     }                    
                     Console.WriteLine("HP " + Player.player.hp + " -> " + Current_HP);
-                    Console.WriteLine("exp " + current_EXP + " -> " + Player.player.exp);                    
+                    Console.WriteLine("exp " + current_EXP + " -> " + Player.player.exp);
+                    Console.WriteLine();
+                    Console.WriteLine("[획득 아이템]");
+                    Console.WriteLine(Player.player.Gold - existingGold + " Gold");
                     //stage가 종료되면 스킬로 적용된 스탯 변화 다시 되돌림
                     Player.player.atk = Current_Attack;
                     Player.player.def = Current_Defense;
