@@ -13,6 +13,8 @@ namespace TeamProject
             int alive = enemies.Count;
             //플레이어 변수 저장
             int Current_HP = Player.player.hp;
+            int current_EXP = Player.player.exp;
+            int remainEXP = 0;
             int Current_Defense = Player.player.def;
             int Current_Attack = Player.player.atk;
             // 적 변수 저장.
@@ -385,6 +387,14 @@ namespace TeamProject
                 else
                 {
                     Console.WriteLine("HP " + Current_enemy_hp + " -> " + "Dead");
+                    Player.player.exp += enemies[number].lv;
+                    if(Player.player.exp > Player.player.fullExp)
+                    {
+                        int fullE = Player.player.fullExp;
+                        int e = Player.player.exp;
+                        remainEXP = e - fullE;
+                        Player.player.exp = Player.player.fullExp;
+                    }
                     alive--;
                 }
                 Console.WriteLine("\n[0] 다음");
@@ -489,10 +499,20 @@ namespace TeamProject
                 if (alive <= 0)
                 {
                     Console.WriteLine("Victory");
-                    Console.WriteLine("\n던전에서 몬스터 " + enemies.Count + "마리를 잡았습니다.");
-                    Console.WriteLine("\nLv." + Player.player.lv + " " + Player.player.Name);
+                    Console.WriteLine("\n던전에서 몬스터 " + enemies.Count + "마리를 잡았습니다.");                                                                                                                                           
+                    if (Player.player.fullExp == Player.player.exp)
+                    {
+                        Console.WriteLine("\nLv." + Player.player.lv + " " + Player.player.Name + " -> " + "Lv." + (Player.player.lv + 1) + " " + Player.player.Name);
+                        Player.LevelUp();
+                        Player.player.exp = 0;
+                        Player.player.exp += remainEXP;
+                    }
+                    else if(Player.player.fullExp != Player.player.exp)
+                    {
+                        Console.WriteLine("\nLv." + Player.player.lv + " " + Player.player.Name);
+                    }                    
                     Console.WriteLine("HP " + Player.player.hp + " -> " + Current_HP);
-                    
+                    Console.WriteLine("exp " + current_EXP + " -> " + Player.player.exp);                    
                     //stage가 종료되면 스킬로 적용된 스탯 변화 다시 되돌림
                     Player.player.atk = Current_Attack;
                     Player.player.def = Current_Defense;
