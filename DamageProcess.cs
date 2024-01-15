@@ -155,9 +155,73 @@ namespace TeamProject
 
 
                 }
-                else if (Skill.characterSkill[skillnumb].skillname == "백전백승")
+                else if (Skill.characterSkill[skillnumb].skillname == "불패의 신화")
+                {
+                    int atk_now = Player.player.atk;
+                    int hp_now = BattleScene.Current_HP;
+                    BattleScene.Current_HP += 10000;
+                    Player.player.atk += 10000;
+                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    BattleScene.Player_Extra_Avoide = 100;
+                    Console.WriteLine($"공격력,체력 10000 상승");
+                    Console.WriteLine($"공격력 스탯 변화 : {atk_now} ->{Player.player.atk}");
+                    Console.WriteLine($"체력 스탯 변화 : {hp_now} -> {BattleScene.Current_HP}");
+                }
+                else if (Skill.characterSkill[skillnumb].skillname == "천하무적")
                 {
 
+                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    BattleScene.Player_Extra_Avoide = 100;
+                    Console.WriteLine($"오라오라오라~\n");
+
+                    for(int j=0; j<BattleScene.enemies.Count; j++)
+                    {
+                        Console.WriteLine($"광역 스킬 천하무적으로 인하여 {BattleScene.enemies[j].Name}가 {Skill.characterSkill[skillnumb].skillDamage}X3 만큼 피해를 입었습니다.");
+                        int currentEnemyHP = BattleScene.enemies[j].hp;
+                        BattleScene.enemies[j].hp -= 3 * Skill.characterSkill[skillnumb].skillDamage;
+
+                        if (BattleScene.enemies[j].hp <=0)
+                        {
+                            BattleScene.enemies[j].hp = 0;
+                            Console.WriteLine($"Lv.{BattleScene.enemies[j].lv} {BattleScene.enemies[j].Name}    HP : {currentEnemyHP} -> Dead\n");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Lv.{BattleScene.enemies[j].lv} {BattleScene.enemies[j].Name}    HP : {currentEnemyHP} -> {BattleScene.enemies[j].hp}\n");
+                        }
+                    }
+                    
+                }
+                else if (Skill.characterSkill[skillnumb].skillname == "의협심")
+                {
+                    int atk_now = Player.player.atk;
+                    int hp_now = BattleScene.Current_HP;
+                    BattleScene.Current_HP += 10000;
+                    Player.player.atk += 10000;
+                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    BattleScene.Player_Extra_Avoide = 100;
+                    Console.WriteLine($"공격력,체력 10000 상승");
+                    Console.WriteLine($"공격력 스탯 변화 : {atk_now} ->{Player.player.atk}");
+                    Console.WriteLine($"체력 스탯 변화 : {hp_now} -> {BattleScene.Current_HP}");
+                }
+                else if (Skill.characterSkill[skillnumb].skillname == "민중의 영웅")
+                {
+                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    BattleScene.Player_Extra_Avoide = 100;
+                    Console.WriteLine($"회피율 상승 : 0 -> 100");
+                }
+                else if (Skill.characterSkill[skillnumb].skillname == "명의")
+                {
+                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    Console.WriteLine($"체력 회복 : {BattleScene.Current_HP} -> {Player.player.hp}");
+                    BattleScene.Current_HP = Player.player.hp;
+                }
+                else if (Skill.characterSkill[skillnumb].skillname == "인술")
+                {
+                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    Console.WriteLine($"체력 회복 : {BattleScene.Current_HP} -> {Player.player.hp}");
+                    BattleScene.Current_HP = Player.player.hp;
+                    BattleScene.Player_Extra_Avoide = 100;
                 }
 
             }

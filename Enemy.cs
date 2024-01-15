@@ -1,6 +1,6 @@
 ﻿namespace TeamProject
 {
-    internal class Enemy : stat
+    public class Enemy : stat
     {
         public bool alive { get; set; }
         public int dropGold { get; set; }        
@@ -135,7 +135,7 @@
         {
             int randomItem = new Random().Next(1, 100);            
             int selectDropItem = new Random().Next(0, Item.potions.Count);            
-            if (randomItem <= 5)
+            if (randomItem <= 100)
             {                                
                 Item.potions[selectDropItem].ConsumItem++;
                 BattleScene.earnedList.Add(Item.potions[selectDropItem].Name);

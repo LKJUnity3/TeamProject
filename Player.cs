@@ -83,13 +83,17 @@ namespace TeamProject
 
         public void GetJob()
         {
+            GetJob:
             Console.Clear();
-            Console.WriteLine("캐릭터를 선택하세요.");
-            Console.WriteLine("1. 김유신(검사)");
+            Console.WriteLine("[ 캐 릭 터 선 택 ]\n\n");
+            Console.WriteLine("[1] 김유신(검사) \n 공격력 : 180 | 방어력 : 150 | 체력 : 250 | 소지골드 2000 \n");
             // 각 캐릭터를 설정할 시 , 캐릭터에 대한 소개와 넣어보고 싶어요!
-            Console.WriteLine("2. 이성계(궁수)");
-            Console.WriteLine("3. 홍길동(주술사)");
-            Console.WriteLine("4. 허준(약사)");
+            Console.WriteLine("[2] 이성계(궁수) \n 공격력 : 150 | 방어력 : 200 | 체력 : 200 | 소지골드 2500 \n");
+            Console.WriteLine("[3] 홍길동(주술사) \n 공격력 : 180 | 방어력 : 180 | 체력 : 200 | 소지골드 3000 \n");
+            Console.WriteLine("[4] 허준(약사) \n 공격력 : 180 | 방어력 : 180 | 체력 : 200 | 소지골드 3000 \n");
+            Console.WriteLine("\n원하시는 캐릭터를 선택하세요.");
+            Console.Write(">>> ");
+
 
             bool IsCorrect = int.TryParse(Console.ReadLine(), out int num);
             //직업 스탯 
@@ -100,10 +104,8 @@ namespace TeamProject
                 {
                     case 1:
                         {
-
                             // job, lv, atck, def, hp, gold
                             setStatus(JobList.검사, 1, 180, 150, 250, 2000, 0, 10);
-
                             break;
                         }
                     case 2:
@@ -121,11 +123,15 @@ namespace TeamProject
                             setStatus(JobList.약사, 1, 180, 180, 200, 3000, 0, 10);
                             break;
                         }
+                    default: goto GetJob;
 
                 }
 
-            } // 코드가 깃허브에 올라와 있지는 않아서, 확인중
-            Console.WriteLine("\n원하시는 행동을 입력해주세요.");
+            }
+            else
+            {
+                goto GetJob;
+            }
         }
 
         public static void LevelUp()
