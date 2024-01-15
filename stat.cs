@@ -11,6 +11,7 @@
             약사,
             All
         }
+
         public int atk { get; set; }
         public int def { get; set; }
         public int hp { get; set; }

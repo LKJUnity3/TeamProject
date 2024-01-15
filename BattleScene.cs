@@ -146,6 +146,7 @@ namespace TeamProject
                     Battleresult();
                 }
 
+
             battlephase:
                 Console.Clear();
                 indexHP = Current_HP;

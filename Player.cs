@@ -93,7 +93,6 @@ namespace TeamProject
 
             if (IsCorrect && num > 0 && num <= System.Enum.GetValues(typeof(JobList)).Length)
             {
-
                 switch (num)
                 {
                     case 1:

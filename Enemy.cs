@@ -11,6 +11,7 @@
             this.hp = hp;
             alive = true;
         }
+
         public void Victim(int atk)
         {
             hp -= atk;

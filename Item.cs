@@ -20,7 +20,6 @@ namespace TeamProject
             Price = price;
         }
 
-
         // 아이템 리스트 설정
         public static List<Item> items = new List<Item>(); // 기본 아이템 리스트
         public static List<Item> equipItems = new List<Item>(); // 장착 가능한 아이템 리스트
