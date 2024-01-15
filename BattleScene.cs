@@ -440,7 +440,7 @@
                 {
                     goto enemy;
                 }
-                Current_HP = damageProcess.EnemyAttack((int)enemies[number].atk, Current_HP, Player_Extra_Avoide, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
+                indexHP = damageProcess.EnemyAttack((int)enemies[number].atk, Current_HP, Player_Extra_Avoide, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
                 if (isDmg < 0)
                 {
                     isDmg = 0;
@@ -460,9 +460,11 @@
                     Console.WriteLine(Player.player.Name + " 을(를) 맞췄습니다. [데미지 : " + isDmg + "]");
                 }
                 Console.WriteLine("\nLv." + Player.player.lv + " " + Player.player.Name);
+                
                 if (Current_HP > 0)
                 {
-                    Console.WriteLine("HP " + indexHP + " -> " + Current_HP);
+                    Console.WriteLine("HP " + Current_HP + " -> " + indexHP);
+                    Current_HP = indexHP;
                 }
                 else
                 {
