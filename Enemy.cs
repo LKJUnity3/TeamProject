@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TeamProject
+﻿namespace TeamProject
 {
-    public class Enemy : stat
+    internal class Enemy : stat
     {
         public bool alive { get; set; }
         public Enemy(string name,int lv,int atk,int hp) 
@@ -17,45 +11,19 @@ namespace TeamProject
             this.hp = hp;
             alive = true;
         }
-        //public int Victim(int atk, int hp, out int isDamage, out bool criticalTrue,out bool avoidanceTrue)
-        //{
-        //    double MinDmg = Math.Round((double)Player.player.atk * 0.9);
-        //    double MaxDmg = Math.Round((double)Player.player.atk * 1.1);
 
-        //    atk = new Random().Next((int)MinDmg, (int)MaxDmg);
-        //    isDamage = atk;
-        //    criticalTrue = false;
-        //    int criticalAtk = BattleScene.Critical(isDamage, ref criticalTrue);
-
-        //    avoidanceTrue = false;
-        //    int avoidanceAtk = BattleScene.Avoidance(isDamage, ref avoidanceTrue);
-            
-        //    if (criticalTrue == true && avoidanceTrue == false)
-        //    {
-        //        isDamage = criticalAtk;
-        //        hp -= isDamage;
-        //    }
-        //    else if (avoidanceTrue == true && criticalTrue == false)
-        //    {
-        //        isDamage = avoidanceAtk;
-        //        hp -= isDamage;
-        //    }
-        //    else
-        //    {
-        //        hp -= isDamage;
-        //    }
-            
-        //    if (hp < 0)
-        //    {
-        //        hp = 0;
-        //    }
-        //    if (hp == 0)
-        //    {
-        //        alive = false;
-        //    }
-
-        //    return hp;
-        //}
+        public void Victim(int atk)
+        {
+            hp -= atk;
+            if (hp < 0)
+            {
+                hp = 0;
+            }
+            if (hp == 0)
+            {
+                alive = false;
+            }
+        }
         public static List<Enemy> EnemySetting()
         {
             List<Enemy> enemies = new List<Enemy>();

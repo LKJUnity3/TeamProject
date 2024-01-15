@@ -1,64 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static TeamProject.Scene;
+﻿using static TeamProject.Scene;
 
 namespace TeamProject
 {
     public class Player : stat
     {
+        public JobList job;
         public int Gold { get; set; }
-        public Player(int lv, int atk, int def, int hp)
+        public int victim(int atk,int hp)
         {
-            this.lv = lv;
-            this.atk = atk;
-            this.def = def;
-            this.hp = hp;
-            Gold = 1500;
+            int isDamage = atk - def;
+            if (isDamage < 0)
+            {
+                isDamage = 0;
+                atk = isDamage;
+            }
+            hp -= isDamage;
+            if (hp < 0)
+            {
+                hp = 0;
+            }
+            return hp;
         }
-        //public int victim(int atk, int hp, out int isDamage, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue)
-        //{            
-        //    isDamage = atk - def;
 
-        //    enemyAvoidanceTrue = false;
-        //    int enemyAvoidance = BattleScene.Avoidance(isDamage, ref enemyAvoidanceTrue);
-
-        //    enemyCriticalTrue = false;
-        //    int enemyCritical = BattleScene.Critical(isDamage, ref enemyCriticalTrue);
-
-        //    if(enemyCriticalTrue == true && enemyAvoidanceTrue == false)
-        //    {
-        //        isDamage = enemyCritical;
-        //    }
-        //    else if(enemyAvoidanceTrue == true && enemyCriticalTrue == false)
-        //    {
-        //        isDamage = enemyAvoidance;
-        //    }
-
-        //    if (isDamage < 0)
-        //    {
-        //        isDamage = 0;
-        //    }
-        //    hp -= isDamage;
-        //    if (hp < 0)
-        //    {
-        //        hp = 0;
-        //    }
-        //    return hp;
-        //}
+        public void setStatus(JobList job, int lv, int atk, int def, int hp, int gold)
+        {
+            player.atk = atk;
+            player.hp = hp;
+            player.job = job;
+            player.Gold = gold;
+            player.def = def;
+            player.lv = lv;
+        }
         public void Status()
         {
             Console.WriteLine("Lv." + lv);
-            Console.WriteLine(Name + " ( " + Job + " )");
-            Console.WriteLine("공격력 : " + atk);
-            Console.WriteLine("방어력 : " + def);
-            Console.WriteLine("체  력 : " + hp);
+            Console.WriteLine(Name + " ( " + job + " )");
+            int addAtk = Item.AddStatus(item => item.atk);
+            Console.WriteLine($"공격력 : {atk}" + ( addAtk > 0 ? $"(+{addAtk})" : addAtk < 0 ? $"(-{addAtk})" : ""));
+            int addDef = Item.AddStatus(item => item.def);
+            Console.WriteLine($"방어력 : {def}" + (addDef > 0 ? $"(+{addDef})" : addDef < 0 ? $"(-{addDef})" : ""));
+            int addHp = Item.AddStatus(item => item.hp);
+            Console.WriteLine($"체력 : {hp}" + (addHp > 0 ? $"(+{addHp})" : addHp < 0 ? $"(-{addHp})" : ""));
             Console.WriteLine("Gold   : " + Gold);
         }
 
-        public static Player player = new Player(1, 50, 5, 1000);
+        public static Player player = new Player();
         public static void PlayerStatus()
         {
         playerStatus:
@@ -80,6 +66,7 @@ namespace TeamProject
                     default: Console.WriteLine("잘못 입력하셨습니다."); Thread.Sleep(600); goto playerStatus;
                 }
             }
+            Console.WriteLine("잘못 입력하셨습니다."); Thread.Sleep(600); goto playerStatus;
         }
         public static void NickName()
         {
@@ -88,6 +75,51 @@ namespace TeamProject
             Console.WriteLine("원하시는 이름을 설정해주세요.");
             Console.Write(">>> ");
             player.Name = Console.ReadLine();
+        }
+
+
+        public void GetJob()
+        {
+            Console.Clear();
+            Console.WriteLine("캐릭터를 선택하세요.");
+            Console.WriteLine("1. 김유신(검사)");
+            // 각 캐릭터를 설정할 시 , 캐릭터에 대한 소개와 넣어보고 싶어요!
+            Console.WriteLine("2. 이성계(궁수)");
+            Console.WriteLine("3. 홍길동(주술사)");
+            Console.WriteLine("4. 허준(약사)");
+
+            bool IsCorrect = int.TryParse(Console.ReadLine(), out int num);
+            //직업 스탯 
+
+            if (IsCorrect && num > 0 && num <= System.Enum.GetValues(typeof(JobList)).Length)
+            {
+                switch (num)
+                {
+                    case 1:
+                        {
+                            setStatus(JobList.검사, 1, 180, 150, 250, 2000);
+                            break;
+                        }
+                    case 2:
+                        {
+                            setStatus(JobList.궁수, 1, 150, 200, 200, 2500);
+                            break;
+                        }
+                    case 3:
+                        {
+                            setStatus(JobList.주술사, 1, 180, 180, 200, 3000);
+                            break;
+                        }
+                    case 4:
+                        {
+                            setStatus(JobList.약사, 1, 180, 180, 200, 3000);
+                            break;
+                        }
+
+                }
+
+            } // 코드가 깃허브에 올라와 있지는 않아서, 확인중
+            Console.WriteLine("\n원하시는 행동을 입력해주세요.");
         }
     }
 }

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using static TeamProject.Program;
-
-namespace TeamProject
+﻿namespace TeamProject
 {
     public class Scene
     {
@@ -18,6 +10,7 @@ namespace TeamProject
             SHOP,
             DUNGEON
         }
+
         public static void StartScene()
         {
             Console.Clear();
@@ -33,9 +26,10 @@ namespace TeamProject
                 switch (num)
                 {
                     case (int)SceneType.STATUS: Player.PlayerStatus(); break;
-                    case (int)SceneType.INVENTORY: break;
-                    case (int)SceneType.SHOP: break;
+                    case (int)SceneType.INVENTORY: Item.InvenMenu(); break;
+                    case (int)SceneType.SHOP: Item.StoreMenu(); break;
                     case (int)SceneType.DUNGEON: BattleScene.Battle(); break;
+                    default: StartScene(); break;
                 }
             }
         }
