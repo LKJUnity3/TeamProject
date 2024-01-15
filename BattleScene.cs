@@ -2,10 +2,11 @@ namespace TeamProject
 {
     public class BattleScene
     {
+        public static int Player_Extra_Avoide = 0;
+        public static int Enemy_Extra_Avoide = 0;
         public static void Battle()
         {
             bool battle = false; // 배틀선택했는지
-            bool skill = false; //kcw 스킬 선택 확인 변수
             List<Enemy> enemies = new List<Enemy>();
             DamageProcess damageProcess = new DamageProcess();
             enemies = Enemy.SamGuk_EnemySetting();
@@ -24,7 +25,7 @@ namespace TeamProject
         battle:
             Console.Clear();
             Console.WriteLine("Battle!!\n");
-            if (battle == false && skill==false )
+            if (battle == false)
             {
                 for (int i = 0; i < enemies.Count; i++)
                 {
@@ -47,14 +48,12 @@ namespace TeamProject
                 Console.WriteLine("[2] 스킬"); // kcw, 스킬 선택지 추가
                 Console.WriteLine("\n원하시는 행동을 입력해주세요.");
             }
-            else if(battle == true && skill == false)
+            else if(battle == true)
             {
                 BattlePhase();
             }
-            else
-            {
-                goto skillLook;
-            }
+
+
             Console.Write(">>> ");
             string index = Console.ReadLine();
             int num;
@@ -73,8 +72,6 @@ namespace TeamProject
                     case 2://kcw 스킬 선택지 입력
                         if(!battle)
                         {
-                            battle = true;
-                            skill = true;
                             goto skillLook;
                         }
                         break;
@@ -147,8 +144,11 @@ namespace TeamProject
                     Battleresult();
                 }
 
+                //1라운마다 avoid 값 초기화(스킬에 따른 효과 초기화 설정)
+                Player_Extra_Avoide = 0;
+                Enemy_Extra_Avoide = 0;
 
-            battlephase:
+        battlephase:
                 Console.Clear();
                 indexHP = Current_HP;
                 Console.WriteLine("Battle!!\n");
@@ -187,7 +187,7 @@ namespace TeamProject
                         if (enemies[num - 1].alive)
                         {
                             Current_enemy_hp = enemies[num - 1].hp;                            
-                            enemies[num - 1].hp = damageProcess.Victim(Player.player.atk, Current_enemy_hp,out float isDamage, out bool criticalTrue, out bool avoidanceTrue);
+                            enemies[num - 1].hp = damageProcess.PlayerAttack(Player.player.atk, Current_enemy_hp, Enemy_Extra_Avoide, out float isDamage, out bool criticalTrue, out bool avoidanceTrue);
                             if (avoidanceTrue == true && criticalTrue == false)
                             {
                                 playerPhase(num, (int)isDamage, 1);                                
@@ -425,7 +425,7 @@ namespace TeamProject
                 {
                     goto enemyPhase;
                 }
-                Current_HP = damageProcess.Victim((int)enemies[number].atk, Current_HP, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
+                Current_HP = damageProcess.EnemyAttack((int)enemies[number].atk, Current_HP, Player_Extra_Avoide, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
                 if (isDmg < 0)
                 {
                     isDmg = 0;

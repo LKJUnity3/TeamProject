@@ -82,7 +82,14 @@ namespace TeamProject
             }
             else
             {
+                if (Skill.characterSkill[skillnumb].skillname == "분신술")
+                {
+                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    BattleScene.Player_Extra_Avoide = 100;
+                    Console.WriteLine($"회피율 100 상승");
 
+
+                }
                 if (Skill.characterSkill[skillnumb].skillname == "백전백승")
                 {
 
@@ -91,12 +98,12 @@ namespace TeamProject
             }
         }
 
-        public int Victim(int atk, int hp, out int isDamage, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue)
+        public int EnemyAttack(int atk, int hp, int ExtraAvoid, out int isDamage, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue)
         {
             isDamage = atk - Player.player.def;
 
             enemyAvoidanceTrue = false;
-            int enemyAvoidance = Avoidance(isDamage, ref enemyAvoidanceTrue);
+            int enemyAvoidance = Avoidance(isDamage, ExtraAvoid, ref enemyAvoidanceTrue);
 
             enemyCriticalTrue = false;
             int enemyCritical = Critical(isDamage, ref enemyCriticalTrue);
@@ -122,7 +129,7 @@ namespace TeamProject
             return hp;
         }
 
-        public int Victim(float atk, int hp, out float isDamage, out bool criticalTrue, out bool avoidanceTrue)
+        public int PlayerAttack(float atk, int hp, int ExtraAvoid, out float isDamage, out bool criticalTrue, out bool avoidanceTrue)
         {
             double MinDmg = Math.Round((double)Player.player.atk * 0.9);
             double MaxDmg = Math.Round((double)Player.player.atk * 1.1);
@@ -133,7 +140,7 @@ namespace TeamProject
             int criticalAtk = Critical((int)isDamage, ref criticalTrue);
 
             avoidanceTrue = false;
-            int avoidanceAtk = Avoidance((int)isDamage, ref avoidanceTrue);
+            int avoidanceAtk = Avoidance((int)isDamage, ExtraAvoid, ref avoidanceTrue);
 
             if (criticalTrue == true && avoidanceTrue == false)
             {
@@ -158,9 +165,9 @@ namespace TeamProject
             return hp;
         }
 
-        public static int Avoidance(int damage, ref bool isAvoidance)
+        public static int Avoidance(int damage, int extraStat, ref bool isAvoidance)
         {
-            int avoidance = new Random().Next(1, 100);
+            int avoidance = new Random().Next(1, 100) + extraStat;
             if (avoidance > 10)
             {
                 isAvoidance = false;
