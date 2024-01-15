@@ -155,9 +155,53 @@ namespace TeamProject
 
 
                 }
-                else if (Skill.characterSkill[skillnumb].skillname == "백전백승")
+                else if (Skill.characterSkill[skillnumb].skillname == "불패의 신화")
                 {
-
+                    int atk_now = Player.player.atk;
+                    int hp_now = BattleScene.Current_HP;
+                    BattleScene.Current_HP += 10000;
+                    Player.player.atk += 10000;
+                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    BattleScene.Player_Extra_Avoide = 100;
+                    Console.WriteLine($"공격력,체력 10000 상승");
+                    Console.WriteLine($"공격력 스탯 변화 : {atk_now} ->{Player.player.atk}");
+                    Console.WriteLine($"체력 스탯 변화 : {hp_now} -> {BattleScene.Current_HP}");
+                }
+                else if (Skill.characterSkill[skillnumb].skillname == "천하무적")
+                {
+                    int atk_now = Player.player.atk;
+                    int hp_now = BattleScene.Current_HP;
+                    BattleScene.Current_HP += 10000;
+                    Player.player.atk += 10000;
+                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    BattleScene.Player_Extra_Avoide = 100;
+                    Console.WriteLine($"공격력,체력 10000 상승");
+                    Console.WriteLine($"공격력 스탯 변화 : {atk_now} ->{Player.player.atk}");
+                    Console.WriteLine($"체력 스탯 변화 : {hp_now} -> {BattleScene.Current_HP}");
+                }
+                else if (Skill.characterSkill[skillnumb].skillname == "의협심")
+                {
+                    int atk_now = Player.player.atk;
+                    int hp_now = BattleScene.Current_HP;
+                    BattleScene.Current_HP += 10000;
+                    Player.player.atk += 10000;
+                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    BattleScene.Player_Extra_Avoide = 100;
+                    Console.WriteLine($"공격력,체력 10000 상승");
+                    Console.WriteLine($"공격력 스탯 변화 : {atk_now} ->{Player.player.atk}");
+                    Console.WriteLine($"체력 스탯 변화 : {hp_now} -> {BattleScene.Current_HP}");
+                }
+                else if (Skill.characterSkill[skillnumb].skillname == "민중의 영웅")
+                {
+                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    BattleScene.Player_Extra_Avoide = 100;
+                    Console.WriteLine($"회피율 상승 : 0 -> 100");
+                }
+                else if (Skill.characterSkill[skillnumb].skillname == "명의")
+                {
+                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    Console.WriteLine($"체력 회복 : {BattleScene.Current_HP} -> {Player.player.hp}");
+                    BattleScene.Current_HP = Player.player.hp;
                 }
 
             }
