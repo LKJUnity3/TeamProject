@@ -13,8 +13,6 @@ namespace TeamProject
         public static void Battle(int DungeonType)
         {
 
-            DungeonType++;
-
             bool battle = false; // 배틀선택했는지
             DamageProcess damageProcess = new DamageProcess();
 
@@ -62,7 +60,7 @@ namespace TeamProject
                         }
                         else
                         {
-                            Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.ForegroundColor = ConsoleColor.DarkGray;
                             Console.WriteLine("Lv." + enemies[i].lv + " " + enemies[i].Name + " Dead ");
                             Console.ResetColor();
                         }

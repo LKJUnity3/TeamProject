@@ -125,7 +125,7 @@ namespace TeamProject
             Console.WriteLine($"던전 {DungeonType}에 입장합니다!");
 
             // 스테이지 시작 (여기서 배틀 씬 호출)
-            StartDungeon(0); // 삼국(0)부터 시작
+            StartDungeon(DungeonType); // 삼국(0)부터 시작
         }
 
         public static void StartDungeon(int DungeonType)
