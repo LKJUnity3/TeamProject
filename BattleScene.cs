@@ -13,8 +13,6 @@ namespace TeamProject
         public static void Battle(int DungeonType)
         {
 
-            DungeonType++;
-
             bool battle = false; // 배틀선택했는지
             DamageProcess damageProcess = new DamageProcess();
 
