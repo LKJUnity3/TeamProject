@@ -1,4 +1,7 @@
-﻿namespace TeamProject
+﻿using System;
+using System.Reflection;
+
+namespace TeamProject
 {
     public class BattleScene
     {
@@ -57,6 +60,7 @@
                     Console.WriteLine("HP " + Current_HP + "/" + Player.player.hp);
                     Console.WriteLine("\n[1] 공격");
                     Console.WriteLine("[2] 스킬"); // kcw, 스킬 선택지 추가
+                    Console.WriteLine("[3] 아이템 사용"); // 지훈 소모(포션) 아이템 선택지 추가
                     Console.WriteLine("\n원하시는 행동을 입력해주세요.");
                 }
                 else if (battle == true)
@@ -83,6 +87,12 @@
                             if (!battle)
                             {
                                 goto skillLook;
+                            }
+                            break;
+                        case 3://kcw 스킬 선택지 입력
+                            if (!battle)
+                            {
+                                goto itemLook;
                             }
                             break;
                         default:
@@ -144,6 +154,55 @@
                 Console.WriteLine("잘못된 입력입니다.");
                 Thread.Sleep(600);
                 goto skillLook;
+
+            // 소모 아이템 사용
+            itemLook:
+                Console.Clear();
+                indexHP = Current_HP;
+                Console.WriteLine("Battle!!\n");
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    if (enemies[i].alive)
+                    {
+                        Console.WriteLine("Lv." + enemies[i].lv + " " + enemies[i].Name + " HP " + enemies[i].hp);
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.WriteLine("Lv." + enemies[i].lv + " " + enemies[i].Name + " Dead ");
+                        Console.ResetColor();
+                    }
+                }
+                Console.WriteLine("");
+                Console.WriteLine("[내정보]");
+                Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
+                Console.WriteLine("\n[소모 아이템 리스트]\n");
+                Item.usePotions = Item.potions.Where(potion => potion.ConsumItem > 0).ToList();
+                for (int i = 0; i < Item.usePotions.Count; i++)
+                {
+                    if (Item.usePotions[i].ConsumItem > 0) Item.usePotions[i].PrintItemStatus(false, true, i + 1);
+                }
+                Console.WriteLine("\n\n[0] 취소");
+                Console.Write("\n사용할 아이템을 선택해주세요.\n>>> ");
+                index = Console.ReadLine();
+                isInt = int.TryParse(index, out num);
+                if (isInt)
+                {
+                    if (num == 0)
+                    {
+                        BattleStart(); //스킬창 취소 시 플레이어 페이지로 이동
+                    }
+                    else if (0 < num && num <= Item.usePotions.Count)
+                    {
+                        Current_HP += Item.usePotions[num - 1].hp;
+                        Item.usePotions[num - 1].ConsumItem--;
+                        if (Current_HP > Player.player.hp) Current_HP = Player.player.hp;
+                        ItemPhase();
+                    }
+                }
+                Console.WriteLine("잘못된 입력입니다.");
+                Thread.Sleep(600);
+                goto itemLook;
             }
 
 
@@ -353,11 +412,56 @@
                     Thread.Sleep(600);
                     goto skillResult;
                 }
-                
-                
-
-
             }
+
+
+            // 아이템 페이지
+            void ItemPhase()
+            {
+            itemPhase:
+                Console.Clear();
+                indexHP = Current_HP;
+                Console.WriteLine("Battle!!\n");
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    if (enemies[i].alive)
+                    {
+                        Console.WriteLine("Lv." + enemies[i].lv + " " + enemies[i].Name + " HP " + enemies[i].hp);
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.WriteLine("Lv." + enemies[i].lv + " " + enemies[i].Name + " Dead ");
+                        Console.ResetColor();
+                    }
+                }
+                Console.WriteLine("");
+                Console.WriteLine("[내정보]");
+                Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
+                Console.WriteLine("HP " + indexHP + " -> " + Current_HP, (Current_HP - indexHP) > 0 ? $"(+{Current_HP - indexHP})" : "");
+                Console.WriteLine("\n\n[0] 다음");
+                Console.Write("\n원하는 행동을 선택해주세요.\n>>> ");
+                string index = Console.ReadLine();
+                bool isInt = int.TryParse(index, out num);
+                if (isInt)
+                {
+                    switch (num)
+                    {
+                        case 0:
+                            EnemyPhase();
+                            break;
+                        default:
+                            Console.WriteLine("잘못된 입력입니다.");
+                            Thread.Sleep(600);
+                            goto itemPhase;
+                    }
+                }
+                Console.WriteLine("잘못된 입력입니다.");
+                Thread.Sleep(600);
+                goto itemPhase;
+            }
+
+
             void playerPhase(int enemy_list,int atk, int avoidanceOrcri)
             {
             playerPhase:
