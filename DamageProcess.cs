@@ -11,7 +11,7 @@ namespace TeamProject
         public static double skillMinDamage;
         public static double skillMaxDamage;
 
-        public static int SkillEffect(Skill.SkillType type, int skillnumb)
+        public static int SkillAttackEffect(Skill.SkillType type, int skillnumb)
         {
             Random rand = new Random();
 
@@ -33,7 +33,14 @@ namespace TeamProject
                 damage = rand.Next((int)skillMinDamage, (int)skillMaxDamage);
                 return damage;
             }
-            else if (type == Skill.SkillType.Defense)
+            
+
+            return 0;
+
+        }
+        public static void SkillEffect(Skill.SkillType type, int skillnumb)
+        {
+            if (type == Skill.SkillType.Defense)
             {
                 Player.player.def += Skill.characterSkill[skillnumb].skillDamage;
             }
@@ -51,20 +58,39 @@ namespace TeamProject
             }
             else if (type == Skill.SkillType.SupportAtk)
             {
+                int atk_now = Player.player.atk;
+                Player.player.atk += Skill.characterSkill[skillnumb].skillDamage;
 
+                Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                Console.WriteLine($"공격력 스탯 변화 : {atk_now} ->{Player.player.atk}");
+            }
+            else if (type == Skill.SkillType.SupportDef)
+            {
+                int def_now = Player.player.def;
+                Player.player.def += Skill.characterSkill[skillnumb].skillDamage;
+
+                Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                Console.WriteLine($"방어력 스탯 변화 : {def_now} ->{Player.player.def}");
+            }
+            else if (type == Skill.SkillType.SupportHP)
+            {
+                int hp_now = Player.player.hp;
+                Player.player.hp += Skill.characterSkill[skillnumb].skillDamage;
+
+                Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                Console.WriteLine($"체력 스탯 변화 : {hp_now} ->{Player.player.hp}");
             }
             else
             {
+
                 if (Skill.characterSkill[skillnumb].skillname == "백전백승")
                 {
 
                 }
 
             }
-
-            return 0;
-
         }
+
         public int Victim(int atk, int hp, out int isDamage, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue)
         {
             isDamage = atk - Player.player.def;
