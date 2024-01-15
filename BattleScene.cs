@@ -2,10 +2,11 @@ namespace TeamProject
 {
     public class BattleScene
     {
+        public static int Player_Extra_Avoide = 0;
+        public static int Enemy_Extra_Avoide = 0;
         public static void Battle()
         {
             bool battle = false; // 배틀선택했는지
-            bool skill = false; //kcw 스킬 선택 확인 변수
             List<Enemy> enemies = new List<Enemy>();
             DamageProcess damageProcess = new DamageProcess();
             enemies = Enemy.SamGuk_EnemySetting();
@@ -24,7 +25,7 @@ namespace TeamProject
         battle:
             Console.Clear();
             Console.WriteLine("Battle!!\n");
-            if (battle == false && skill==false )
+            if (battle == false)
             {
                 for (int i = 0; i < enemies.Count; i++)
                 {
@@ -47,14 +48,12 @@ namespace TeamProject
                 Console.WriteLine("[2] 스킬"); // kcw, 스킬 선택지 추가
                 Console.WriteLine("\n원하시는 행동을 입력해주세요.");
             }
-            else if(battle == true && skill == false)
+            else if(battle == true)
             {
                 BattlePhase();
             }
-            else
-            {
-                goto skillLook;
-            }
+
+
             Console.Write(">>> ");
             string index = Console.ReadLine();
             int num;
@@ -73,9 +72,7 @@ namespace TeamProject
                     case 2://kcw 스킬 선택지 입력
                         if(!battle)
                         {
-                            battle = true;
-                            skill = true;
-                            goto battle;
+                            goto skillLook;
                         }
                         break;
                     default:
@@ -118,7 +115,7 @@ namespace TeamProject
                 Console.WriteLine($"{i + 1}.{Skill.characterSkill[i].skillname} | {Skill.characterSkill[i].skillDamage} | {Skill.characterSkill[i].skillInfo}");
             }
             Console.WriteLine("\n[0] 취소");
-            Console.WriteLine("\n대상을 선택해주세요.");
+            Console.WriteLine("\n스킬을 선택해주세요.");
             Console.Write(">>> ");
             index = Console.ReadLine();
             isInt = int.TryParse(index, out num);
@@ -147,8 +144,11 @@ namespace TeamProject
                     Battleresult();
                 }
 
+                //1라운마다 avoid 값 초기화(스킬에 따른 효과 초기화 설정)
+                Player_Extra_Avoide = 0;
+                Enemy_Extra_Avoide = 0;
 
-            battlephase:
+        battlephase:
                 Console.Clear();
                 indexHP = Current_HP;
                 Console.WriteLine("Battle!!\n");
@@ -187,7 +187,7 @@ namespace TeamProject
                         if (enemies[num - 1].alive)
                         {
                             Current_enemy_hp = enemies[num - 1].hp;                            
-                            enemies[num - 1].hp = damageProcess.Victim(Player.player.atk, Current_enemy_hp,out float isDamage, out bool criticalTrue, out bool avoidanceTrue);
+                            enemies[num - 1].hp = damageProcess.PlayerAttack(Player.player.atk, Current_enemy_hp, Enemy_Extra_Avoide, out float isDamage, out bool criticalTrue, out bool avoidanceTrue);
                             if (avoidanceTrue == true && criticalTrue == false)
                             {
                                 playerPhase(num, (int)isDamage, 1);                                
@@ -210,6 +210,20 @@ namespace TeamProject
             }
             void SkillPhase(int skillnumber) //kcw 스킬 페이지
             {
+                if (Skill.characterSkill[skillnumber].skilltype != Skill.SkillType.Attack)
+                {
+                    goto skillphaseSelectEnemy;
+                }
+                else if(Skill.characterSkill[skillnumber].skilltype != Skill.SkillType.AttackPercent)
+                {
+                    goto skillphaseSelectEnemy;
+                }
+                else
+                {
+                    goto skillResult;
+                }
+
+
             skillphaseSelectEnemy:
                 Console.Clear();
                 Console.WriteLine("Battle!!\n");
@@ -274,7 +288,7 @@ namespace TeamProject
                 //skill 데미지 추가 필요
                 if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Attack || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.AttackPercent)
                 {
-                    int atk = DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+                    int atk = DamageProcess.SkillAttackEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
                     Current_enemy_hp = enemies[num - 1].hp;
                     enemies[num - 1].Victim(atk);
                     Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}으로 공격!");
@@ -283,7 +297,7 @@ namespace TeamProject
                 }
                 else if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Defense || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.DefensePercent)
                 {
-                    int statUp = DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+                    DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
 
                     Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}!!");
                     Console.WriteLine($"방어 스탯 변화 : {Current_Defense} ->{Player.player.def}");
@@ -292,22 +306,18 @@ namespace TeamProject
                 else if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Heal || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.HealPercent)
                 {
                     int hp_now = Player.player.hp;
-                    int statUp = DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+                    DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
 
                     Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}!!");
                     Console.WriteLine($"체력 스탯 변화 : {hp_now} ->{Player.player.hp}");
                 }
-                else if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Support)
+                else if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.SupportAtk || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.SupportDef || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.SupportHP)
                 {
-                    int hp_now = Player.player.hp;                 
-
-                    Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}!!");
-                    int statUp = DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+                    DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
                 }
                 else //특수 스킬
                 {
-                    Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}!!");
-
+                    DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
                 }
 
                 Console.WriteLine("\n[내정보]");
@@ -415,7 +425,7 @@ namespace TeamProject
                 {
                     goto enemyPhase;
                 }
-                Current_HP = damageProcess.Victim((int)enemies[number].atk, Current_HP, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
+                Current_HP = damageProcess.EnemyAttack((int)enemies[number].atk, Current_HP, Player_Extra_Avoide, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
                 if (isDmg < 0)
                 {
                     isDmg = 0;
@@ -450,7 +460,7 @@ namespace TeamProject
                 Console.Write(">>> ");
                 string index = Console.ReadLine();
                 int num;
-                Player.player.def = Current_Defense; // kcw 만약 스킬을 사용했으면 다음 플레이어 턴에 방어력 복귀 
+                Player.player.def = Current_Defense; // kcw 만약 스킬을 사용했으면 다음 플레이어 턴에 방어력 복귀
                 bool isInt = int.TryParse(index, out num);
                 if (isInt)
                 {
@@ -482,6 +492,10 @@ namespace TeamProject
                     Console.WriteLine("\n던전에서 몬스터 " + enemies.Count + "마리를 잡았습니다.");
                     Console.WriteLine("\nLv." + Player.player.lv + " " + Player.player.Name);
                     Console.WriteLine("HP " + Player.player.hp + " -> " + Current_HP);
+                    
+                    //stage가 종료되면 스킬로 적용된 스탯 변화 다시 되돌림
+                    Player.player.atk = Current_Attack;
+                    Player.player.def = Current_Defense;
                 }
                 else if (Current_HP <= 0)
                 {
