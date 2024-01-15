@@ -274,7 +274,7 @@ namespace TeamProject
                 //skill 데미지 추가 필요
                 if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Attack || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.AttackPercent)
                 {
-                    int atk = Damage.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+                    int atk = DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
                     Current_enemy_hp = enemies[num - 1].hp;
                     enemies[num - 1].Victim(atk);
                     Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}으로 공격!");
@@ -283,7 +283,7 @@ namespace TeamProject
                 }
                 else if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Defense || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.DefensePercent)
                 {
-                    int statUp = Damage.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+                    int statUp = DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
 
                     Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}!!");
                     Console.WriteLine($"방어 스탯 변화 : {Current_Defense} ->{Player.player.def}");
@@ -292,7 +292,7 @@ namespace TeamProject
                 else if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Heal || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.HealPercent)
                 {
                     int hp_now = Player.player.hp;
-                    int statUp = Damage.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+                    int statUp = DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
 
                     Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}!!");
                     Console.WriteLine($"체력 스탯 변화 : {hp_now} ->{Player.player.hp}");
@@ -302,7 +302,7 @@ namespace TeamProject
                     int hp_now = Player.player.hp;                 
 
                     Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}!!");
-                    int statUp = Damage.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+                    int statUp = DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
                 }
                 else //특수 스킬
                 {
@@ -415,7 +415,7 @@ namespace TeamProject
                 {
                     goto enemyPhase;
                 }
-                Current_HP = damageProcess.victim((int)enemies[number].atk, Current_HP, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
+                Current_HP = damageProcess.Victim((int)enemies[number].atk, Current_HP, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
                 if (isDmg < 0)
                 {
                     isDmg = 0;
