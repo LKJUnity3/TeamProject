@@ -134,7 +134,7 @@ namespace TeamProject
             Console.WriteLine("\n\n[소모 아이템 목록]");
             for (int i = 0; i < potions.Count; i++)
             {
-                if (potions[i].ConsumItem > 0) potions[i].PrintItemStatus();
+                if (potions[i].ConsumItem > 0) potions[i].PrintItemStatus(); // 여기서 뭐 장착하고 그런거 아니라서 그냥 표시만 하면됨
             }
             Console.WriteLine("\n\n[0] 나가기\n");
             Console.Write("원하시는 행동을 입력해주세요.\n>>> ");
@@ -293,9 +293,9 @@ namespace TeamProject
                     default:
                         if (num <= items.Count + potions.Count)
                         {
-                            if (num <= items.Count)
+                            if (num <= items.Count) // 소모 아이템을 선택하면 장비 아이템의 범위를 벗어나기 때문에 이렇게 해줌
                             {
-                                if (!items[num - 1].PurchaseSell)
+                                if (!items[num - 1].PurchaseSell) // 장비 아이템 구매
                                 {
                                     if (items[num - 1].Price <= player.Gold)
                                     {
@@ -314,7 +314,7 @@ namespace TeamProject
                                     Thread.Sleep(1000);
                                 }
                             } 
-                            else if (potions[num - items.Count - 1] != null)
+                            else if (potions[num - items.Count - 1] != null) // 소모 아이템 구매
                             {
                                 if (potions[num - items.Count - 1].Price <= player.Gold)
                                 {
