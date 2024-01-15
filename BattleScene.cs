@@ -370,18 +370,18 @@ namespace TeamProject
                         if (enemies[num - 1].alive)
                         {
                             Current_enemy_hp = enemies[num - 1].hp;                            
-                            enemies[num - 1].hp = damageProcess.Victim(enemies, num, Player.player.atk, Current_enemy_hp,out int isDamage, out bool criticalTrue, out bool avoidanceTrue);
+                            enemies[num - 1].hp = damageProcess.Victim(enemies, num, Player.player.atk, Current_enemy_hp,out float isDamage, out bool criticalTrue, out bool avoidanceTrue);
                             if (avoidanceTrue == true && criticalTrue == false)
                             {
-                                playerPhase(num, isDamage, 1);
+                                playerPhase(num, (int)isDamage, 1);
                             }
                             else if (criticalTrue == true && avoidanceTrue == false)
                             {
-                                playerPhase(num, isDamage, 2);
+                                playerPhase(num, (int)isDamage, 2);
                             }
                             else
                             {
-                                playerPhase(num, isDamage, 3);
+                                playerPhase(num, (int)isDamage, 3);
                             }
                         }                        
 
@@ -459,7 +459,7 @@ namespace TeamProject
                 {
                     goto enemyPhase;
                 }                
-                Current_HP = damageProcess.victim(enemies[number].atk, Current_HP, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
+                Current_HP = damageProcess.victim((int)enemies[number].atk, Current_HP, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
                 if (isDmg < 0)
                 {
                     isDmg = 0;
