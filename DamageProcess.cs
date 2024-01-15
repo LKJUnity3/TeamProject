@@ -49,7 +49,7 @@ namespace TeamProject
             {
                 Player.player.hp += Player.player.hp * Skill.characterSkill[skillnumb].skillDamage / 100;
             }
-            else if (type == Skill.SkillType.Support)
+            else if (type == Skill.SkillType.SupportAtk)
             {
 
             }

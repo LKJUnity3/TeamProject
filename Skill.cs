@@ -24,10 +24,10 @@ namespace TeamProject
             new Skill_DataSet(SkillType.Heal, "힐", "체력을 회복하는 스킬", 5, stat.JobList.약사,StageType.삼국시대),
             new Skill_DataSet(SkillType.Heal, "침술", "스스로의 몸에 침을 꽂아 체력을 회복하는 스킬", 10, stat.JobList.약사,StageType.삼국시대),
 
-            new Skill_DataSet(SkillType.Support, "Fire Sword", "칼에 불을 인챈트하는 스킬", 5, stat.JobList.검사,StageType.삼국시대),
-            new Skill_DataSet(SkillType.Support, "Ice Arrow", "화살에 얼음 속성을 인챈트하는 스킬", 5, stat.JobList.궁수,StageType.삼국시대),
-            new Skill_DataSet(SkillType.Support, "분신술", "분신술을 만들어서 회피력을 높이는 스킬", 20, stat.JobList.주술사,StageType.삼국시대),
-            new Skill_DataSet(SkillType.Support, "기도", "신의 의술을 가진 화타에게 기도하여 체력을 증가하는 스킬", 20, stat.JobList.약사,StageType.삼국시대),
+            new Skill_DataSet(SkillType.SupportAtk, "Fire Sword", "칼에 불을 인챈트하는 스킬", 5, stat.JobList.검사,StageType.삼국시대),
+            new Skill_DataSet(SkillType.SupportAtk, "Ice Arrow", "화살에 얼음 속성을 인챈트하는 스킬", 5, stat.JobList.궁수,StageType.삼국시대),
+            new Skill_DataSet(SkillType.SupportSpecial, "분신술", "분신술을 만들어서 회피력을 높이는 스킬", 20, stat.JobList.주술사,StageType.삼국시대),
+            new Skill_DataSet(SkillType.SupportHP, "기도", "신의 의술을 가진 화타에게 기도하여 체력을 증가하는 스킬", 20, stat.JobList.약사,StageType.삼국시대),
 
             new Skill_DataSet(SkillType.Special, "백전백승", "모든 전투에서 승리하는 스킬", 10000, stat.JobList.검사,StageType.삼국시대),
             new Skill_DataSet(SkillType.Special, "불패의 신화", "결코 패배하지 않는 전설", 10000, stat.JobList.검사,StageType.All),
@@ -55,7 +55,10 @@ namespace TeamProject
             DefensePercent,
             Heal,
             HealPercent,
-            Support,
+            SupportAtk,
+            SupportDef,
+            SupportHP,
+            SupportSpecial,
             Special
         }
         public class Skill_DataSet
