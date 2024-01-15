@@ -1,6 +1,6 @@
 ﻿namespace TeamProject
 {
-    internal class Enemy : stat
+    public class Enemy : stat
     {
         public bool alive { get; set; }
         public int dropGold { get; set; }        
