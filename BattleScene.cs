@@ -199,13 +199,6 @@ namespace TeamProject
                 Console.WriteLine("잘못된 입력입니다.");
                 Thread.Sleep(600);
                 goto battlephase;
-
-
-            
-
-
-
-            
             }
             void SkillPhase(int skillnumber) //kcw 스킬 페이지
             {

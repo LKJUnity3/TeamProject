@@ -66,6 +66,7 @@ namespace TeamProject
                     default: Console.WriteLine("잘못 입력하셨습니다."); Thread.Sleep(600); goto playerStatus;
                 }
             }
+            Console.WriteLine("잘못 입력하셨습니다."); Thread.Sleep(600); goto playerStatus;
         }
         public static void NickName()
         {
