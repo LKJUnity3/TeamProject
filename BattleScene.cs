@@ -10,11 +10,21 @@ namespace TeamProject
         public static int Current_HP = 0;
         public static List<Enemy> enemies = new List<Enemy>();
         public static List<string> earnedList = new List<string>();
-        public static void Battle()
+        public static void Battle(int DungeonType)
         {
+
+            DungeonType++;
+
             bool battle = false; // 배틀선택했는지
             DamageProcess damageProcess = new DamageProcess();
-            enemies = Enemy.SamGuk_EnemySetting();
+
+            switch (DungeonType)
+            {
+                case 0: enemies = Enemy.SamGuk_EnemySetting();break;
+                case 1: enemies = Enemy.Josun_EnemySetting();break;
+                case 2: enemies = Enemy.Korea_EnemySetting();break;
+            }
+            
             int alive = enemies.Count;
             //플레이어 변수 저장
 

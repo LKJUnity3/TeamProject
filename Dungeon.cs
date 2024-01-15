@@ -132,7 +132,7 @@ namespace TeamProject
         {
 
             // 예시로 간단한 삼국(0) 부터 시작
-            BattleScene.Battle();
+            BattleScene.Battle(DungeonType);
 
             // 던전 클리어 후 다음 스테이지로 이동하거나 게임을 종료하는 등의 로직을 추가할 수 있습니다.
             Console.WriteLine($" {DungeonType} 던전 클리어!");
