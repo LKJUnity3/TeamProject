@@ -104,10 +104,8 @@ namespace TeamProject
                 {
                     case 1:
                         {
-
                             // job, lv, atck, def, hp, gold
                             setStatus(JobList.검사, 1, 180, 150, 250, 2000, 0, 10);
-
                             break;
                         }
                     case 2:

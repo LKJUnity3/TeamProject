@@ -176,7 +176,7 @@ namespace TeamProject
                 Console.WriteLine("");
                 Console.WriteLine("[내정보]");
                 Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
-                Console.WriteLine("\n[소모 아이템 리스트]\n");
+                Console.WriteLine("\n[소모 아이템 리스트]");
                 Item.usePotions = Item.potions.Where(potion => potion.ConsumItem > 0).ToList();
                 for (int i = 0; i < Item.usePotions.Count; i++)
                 {
@@ -420,7 +420,6 @@ namespace TeamProject
             {
             itemPhase:
                 Console.Clear();
-                indexHP = Current_HP;
                 Console.WriteLine("Battle!!\n");
                 for (int i = 0; i < enemies.Count; i++)
                 {
@@ -435,10 +434,12 @@ namespace TeamProject
                         Console.ResetColor();
                     }
                 }
-                Console.WriteLine("");
+                Console.ForegroundColor= ConsoleColor.Green;
+                Console.WriteLine("\n회복 아이템을 사용 하였습니다.");
+                Console.ResetColor();
                 Console.WriteLine("[내정보]");
                 Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
-                Console.WriteLine("HP " + indexHP + " -> " + Current_HP, (Current_HP - indexHP) > 0 ? $"(+{Current_HP - indexHP})" : "");
+                Console.WriteLine("HP " + indexHP + " -> " + Current_HP + ((Current_HP - indexHP) > 0 ? $"(+{Current_HP - indexHP})" : ""));
                 Console.WriteLine("\n\n[0] 다음");
                 Console.Write("\n원하는 행동을 선택해주세요.\n>>> ");
                 string index = Console.ReadLine();
