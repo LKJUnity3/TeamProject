@@ -8,6 +8,7 @@
             Player.NickName();
             Player.player.GetJob();
             Item.ItemSetting();
+            Item.PotionSetting();
             Scene.StartScene();
         }
     }
