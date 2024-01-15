@@ -8,7 +8,7 @@ namespace TeamProject
 {
     public class DamageProcess
     {        
-        public int victim(int atk, int hp, out int isDamage, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue)
+        public int Victim(int atk, int hp, out int isDamage, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue)
         {
             isDamage = atk - Player.player.def;
 

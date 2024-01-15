@@ -55,7 +55,11 @@ namespace TeamProject
             }
             else
             {
-                
+                if (Skill.characterSkill[skillnumb].skillname == "백전백승")
+                {
+
+                }
+                    
             }
 
             return 0;
