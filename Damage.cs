@@ -33,6 +33,30 @@ namespace TeamProject
                 damage = rand.Next((int)skillMinDamage, (int)skillMaxDamage);
                 return damage;
             }
+            else if(type == Skill.SkillType.Defense)
+            {
+                Player.player.def += Skill.characterSkill[skillnumb].skillDamage;
+            }
+            else if(type == Skill.SkillType.DefensePercent)
+            {
+                Player.player.def += Player.player.def * Skill.characterSkill[skillnumb].skillDamage / 100;
+            }
+            else if (type == Skill.SkillType.Heal)
+            {
+                Player.player.hp += Skill.characterSkill[skillnumb].skillDamage;
+            }
+            else if (type == Skill.SkillType.HealPercent)
+            {
+                Player.player.hp += Player.player.hp * Skill.characterSkill[skillnumb].skillDamage / 100;
+            }
+            else if (type == Skill.SkillType.Support)
+            {
+                
+            }
+            else
+            {
+                
+            }
 
             return 0;
             

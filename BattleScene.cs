@@ -11,6 +11,8 @@ namespace TeamProject
             int alive = enemies.Count;
             //플레이어 변수 저장
             int Current_HP = Player.player.hp;
+            int Current_Defense = Player.player.def;
+            int Current_Attack = Player.player.atk;
             // 적 변수 저장.
             int Current_enemy_hp;
             // 어태커 빅팀 정보저장
@@ -275,25 +277,42 @@ namespace TeamProject
                     Current_enemy_hp = enemies[num - 1].hp;
                     enemies[num - 1].Victim(atk);
                     Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}으로 공격!");
-                    Console.WriteLine($"Lv.{enemies[num-1].lv} {enemies[num - 1].Name}가 데미지를 받았습니다");
-                    Console.WriteLine($"HP {Current_enemy_hp} -> {enemies[num-1].hp}");
+                    Console.WriteLine($"Lv.{enemies[num - 1].lv} {enemies[num - 1].Name}가 데미지를 받았습니다");
+                    Console.WriteLine($"HP {Current_enemy_hp} -> {enemies[num - 1].hp}");
                 }
-                else
+                else if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Defense || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.DefensePercent)
                 {
+                    int statUp = Damage.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+
+                    Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}!!");
+                    Console.WriteLine($"방어 스탯 변화 : {Current_Defense} ->{Player.player.def}");
 
                 }
-                
-                
+                else if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Heal || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.HealPercent)
+                {
+                    int hp_now = Player.player.hp;
+                    int statUp = Damage.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
 
-               
+                    Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}!!");
+                    Console.WriteLine($"체력 스탯 변화 : {hp_now} ->{Player.player.hp}");
+                }
+                else if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Support)
+                {
+                    int hp_now = Player.player.hp;                 
 
+                    Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}!!");
+                    int statUp = Damage.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+                }
+                else //특수 스킬
+                {
+                    Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}!!");
 
+                }
 
-                Console.WriteLine("[내정보]");
+                Console.WriteLine("\n[내정보]");
                 Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
-                
-                
-                
+
+
                 Console.WriteLine("\n\n[0] 다음");
                 Console.WriteLine("\n원하는 행동을 선택해주세요.");
                 Console.Write(">>> ");
@@ -367,7 +386,7 @@ namespace TeamProject
             }
             void EnemyPhase()
             {
-            enemyPhase:
+
                 if (alive <= 0)
                 {
                     Battleresult();
@@ -400,9 +419,11 @@ namespace TeamProject
                 }
                 Console.WriteLine("\n[0] 다음");
                 Console.WriteLine("\n원하는 행동을 입력해주세요.");
+            enemyPhase:
                 Console.Write(">>> ");
                 string index = Console.ReadLine();
                 int num;
+                Player.player.def = Current_Defense; // 만약 스킬을 사용했으면 다음 플레이어 턴에 방어력 복귀 
                 bool isInt = int.TryParse(index, out num);
                 if (isInt)
                 {

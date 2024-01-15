@@ -53,13 +53,13 @@ namespace TeamProject
             public SkillType skilltype;
             public string skillname;
             public string skillInfo;
-            public float skillDamage;
+            public int skillDamage;
             public stat.JobList jobName;
             //stat.JobType jobName; //파일이름.enum명칭 변수명 선언가능
             // 검사, 궁수, 주술사, 힐러, 전부로 구분된 enum의 상수값을 받기 위한 변수
             StageType stagetype;//삼국시대, 조선, 대한민국, 전부로 구분된 enum의 상수값을 받기 위한 변수
 
-            public Skill_DataSet(SkillType type, string name, string Info, float statusNumber, stat.JobList jobName, StageType stage)
+            public Skill_DataSet(SkillType type, string name, string Info, int statusNumber, stat.JobList jobName, StageType stage)
             {
                 this.skilltype = type;
                 this.skillname = name;
