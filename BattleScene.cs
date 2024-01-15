@@ -13,6 +13,8 @@ namespace TeamProject
             //플레이어 변수 저장
             int Current_HP = Player.player.hp;
             int current_EXP = Player.player.exp;
+            int Current_Defense = Player.player.def;
+            int Current_Attack = Player.player.atk;
             // 적 변수 저장.
             int Current_enemy_hp;
             // 어태커 빅팀 정보저장
@@ -52,7 +54,7 @@ namespace TeamProject
             }
             else
             {
-                goto skillphase;
+                goto skillLook;
             }
             Console.Write(">>> ");
             string index = Console.ReadLine();
@@ -90,7 +92,7 @@ namespace TeamProject
                 goto battle;
             }
 
-        skillphase:
+        skillLook:
             Console.Clear();
             indexHP = Current_HP;
             Console.WriteLine("Battle!!\n");
@@ -121,7 +123,6 @@ namespace TeamProject
             Console.Write(">>> ");
             index = Console.ReadLine();
             isInt = int.TryParse(index, out num);
-            int skillNumber;
             if (isInt)
             {
                 if (num == 0)
@@ -130,14 +131,13 @@ namespace TeamProject
                 }
                 else if (0 < num && num <= Skill.characterSkill.Count)
                 {
-                    skillNumber = num;
-                    SkillPhase(skillNumber);
+                    SkillPhase(num-1);
 
                 }
             }
             Console.WriteLine("잘못된 입력입니다.");
             Thread.Sleep(600);
-            goto skillphase;
+            goto skillLook;
 
 
 
@@ -232,7 +232,7 @@ namespace TeamProject
                 Console.WriteLine("[내정보]");
                 Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
                 Console.WriteLine("\n[선택된 스킬 정보]");
-                Console.WriteLine($"{Skill.characterSkill[skillNumber].skillname} | {Skill.characterSkill[skillNumber].skillDamage} | {Skill.characterSkill[skillNumber].skillInfo}");
+                Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname} | {Skill.characterSkill[skillnumber].skillDamage} | {Skill.characterSkill[skillnumber].skillInfo}");
                 Console.WriteLine("\n\n[0] 취소");
                 Console.WriteLine("\n스킬 공격할 대상을 선택해주세요.");
                 Console.Write(">>> ");
@@ -249,10 +249,6 @@ namespace TeamProject
                     {
                         if (enemies[num - 1].alive)
                         {
-                            //skill 데미지 추가 필요
-                            int atk = random.Next((int)MinDmg, (int)MaxDmg);
-                            Current_enemy_hp = enemies[num - 1].hp;
-                            enemies[num - 1].Victim(atk);
                             goto skillResult;
                         }
                         else
@@ -272,15 +268,53 @@ namespace TeamProject
                 Console.WriteLine("스킬 발현\n");
                 Console.WriteLine("");
                 Console.WriteLine("\n[사용한 스킬]");
-                Console.WriteLine($"{Skill.characterSkill[skillNumber].skillname} | {Skill.characterSkill[skillNumber].skillDamage} | {Skill.characterSkill[skillNumber].skillInfo}");
+                Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname} | {Skill.characterSkill[skillnumber].skillDamage} | {Skill.characterSkill[skillnumber].skillInfo}\n");
 
-                //skill 영향 아직 미완
+
                 //skill 효과 적용 추가
-                Console.WriteLine("[내정보]");
+                //skill 데미지 추가 필요
+                if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Attack || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.AttackPercent)
+                {
+                    int atk = DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+                    Current_enemy_hp = enemies[num - 1].hp;
+                    enemies[num - 1].Victim(atk);
+                    Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}으로 공격!");
+                    Console.WriteLine($"Lv.{enemies[num - 1].lv} {enemies[num - 1].Name}가 데미지를 받았습니다");
+                    Console.WriteLine($"HP {Current_enemy_hp} -> {enemies[num - 1].hp}");
+                }
+                else if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Defense || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.DefensePercent)
+                {
+                    int statUp = DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+
+                    Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}!!");
+                    Console.WriteLine($"방어 스탯 변화 : {Current_Defense} ->{Player.player.def}");
+
+                }
+                else if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Heal || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.HealPercent)
+                {
+                    int hp_now = Player.player.hp;
+                    int statUp = DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+
+                    Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}!!");
+                    Console.WriteLine($"체력 스탯 변화 : {hp_now} ->{Player.player.hp}");
+                }
+                else if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Support)
+                {
+                    int hp_now = Player.player.hp;                 
+
+                    Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}!!");
+                    int statUp = DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+                }
+                else //특수 스킬
+                {
+                    Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}!!");
+
+                }
+
+                Console.WriteLine("\n[내정보]");
                 Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
-                
-                
-                
+
+
                 Console.WriteLine("\n\n[0] 다음");
                 Console.WriteLine("\n원하는 행동을 선택해주세요.");
                 Console.Write(">>> ");
@@ -371,7 +405,7 @@ namespace TeamProject
             }
             void EnemyPhase()
             {
-            enemyPhase:
+
                 if (alive <= 0)
                 {
                     Battleresult();
@@ -383,7 +417,7 @@ namespace TeamProject
                 {
                     goto enemyPhase;
                 }
-                Current_HP = damageProcess.victim((int)enemies[number].atk, Current_HP, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
+                Current_HP = damageProcess.Victim((int)enemies[number].atk, Current_HP, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
                 if (isDmg < 0)
                 {
                     isDmg = 0;
@@ -414,9 +448,11 @@ namespace TeamProject
                 }
                 Console.WriteLine("\n[0] 다음");
                 Console.WriteLine("\n원하는 행동을 입력해주세요.");
+            enemyPhase:
                 Console.Write(">>> ");
                 string index = Console.ReadLine();
                 int num;
+                Player.player.def = Current_Defense; // kcw 만약 스킬을 사용했으면 다음 플레이어 턴에 방어력 복귀 
                 bool isInt = int.TryParse(index, out num);
                 if (isInt)
                 {
@@ -446,6 +482,10 @@ namespace TeamProject
                 {
                     Console.WriteLine("Victory");
                     Console.WriteLine("\n던전에서 몬스터 " + enemies.Count + "마리를 잡았습니다.");
+                    if (Player.player.fullExp == Player.player.exp)
+                    {
+                        Player.LevelUp();
+                    }
                     Console.WriteLine("\nLv." + Player.player.lv + " " + Player.player.Name);
                     Console.WriteLine("HP " + Player.player.hp + " -> " + Current_HP);
                     Console.WriteLine("exp " + current_EXP + " -> " + Player.player.exp);
