@@ -10,6 +10,7 @@
             SHOP,
             DUNGEON
         }
+
         public static void StartScene()
         {
             Console.Clear();

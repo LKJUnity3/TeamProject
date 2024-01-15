@@ -7,7 +7,7 @@ namespace TeamProject
             bool battle = false; // 배틀선택했는지
             bool skill = false; //kcw 스킬 선택 확인 변수
             List<Enemy> enemies = new List<Enemy>();
-            enemies = Enemy.EnemySetting();
+            enemies = Enemy.SamGuk_EnemySetting();
             int alive = enemies.Count;
             //플레이어 변수 저장
             int Current_HP = Player.player.hp;
@@ -146,6 +146,7 @@ namespace TeamProject
                     Battleresult();
                 }
 
+
             battlephase:
                 Console.Clear();
                 indexHP = Current_HP;
@@ -199,13 +200,6 @@ namespace TeamProject
                 Console.WriteLine("잘못된 입력입니다.");
                 Thread.Sleep(600);
                 goto battlephase;
-
-
-            
-
-
-
-            
             }
             void SkillPhase(int skillnumber) //kcw 스킬 페이지
             {

@@ -4,7 +4,6 @@
     {
         public static void Main(string[] args)
         {
-
             Player.NickName();
             Player.player.GetJob();
             Skill.SetSkill(Player.player.job);

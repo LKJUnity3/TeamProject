@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TeamProject
 {
+
     public class Skill
     {
         public static List<Skill_DataSet> skilldatabase = new List<Skill_DataSet>//skill 전체정보 리스트 배열

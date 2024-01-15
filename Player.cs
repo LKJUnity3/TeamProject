@@ -66,6 +66,7 @@ namespace TeamProject
                     default: Console.WriteLine("잘못 입력하셨습니다."); Thread.Sleep(600); goto playerStatus;
                 }
             }
+            Console.WriteLine("잘못 입력하셨습니다."); Thread.Sleep(600); goto playerStatus;
         }
         public static void NickName()
         {
@@ -92,13 +93,29 @@ namespace TeamProject
 
             if (IsCorrect && num > 0 && num <= System.Enum.GetValues(typeof(JobList)).Length)
             {
-
                 switch (num)
                 {
-                    case 1: setStatus(JobList.검사, 1, 180, 150, 250, 2000); break;
-                    case 2: setStatus(JobList.궁수, 1, 150, 200, 200, 2500);break;
-                    case 3: setStatus(JobList.주술사, 1, 180, 180, 200, 3000);break;
-                    case 4: setStatus(JobList.약사, 1, 180, 180, 200, 3000);break;
+                    case 1:
+                        {
+                            setStatus(JobList.검사, 1, 180, 150, 250, 2000);
+                            break;
+                        }
+                    case 2:
+                        {
+                            setStatus(JobList.궁수, 1, 150, 200, 200, 2500);
+                            break;
+                        }
+                    case 3:
+                        {
+                            setStatus(JobList.주술사, 1, 180, 180, 200, 3000);
+                            break;
+                        }
+                    case 4:
+                        {
+                            setStatus(JobList.약사, 1, 180, 180, 200, 3000);
+                            break;
+                        }
+
                 }
 
             } // 코드가 깃허브에 올라와 있지는 않아서, 확인중
