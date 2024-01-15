@@ -426,17 +426,19 @@
             }
             void EnemyPhase()
             {
-
+                battle = false;
                 if (alive <= 0)
                 {
                     Battleresult();
                 }
+
+                enemy:
                 Console.Clear();
                 Random random = new Random();
                 int number = random.Next(0, enemies.Count);
                 if (!enemies[number].alive)
                 {
-                    goto enemyPhase;
+                    goto enemy;
                 }
                 Current_HP = damageProcess.EnemyAttack((int)enemies[number].atk, Current_HP, Player_Extra_Avoide, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
                 if (isDmg < 0)
