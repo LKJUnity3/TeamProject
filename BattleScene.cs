@@ -60,7 +60,7 @@ namespace TeamProject
                         }
                         else
                         {
-                            Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.ForegroundColor = ConsoleColor.DarkGray;
                             Console.WriteLine("Lv." + enemies[i].lv + " " + enemies[i].Name + " Dead ");
                             Console.ResetColor();
                         }
