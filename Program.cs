@@ -4,9 +4,9 @@
     {
         public static void Main(string[] args)
         {
-
             Player.NickName();
             Player.player.GetJob();
+            Skill.SetSkill(Player.player.job);
             Item.ItemSetting();
             Item.PotionSetting();
             Scene.StartScene();

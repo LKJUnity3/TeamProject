@@ -5,8 +5,10 @@ namespace TeamProject
         public static void Battle()
         {
             bool battle = false; // 배틀선택했는지
+            bool skill = false; //kcw 스킬 선택 확인 변수
             List<Enemy> enemies = new List<Enemy>();
-            enemies = Enemy.EnemySetting();
+            DamageProcess damageProcess = new DamageProcess();
+            enemies = Enemy.SamGuk_EnemySetting();
             int alive = enemies.Count;
             //플레이어 변수 저장
             int Current_HP = Player.player.hp;
@@ -16,11 +18,11 @@ namespace TeamProject
             int indexHP = 0;
             double MinDmg = Math.Round((double)Player.player.atk * 0.9);
             double MaxDmg = Math.Round((double)Player.player.atk * 1.1);
-            Random random = new Random();      
+            Random random = new Random();
         battle:
             Console.Clear();
             Console.WriteLine("Battle!!\n");
-            if (!battle)
+            if (battle == false && skill==false )
             {
                 for (int i = 0; i < enemies.Count; i++)
                 {
@@ -40,11 +42,16 @@ namespace TeamProject
                 Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
                 Console.WriteLine("HP " + Current_HP + "/" + Player.player.hp);
                 Console.WriteLine("\n[1] 공격");
+                Console.WriteLine("[2] 스킬"); // kcw, 스킬 선택지 추가
                 Console.WriteLine("\n원하시는 행동을 입력해주세요.");
+            }
+            else if(battle == true && skill == false)
+            {
+                BattlePhase();
             }
             else
             {
-                BattlePhase();
+                goto skillphase;
             }
             Console.Write(">>> ");
             string index = Console.ReadLine();
@@ -61,6 +68,14 @@ namespace TeamProject
                             goto battle;
                         }
                         break;
+                    case 2://kcw 스킬 선택지 입력
+                        if(!battle)
+                        {
+                            battle = true;
+                            skill = true;
+                            goto battle;
+                        }
+                        break;
                     default:
                         Console.WriteLine("잘못된 입력입니다.");
                         Thread.Sleep(600);
@@ -74,12 +89,64 @@ namespace TeamProject
                 goto battle;
             }
 
+        skillphase:
+            Console.Clear();
+            indexHP = Current_HP;
+            Console.WriteLine("Battle!!\n");
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                Console.Write((i + 1) + " ");
+                if (enemies[i].alive)
+                {
+                    Console.WriteLine("Lv." + enemies[i].lv + " " + enemies[i].Name + " HP " + enemies[i].hp);
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine("Lv." + enemies[i].lv + " " + enemies[i].Name + " Dead ");
+                    Console.ResetColor();
+                }
+            }
+            Console.WriteLine("");
+            Console.WriteLine("[내정보]");
+            Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
+            Console.WriteLine("\n[스킬 리스트]\n");
+            for (int i = 0; i < Skill.characterSkill.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}.{Skill.characterSkill[i].skillname} | {Skill.characterSkill[i].skillDamage} | {Skill.characterSkill[i].skillInfo}");
+            }
+            Console.WriteLine("\n[0] 취소");
+            Console.WriteLine("\n대상을 선택해주세요.");
+            Console.Write(">>> ");
+            index = Console.ReadLine();
+            isInt = int.TryParse(index, out num);
+            int skillNumber;
+            if (isInt)
+            {
+                if (num == 0)
+                {
+                    goto battle; //스킬창 취소 시 플레이어 페이지로 이동
+                }
+                else if (0 < num && num <= Skill.characterSkill.Count)
+                {
+                    skillNumber = num;
+                    SkillPhase(skillNumber);
+
+                }
+            }
+            Console.WriteLine("잘못된 입력입니다.");
+            Thread.Sleep(600);
+            goto skillphase;
+
+
+
             void BattlePhase()
             {
                 if (alive <= 0)
                 {
                     Battleresult();
                 }
+
 
             battlephase:
                 Console.Clear();
@@ -119,15 +186,21 @@ namespace TeamProject
                     {
                         if (enemies[num - 1].alive)
                         {
-                            int atk = random.Next((int)MinDmg, (int)MaxDmg);
-                            Current_enemy_hp = enemies[num - 1].hp;
-                            enemies[num - 1].Victim(atk);
-                            playerPhase(num,atk);
-                        }
-                        else
-                        {
-
-                        }
+                            Current_enemy_hp = enemies[num - 1].hp;                            
+                            enemies[num - 1].hp = damageProcess.Victim(Player.player.atk, Current_enemy_hp,out float isDamage, out bool criticalTrue, out bool avoidanceTrue);
+                            if (avoidanceTrue == true && criticalTrue == false)
+                            {
+                                playerPhase(num, (int)isDamage, 1);                                
+                            }
+                            else if (criticalTrue == true && avoidanceTrue == false)
+                            {
+                                playerPhase(num, (int)isDamage, 2);
+                            }
+                            else
+                            {
+                                playerPhase(num, (int)isDamage, 3);
+                            }
+                        } 
 
                     }
                 }
@@ -135,15 +208,132 @@ namespace TeamProject
                 Thread.Sleep(600);
                 goto battlephase;
             }
-            void playerPhase(int enemy_list,int atk)
+            void SkillPhase(int skillnumber) //kcw 스킬 페이지
+            {
+            skillphaseSelectEnemy:
+                Console.Clear();
+                Console.WriteLine("Battle!!\n");
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    Console.Write((i + 1) + " ");
+                    if (enemies[i].alive)
+                    {
+                        Console.WriteLine("Lv." + enemies[i].lv + " " + enemies[i].Name + " HP " + enemies[i].hp);
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.WriteLine("Lv." + enemies[i].lv + " " + enemies[i].Name + " Dead ");
+                        Console.ResetColor();
+                    }
+                }
+                Console.WriteLine("");
+                Console.WriteLine("[내정보]");
+                Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
+                Console.WriteLine("\n[선택된 스킬 정보]");
+                Console.WriteLine($"{Skill.characterSkill[skillNumber].skillname} | {Skill.characterSkill[skillNumber].skillDamage} | {Skill.characterSkill[skillNumber].skillInfo}");
+                Console.WriteLine("\n\n[0] 취소");
+                Console.WriteLine("\n스킬 공격할 대상을 선택해주세요.");
+                Console.Write(">>> ");
+                index = Console.ReadLine();
+                isInt = int.TryParse(index, out num);
+                if (isInt)
+                {
+                    if (num == 0)
+                    {
+
+                        EnemyPhase();
+                    }
+                    else if (0 < num && num <= enemies.Count)
+                    {
+                        if (enemies[num - 1].alive)
+                        {
+                            //skill 데미지 추가 필요
+                            int atk = random.Next((int)MinDmg, (int)MaxDmg);
+                            Current_enemy_hp = enemies[num - 1].hp;
+                            enemies[num - 1].Victim(atk);
+                            goto skillResult;
+                        }
+                        else
+                        {
+                            goto skillphaseSelectEnemy;
+                        }
+
+                    }
+                }
+                Console.WriteLine("잘못된 입력입니다.");
+                Thread.Sleep(600);
+                goto skillphaseSelectEnemy;
+
+
+            skillResult:
+                Console.Clear();
+                Console.WriteLine("스킬 발현\n");
+                Console.WriteLine("");
+                Console.WriteLine("\n[사용한 스킬]");
+                Console.WriteLine($"{Skill.characterSkill[skillNumber].skillname} | {Skill.characterSkill[skillNumber].skillDamage} | {Skill.characterSkill[skillNumber].skillInfo}");
+
+                //skill 영향 아직 미완
+                //skill 효과 적용 추가
+                Console.WriteLine("[내정보]");
+                Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
+                
+                
+                
+                Console.WriteLine("\n\n[0] 다음");
+                Console.WriteLine("\n원하는 행동을 선택해주세요.");
+                Console.Write(">>> ");
+                index = Console.ReadLine();
+                isInt = int.TryParse(index, out num);
+                if(isInt)
+                {
+                    if(num ==0)
+                    {
+                        EnemyPhase();
+                    }
+                    else
+                    {
+                        Console.WriteLine("잘못된 입력입니다.");
+                        Thread.Sleep(600);
+                        goto skillResult;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("잘못된 입력입니다.");
+                    Thread.Sleep(600);
+                    goto skillResult;
+                }
+                
+                
+
+
+            }
+            void playerPhase(int enemy_list,int atk, int avoidanceOrcri)
             {
             playerPhase:
                 Console.Clear();
                 int number = enemy_list - 1;
                 Console.WriteLine("Battle!!");
                 Console.WriteLine("\n" + Player.player.Name + "의 공격!");
-                Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + " 을(를) 맞췄습니다. [데미지 : " + atk + "]");
+                if (avoidanceOrcri == 1)
+                {
+                    Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + " 을(를) 못맞췄습니다. [데미지 : " + atk + "] - 회피");
+                }
+                else if (avoidanceOrcri == 2)
+                {
+                    Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + " 의 급소를 맞췄습니다. [데미지 : " + atk + "] - 치명타");
+                }
+                else if (avoidanceOrcri == 3)
+                {
+                    Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + " 을(를) 맞췄습니다. [데미지 : " + atk + "]");
+                }
                 Console.WriteLine("\nLv." + enemies[number].lv + " " + enemies[number].Name);
+                if (enemies[number].hp == 0)
+                {
+                    enemies[number].alive = false;
+                }
+
                 if (enemies[number].alive)
                 {
                     Console.WriteLine("HP " + Current_enemy_hp + " -> " + enemies[number].hp);
@@ -191,15 +381,25 @@ namespace TeamProject
                 {
                     goto enemyPhase;
                 }
-                int isDmg = enemies[number].atk - Player.player.def;
+                Current_HP = damageProcess.victim((int)enemies[number].atk, Current_HP, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
                 if (isDmg < 0)
                 {
                     isDmg = 0;
-                }
-                Current_HP = Player.player.victim(enemies[number].atk,Current_HP);
+                }                
                 Console.WriteLine("Battle!!");
                 Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + "의 공격!");
-                Console.WriteLine(Player.player.Name + " 을(를) 맞췄습니다. [데미지 : " + isDmg + "]");
+                if (enemyCriticalTrue == true && enemyAvoidanceTrue == false)
+                {
+                    Console.WriteLine(Player.player.Name + " 의 급소를 맞췄습니다. [데미지 : " + isDmg + "] - 치명타");
+                }
+                else if (enemyAvoidanceTrue == true && enemyCriticalTrue == false)
+                {
+                    Console.WriteLine(Player.player.Name + " 을(를) 못맞췄습니다. [데미지 : " + isDmg + "] - 회피");
+                }
+                else
+                {
+                    Console.WriteLine(Player.player.Name + " 을(를) 맞췄습니다. [데미지 : " + isDmg + "]");
+                }
                 Console.WriteLine("\nLv." + Player.player.lv + " " + Player.player.Name);
                 if (Current_HP > 0)
                 {
