@@ -82,17 +82,15 @@ namespace TeamProject
             }
         }
 
-        public static void SetSkill(stat.JobList jobName) //직업에 맞는 스킬 2개를 랜덤하게 설정
+        public static void SetSkill(stat.JobList jobName) //직업에 맞는 스킬 전부 입력
         {
             int SkillCount = 0;
             Random rand = new Random();
-            for(int i=0; SkillCount<1; i++)
+            for(int i=0; i<skilldatabase.Count; i++)
             {
-                int id = rand.Next(0, skilldatabase.Count());
-                if (skilldatabase[id].jobName == jobName)
+                if (skilldatabase[i].jobName == jobName || skilldatabase[i].jobName == stat.JobList.All)
                 {
-                    characterSkill.Add(skilldatabase[id]);
-                    SkillCount++;
+                    characterSkill.Add(skilldatabase[i]);
                 }
             }
         }
