@@ -5,6 +5,7 @@
         public static int Player_Extra_Avoide = 0;
         public static int Enemy_Extra_Avoide = 0;
         public static int Current_HP = 0;
+        public static List<string> earnedList = new List<string>();
         public static void Battle()
         {
             bool battle = false; // 배틀선택했는지
@@ -23,6 +24,8 @@
             int existingGold = Player.player.Gold;
             // 적 변수 저장.
             int Current_enemy_hp;
+            bool enemyItemDrop = false;            
+            int selectDropItem = 0;            
             // 어태커 빅팀 정보저장
             int indexHP = 0;
             double MinDmg = Math.Round((double)Player.player.atk * 0.9);
@@ -395,7 +398,8 @@
                         remainEXP = e - fullE;
                         Player.player.exp = Player.player.fullExp;
                     }                    
-                    Player.player.Gold += enemies[number].dropGold;
+                    Player.player.Gold += enemies[number].dropGold;                    
+                    Enemy.ItemDrop();                                        
                     alive--;
                 }
                 Console.WriteLine("\n[0] 다음");
@@ -516,7 +520,12 @@
                     Console.WriteLine("exp " + current_EXP + " -> " + Player.player.exp);
                     Console.WriteLine();
                     Console.WriteLine("[획득 아이템]");
-                    Console.WriteLine(Player.player.Gold - existingGold + " Gold");
+                    Console.WriteLine(Player.player.Gold - existingGold + " Gold");                    
+                    foreach(string earnItem in earnedList)
+                    {
+                        Console.WriteLine(earnItem + " - 1");
+                    }
+                    earnedList.Clear();
                     //stage가 종료되면 스킬로 적용된 스탯 변화 다시 되돌림
                     Player.player.atk = Current_Attack;
                     Player.player.def = Current_Defense;
