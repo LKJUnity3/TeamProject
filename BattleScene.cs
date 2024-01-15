@@ -7,7 +7,7 @@ namespace TeamProject
             bool battle = false; // 배틀선택했는지
             bool skill = false; //kcw 스킬 선택 확인 변수
             List<Enemy> enemies = new List<Enemy>();
-            enemies = Enemy.EnemySetting();
+            enemies = Enemy.SamGuk_EnemySetting();
             int alive = enemies.Count;
             //플레이어 변수 저장
             int Current_HP = Player.player.hp;
