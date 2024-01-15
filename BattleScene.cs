@@ -7,6 +7,7 @@ namespace TeamProject
             bool battle = false; // 배틀선택했는지
             bool skill = false; //kcw 스킬 선택 확인 변수
             List<Enemy> enemies = new List<Enemy>();
+            DamageProcess damageProcess = new DamageProcess();
             enemies = Enemy.SamGuk_EnemySetting();
             int alive = enemies.Count;
             //플레이어 변수 저장
@@ -185,15 +186,21 @@ namespace TeamProject
                     {
                         if (enemies[num - 1].alive)
                         {
-                            int atk = random.Next((int)MinDmg, (int)MaxDmg);
-                            Current_enemy_hp = enemies[num - 1].hp;
-                            enemies[num - 1].Victim(atk);
-                            playerPhase(num,atk);
-                        }
-                        else
-                        {
-
-                        }
+                            Current_enemy_hp = enemies[num - 1].hp;                            
+                            enemies[num - 1].hp = damageProcess.Victim(Player.player.atk, Current_enemy_hp,out float isDamage, out bool criticalTrue, out bool avoidanceTrue);
+                            if (avoidanceTrue == true && criticalTrue == false)
+                            {
+                                playerPhase(num, (int)isDamage, 1);                                
+                            }
+                            else if (criticalTrue == true && avoidanceTrue == false)
+                            {
+                                playerPhase(num, (int)isDamage, 2);
+                            }
+                            else
+                            {
+                                playerPhase(num, (int)isDamage, 3);
+                            }
+                        } 
 
                     }
                 }
@@ -336,15 +343,31 @@ namespace TeamProject
 
 
             }
-            void playerPhase(int enemy_list,int atk)
+            void playerPhase(int enemy_list,int atk, int avoidanceOrcri)
             {
             playerPhase:
                 Console.Clear();
                 int number = enemy_list - 1;
                 Console.WriteLine("Battle!!");
                 Console.WriteLine("\n" + Player.player.Name + "의 공격!");
-                Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + " 을(를) 맞췄습니다. [데미지 : " + atk + "]");
+                if (avoidanceOrcri == 1)
+                {
+                    Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + " 을(를) 못맞췄습니다. [데미지 : " + atk + "] - 회피");
+                }
+                else if (avoidanceOrcri == 2)
+                {
+                    Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + " 의 급소를 맞췄습니다. [데미지 : " + atk + "] - 치명타");
+                }
+                else if (avoidanceOrcri == 3)
+                {
+                    Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + " 을(를) 맞췄습니다. [데미지 : " + atk + "]");
+                }
                 Console.WriteLine("\nLv." + enemies[number].lv + " " + enemies[number].Name);
+                if (enemies[number].hp == 0)
+                {
+                    enemies[number].alive = false;
+                }
+
                 if (enemies[number].alive)
                 {
                     Console.WriteLine("HP " + Current_enemy_hp + " -> " + enemies[number].hp);
@@ -392,15 +415,25 @@ namespace TeamProject
                 {
                     goto enemyPhase;
                 }
-                int isDmg = enemies[number].atk - Player.player.def;
+                Current_HP = damageProcess.victim((int)enemies[number].atk, Current_HP, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
                 if (isDmg < 0)
                 {
                     isDmg = 0;
-                }
-                Current_HP = Player.player.victim(enemies[number].atk,Current_HP);
+                }                
                 Console.WriteLine("Battle!!");
                 Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + "의 공격!");
-                Console.WriteLine(Player.player.Name + " 을(를) 맞췄습니다. [데미지 : " + isDmg + "]");
+                if (enemyCriticalTrue == true && enemyAvoidanceTrue == false)
+                {
+                    Console.WriteLine(Player.player.Name + " 의 급소를 맞췄습니다. [데미지 : " + isDmg + "] - 치명타");
+                }
+                else if (enemyAvoidanceTrue == true && enemyCriticalTrue == false)
+                {
+                    Console.WriteLine(Player.player.Name + " 을(를) 못맞췄습니다. [데미지 : " + isDmg + "] - 회피");
+                }
+                else
+                {
+                    Console.WriteLine(Player.player.Name + " 을(를) 맞췄습니다. [데미지 : " + isDmg + "]");
+                }
                 Console.WriteLine("\nLv." + Player.player.lv + " " + Player.player.Name);
                 if (Current_HP > 0)
                 {
