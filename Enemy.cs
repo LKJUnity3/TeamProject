@@ -131,9 +131,5 @@
             return enemies;
         }
 
-
-    }    
-
-       
-    
+    }
 }
