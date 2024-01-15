@@ -5,10 +5,10 @@
         public static int Player_Extra_Avoide = 0;
         public static int Enemy_Extra_Avoide = 0;
         public static int Current_HP = 0;
+        public static List<Enemy> enemies = new List<Enemy>();
         public static void Battle()
         {
             bool battle = false; // 배틀선택했는지
-            List<Enemy> enemies = new List<Enemy>();
             DamageProcess damageProcess = new DamageProcess();
             enemies = Enemy.SamGuk_EnemySetting();
             int alive = enemies.Count;
@@ -328,6 +328,14 @@
                 Console.WriteLine("\n[내정보]");
                 Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
 
+                for(int i=0; i<enemies.Count; i++)
+                {
+                    if (enemies[i].hp <=0)
+                    {
+                        enemies[i].alive = false;
+                        alive--;
+                    }
+                }
 
                 Console.WriteLine("\n\n[0] 다음");
                 Console.WriteLine("\n원하는 행동을 선택해주세요.");
@@ -440,7 +448,7 @@
                 {
                     goto enemy;
                 }
-                indexHP = damageProcess.EnemyAttack((int)enemies[number].atk, Current_HP, Player_Extra_Avoide, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
+                int lastHP = damageProcess.EnemyAttack((int)enemies[number].atk, Current_HP, Player_Extra_Avoide, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
                 if (isDmg < 0)
                 {
                     isDmg = 0;
@@ -463,8 +471,8 @@
                 
                 if (Current_HP > 0)
                 {
-                    Console.WriteLine("HP " + Current_HP + " -> " + indexHP);
-                    Current_HP = indexHP;
+                    Console.WriteLine("HP " + Current_HP + " -> " + lastHP);
+                    Current_HP = lastHP;
                 }
                 else
                 {
