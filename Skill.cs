@@ -40,8 +40,11 @@ namespace TeamProject
         public enum SkillType //skill의 타입이 공격, 방어, 힐, 서포트로 구성
         {
             Attack,
+            AttackPercent,
             Defense,
+            DefensePercent,
             Heal,
+            HealPercent,
             Support,
             Special
         }
