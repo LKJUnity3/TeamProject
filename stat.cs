@@ -16,6 +16,7 @@
         public int def { get; set; }
         public int hp { get; set; }
         public int lv { get; set; }
-
+        public int exp { get; set; }
+        public int fullExp { get; set; }
     }
 }

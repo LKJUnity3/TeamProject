@@ -7,13 +7,103 @@ using System.Threading.Tasks;
 namespace TeamProject
 {
     public class DamageProcess
-    {        
-        public int victim(int atk, int hp, out int isDamage, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue)
+    {
+        public static double skillMinDamage;
+        public static double skillMaxDamage;
+
+        public static int SkillAttackEffect(Skill.SkillType type, int skillnumb)
+        {
+            Random rand = new Random();
+
+            if (type == Skill.SkillType.Attack)
+            {
+                skillMinDamage = Math.Round((double)(Player.player.atk + Skill.characterSkill[skillnumb].skillDamage) * 0.9);
+                skillMaxDamage = Math.Round((double)(Player.player.atk + Skill.characterSkill[skillnumb].skillDamage) * 1.1);
+
+                int damage;
+                damage = rand.Next((int)skillMinDamage, (int)skillMaxDamage);
+                return damage;
+            }
+            else if (type == Skill.SkillType.AttackPercent)
+            {
+                skillMinDamage = Math.Round((double)(Player.player.atk * Skill.characterSkill[skillnumb].skillDamage) * 0.9);
+                skillMaxDamage = Math.Round((double)(Player.player.atk * Skill.characterSkill[skillnumb].skillDamage) * 1.1);
+
+                int damage;
+                damage = rand.Next((int)skillMinDamage, (int)skillMaxDamage);
+                return damage;
+            }
+            
+
+            return 0;
+
+        }
+        public static void SkillEffect(Skill.SkillType type, int skillnumb)
+        {
+            if (type == Skill.SkillType.Defense)
+            {
+                Player.player.def += Skill.characterSkill[skillnumb].skillDamage;
+            }
+            else if (type == Skill.SkillType.DefensePercent)
+            {
+                Player.player.def += Player.player.def * Skill.characterSkill[skillnumb].skillDamage / 100;
+            }
+            else if (type == Skill.SkillType.Heal)
+            {
+                Player.player.hp += Skill.characterSkill[skillnumb].skillDamage;
+            }
+            else if (type == Skill.SkillType.HealPercent)
+            {
+                Player.player.hp += Player.player.hp * Skill.characterSkill[skillnumb].skillDamage / 100;
+            }
+            else if (type == Skill.SkillType.SupportAtk)
+            {
+                int atk_now = Player.player.atk;
+                Player.player.atk += Skill.characterSkill[skillnumb].skillDamage;
+
+                Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                Console.WriteLine($"공격력 스탯 변화 : {atk_now} ->{Player.player.atk}");
+            }
+            else if (type == Skill.SkillType.SupportDef)
+            {
+                int def_now = Player.player.def;
+                Player.player.def += Skill.characterSkill[skillnumb].skillDamage;
+
+                Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                Console.WriteLine($"방어력 스탯 변화 : {def_now} ->{Player.player.def}");
+            }
+            else if (type == Skill.SkillType.SupportHP)
+            {
+                int hp_now = Player.player.hp;
+                Player.player.hp += Skill.characterSkill[skillnumb].skillDamage;
+
+                Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                Console.WriteLine($"체력 스탯 변화 : {hp_now} ->{Player.player.hp}");
+            }
+            else
+            {
+                if (Skill.characterSkill[skillnumb].skillname == "분신술")
+                {
+                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    BattleScene.Player_Extra_Avoide = 100;
+                    Console.WriteLine($"회피율 100 상승");
+
+
+                }
+                if (Skill.characterSkill[skillnumb].skillname == "백전백승")
+                {
+
+                }
+
+            }
+        }
+
+        public int EnemyAttack(int atk, int hp, int ExtraAvoid, out int isDamage, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue)
         {
             isDamage = atk - Player.player.def;
 
             enemyAvoidanceTrue = false;
-            int enemyAvoidance = Avoidance(isDamage, ref enemyAvoidanceTrue);
+            int enemyAvoidance = Avoidance(isDamage, ExtraAvoid, ref enemyAvoidanceTrue);
 
             enemyCriticalTrue = false;
             int enemyCritical = Critical(isDamage, ref enemyCriticalTrue);
@@ -39,7 +129,7 @@ namespace TeamProject
             return hp;
         }
 
-        public int Victim(float atk, int hp, out float isDamage, out bool criticalTrue, out bool avoidanceTrue)
+        public int PlayerAttack(float atk, int hp, int ExtraAvoid, out float isDamage, out bool criticalTrue, out bool avoidanceTrue)
         {
             double MinDmg = Math.Round((double)Player.player.atk * 0.9);
             double MaxDmg = Math.Round((double)Player.player.atk * 1.1);
@@ -50,7 +140,7 @@ namespace TeamProject
             int criticalAtk = Critical((int)isDamage, ref criticalTrue);
 
             avoidanceTrue = false;
-            int avoidanceAtk = Avoidance((int)isDamage, ref avoidanceTrue);
+            int avoidanceAtk = Avoidance((int)isDamage, ExtraAvoid, ref avoidanceTrue);
 
             if (criticalTrue == true && avoidanceTrue == false)
             {
@@ -75,9 +165,9 @@ namespace TeamProject
             return hp;
         }
 
-        public static int Avoidance(int damage, ref bool isAvoidance)
+        public static int Avoidance(int damage, int extraStat, ref bool isAvoidance)
         {
-            int avoidance = new Random().Next(1, 100);
+            int avoidance = new Random().Next(1, 100) + extraStat;
             if (avoidance > 10)
             {
                 isAvoidance = false;
