@@ -423,7 +423,7 @@ namespace TeamProject
                 Console.Write(">>> ");
                 string index = Console.ReadLine();
                 int num;
-                Player.player.def = Current_Defense; // 만약 스킬을 사용했으면 다음 플레이어 턴에 방어력 복귀 
+                Player.player.def = Current_Defense; // kcw 만약 스킬을 사용했으면 다음 플레이어 턴에 방어력 복귀 
                 bool isInt = int.TryParse(index, out num);
                 if (isInt)
                 {
