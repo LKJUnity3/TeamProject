@@ -43,6 +43,7 @@ namespace TeamProject
             Console.WriteLine($"방어력 : {def}" + (addDef > 0 ? $"(+{addDef})" : addDef < 0 ? $"(-{addDef})" : ""));
             int addHp = Item.AddStatus(item => item.hp);
             Console.WriteLine($"체력 : {hp}" + (addHp > 0 ? $"(+{addHp})" : addHp < 0 ? $"(-{addHp})" : ""));
+            Console.WriteLine($"경험치 : {exp} / {fullExp}");
             Console.WriteLine("Gold   : " + Gold);
         }
 
