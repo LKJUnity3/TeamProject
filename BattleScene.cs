@@ -440,7 +440,7 @@
                 {
                     goto enemy;
                 }
-                int lastHP = damageProcess.EnemyAttack((int)enemies[number].atk, Current_HP, Player_Extra_Avoide, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
+                indexHP = damageProcess.EnemyAttack((int)enemies[number].atk, Current_HP, Player_Extra_Avoide, out int isDmg, out bool enemyAvoidanceTrue, out bool enemyCriticalTrue);
                 if (isDmg < 0)
                 {
                     isDmg = 0;
@@ -463,8 +463,8 @@
                 
                 if (Current_HP > 0)
                 {
-                    Console.WriteLine("HP " + Current_HP + " -> " + lastHP);
-                    Current_HP = lastHP;
+                    Console.WriteLine("HP " + Current_HP + " -> " + indexHP);
+                    Current_HP = indexHP;
                 }
                 else
                 {
