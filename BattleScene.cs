@@ -12,6 +12,7 @@ namespace TeamProject
             int alive = enemies.Count;
             //플레이어 변수 저장
             int Current_HP = Player.player.hp;
+            int current_EXP = Player.player.exp;
             // 적 변수 저장.
             int Current_enemy_hp;
             // 어태커 빅팀 정보저장
@@ -341,6 +342,7 @@ namespace TeamProject
                 else
                 {
                     Console.WriteLine("HP " + Current_enemy_hp + " -> " + "Dead");
+                    Player.player.exp += enemies[number].exp;
                     alive--;
                 }
                 Console.WriteLine("\n[0] 다음");
@@ -446,6 +448,7 @@ namespace TeamProject
                     Console.WriteLine("\n던전에서 몬스터 " + enemies.Count + "마리를 잡았습니다.");
                     Console.WriteLine("\nLv." + Player.player.lv + " " + Player.player.Name);
                     Console.WriteLine("HP " + Player.player.hp + " -> " + Current_HP);
+                    Console.WriteLine("exp " + current_EXP + " -> " + Player.player.exp);
                 }
                 else if (Current_HP <= 0)
                 {

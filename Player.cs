@@ -22,7 +22,7 @@ namespace TeamProject
             return hp;
         }
 
-        public void setStatus(JobList job, int lv, int atk, int def, int hp, int gold)
+        public void setStatus(JobList job, int lv, int atk, int def, int hp, int gold, int exp, int fullExp)
         {
             player.atk = atk;
             player.hp = hp;
@@ -30,6 +30,8 @@ namespace TeamProject
             player.Gold = gold;
             player.def = def;
             player.lv = lv;
+            player.exp = exp;
+            player.fullExp = fullExp;
         }
         public void Status()
         {
@@ -97,22 +99,22 @@ namespace TeamProject
                 {
                     case 1:
                         {
-                            setStatus(JobList.검사, 1, 180, 150, 250, 2000);
+                            setStatus(JobList.검사, 1, 180, 150, 250, 2000, 0, 10);
                             break;
                         }
                     case 2:
                         {
-                            setStatus(JobList.궁수, 1, 150, 200, 200, 2500);
+                            setStatus(JobList.궁수, 1, 150, 200, 200, 2500, 0, 10);
                             break;
                         }
                     case 3:
                         {
-                            setStatus(JobList.주술사, 1, 180, 180, 200, 3000);
+                            setStatus(JobList.주술사, 1, 180, 180, 200, 3000, 0, 10);
                             break;
                         }
                     case 4:
                         {
-                            setStatus(JobList.약사, 1, 180, 180, 200, 3000);
+                            setStatus(JobList.약사, 1, 180, 180, 200, 3000, 0, 10);
                             break;
                         }
 
@@ -120,6 +122,15 @@ namespace TeamProject
 
             } // 코드가 깃허브에 올라와 있지는 않아서, 확인중
             Console.WriteLine("\n원하시는 행동을 입력해주세요.");
+        }
+
+        public static void LevelUp()
+        {
+            player.lv += 1;
+            player.atk += 1;
+            player.def += 1;
+            player.fullExp += 15 + player.lv * 5;
+            player.exp = 0;
         }
     }
 }
