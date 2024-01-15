@@ -3,12 +3,14 @@
     internal class Enemy : stat
     {
         public bool alive { get; set; }
+        public int dropGold { get; set; }
         public Enemy(string name,int lv,int atk,int hp) 
         {
             this.Name = name;
             this.lv = lv;
             this.atk = atk;
             this.hp = hp;
+            dropGold = new Random().Next(10, 200);
             alive = true;
         }
         public void Victim(int atk)
