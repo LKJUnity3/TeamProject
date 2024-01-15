@@ -50,7 +50,7 @@ namespace TeamProject
             }
             else
             {
-                goto skillphase;
+                goto skillLook;
             }
             Console.Write(">>> ");
             string index = Console.ReadLine();
@@ -88,7 +88,7 @@ namespace TeamProject
                 goto battle;
             }
 
-        skillphase:
+        skillLook:
             Console.Clear();
             indexHP = Current_HP;
             Console.WriteLine("Battle!!\n");
@@ -119,7 +119,6 @@ namespace TeamProject
             Console.Write(">>> ");
             index = Console.ReadLine();
             isInt = int.TryParse(index, out num);
-            int skillNumber;
             if (isInt)
             {
                 if (num == 0)
@@ -128,14 +127,13 @@ namespace TeamProject
                 }
                 else if (0 < num && num <= Skill.characterSkill.Count)
                 {
-                    skillNumber = num;
-                    SkillPhase(skillNumber);
+                    SkillPhase(num-1);
 
                 }
             }
             Console.WriteLine("잘못된 입력입니다.");
             Thread.Sleep(600);
-            goto skillphase;
+            goto skillLook;
 
 
 
@@ -230,7 +228,7 @@ namespace TeamProject
                 Console.WriteLine("[내정보]");
                 Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
                 Console.WriteLine("\n[선택된 스킬 정보]");
-                Console.WriteLine($"{Skill.characterSkill[skillNumber].skillname} | {Skill.characterSkill[skillNumber].skillDamage} | {Skill.characterSkill[skillNumber].skillInfo}");
+                Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname} | {Skill.characterSkill[skillnumber].skillDamage} | {Skill.characterSkill[skillnumber].skillInfo}");
                 Console.WriteLine("\n\n[0] 취소");
                 Console.WriteLine("\n스킬 공격할 대상을 선택해주세요.");
                 Console.Write(">>> ");
@@ -247,10 +245,6 @@ namespace TeamProject
                     {
                         if (enemies[num - 1].alive)
                         {
-                            //skill 데미지 추가 필요
-                            int atk = random.Next((int)MinDmg, (int)MaxDmg);
-                            Current_enemy_hp = enemies[num - 1].hp;
-                            enemies[num - 1].Victim(atk);
                             goto skillResult;
                         }
                         else
@@ -270,10 +264,31 @@ namespace TeamProject
                 Console.WriteLine("스킬 발현\n");
                 Console.WriteLine("");
                 Console.WriteLine("\n[사용한 스킬]");
-                Console.WriteLine($"{Skill.characterSkill[skillNumber].skillname} | {Skill.characterSkill[skillNumber].skillDamage} | {Skill.characterSkill[skillNumber].skillInfo}");
+                Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname} | {Skill.characterSkill[skillnumber].skillDamage} | {Skill.characterSkill[skillnumber].skillInfo}\n");
 
-                //skill 영향 아직 미완
+
                 //skill 효과 적용 추가
+                //skill 데미지 추가 필요
+                if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Attack || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.AttackPercent)
+                {
+                    int atk = Damage.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+                    Current_enemy_hp = enemies[num - 1].hp;
+                    enemies[num - 1].Victim(atk);
+                    Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}으로 공격!");
+                    Console.WriteLine($"Lv.{enemies[num-1].lv} {enemies[num - 1].Name}가 데미지를 받았습니다");
+                    Console.WriteLine($"HP {Current_enemy_hp} -> {enemies[num-1].hp}");
+                }
+                else
+                {
+
+                }
+                
+                
+
+               
+
+
+
                 Console.WriteLine("[내정보]");
                 Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
                 
