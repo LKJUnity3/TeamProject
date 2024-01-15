@@ -8,7 +8,7 @@ namespace TeamProject
             bool skill = false; //kcw 스킬 선택 확인 변수
             List<Enemy> enemies = new List<Enemy>();
             DamageProcess damageProcess = new DamageProcess();
-            enemies = Enemy.EnemySetting();
+            enemies = Enemy.SamGuk_EnemySetting();
             int alive = enemies.Count;
             //플레이어 변수 저장
             int Current_HP = Player.player.hp;
@@ -187,10 +187,10 @@ namespace TeamProject
                         if (enemies[num - 1].alive)
                         {
                             Current_enemy_hp = enemies[num - 1].hp;                            
-                            enemies[num - 1].hp = damageProcess.Victim(enemies, num, Player.player.atk, Current_enemy_hp,out float isDamage, out bool criticalTrue, out bool avoidanceTrue);
+                            enemies[num - 1].hp = damageProcess.Victim(Player.player.atk, Current_enemy_hp,out float isDamage, out bool criticalTrue, out bool avoidanceTrue);
                             if (avoidanceTrue == true && criticalTrue == false)
                             {
-                                playerPhase(num, (int)isDamage, 1);
+                                playerPhase(num, (int)isDamage, 1);                                
                             }
                             else if (criticalTrue == true && avoidanceTrue == false)
                             {
@@ -329,6 +329,11 @@ namespace TeamProject
                     Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + " 을(를) 맞췄습니다. [데미지 : " + atk + "]");
                 }
                 Console.WriteLine("\nLv." + enemies[number].lv + " " + enemies[number].Name);
+                if (enemies[number].hp == 0)
+                {
+                    enemies[number].alive = false;
+                }
+
                 if (enemies[number].alive)
                 {
                     Console.WriteLine("HP " + Current_enemy_hp + " -> " + enemies[number].hp);
