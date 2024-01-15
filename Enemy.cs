@@ -11,7 +11,6 @@
             this.hp = hp;
             alive = true;
         }
-
         public void Victim(int atk)
         {
             hp -= atk;
@@ -24,7 +23,6 @@
                 alive = false;
             }
         }
-
         public static List<Enemy> SamGuk_EnemySetting()
         {
             List<Enemy> enemies = new List<Enemy>();
@@ -55,7 +53,6 @@
             }
             return enemies;
         }
-
         public static List<Enemy> Josun_EnemySetting()
         {
             List<Enemy> enemies = new List<Enemy>();
@@ -79,7 +76,6 @@
             }
             return enemies;
         }
-
         public static List<Enemy> Korea_EnemySetting()
         {
             List<Enemy> enemies = new List<Enemy>();
@@ -103,7 +99,6 @@
             }
             return enemies;
         }
-
         class BossMonster
         {
             public string Name { get; set; }
@@ -124,7 +119,6 @@
 
 
         }
-
         class BossMonsters
         {
 
@@ -151,9 +145,7 @@
                     Console.WriteLine($"Special Ability: {bossMonster.SpAbility}");
                     Console.WriteLine();
                 }
-
             }
-
         }
     }
 }
