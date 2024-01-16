@@ -17,8 +17,8 @@ namespace TeamProject
 
             if (type == Skill.SkillType.Attack)
             {
-                skillMinDamage = Math.Round((double)(Player.player.atk + Skill.characterSkill[skillnumb].skillDamage) * 0.9);
-                skillMaxDamage = Math.Round((double)(Player.player.atk + Skill.characterSkill[skillnumb].skillDamage) * 1.1);
+                skillMinDamage = Math.Round((double)(Player.player.atk + Player.player.characterSkill[skillnumb].skillDamage) * 0.9);
+                skillMaxDamage = Math.Round((double)(Player.player.atk + Player.player.characterSkill[skillnumb].skillDamage) * 1.1);
 
                 int damage;
                 damage = rand.Next((int)skillMinDamage, (int)skillMaxDamage);
@@ -26,8 +26,8 @@ namespace TeamProject
             }
             else if (type == Skill.SkillType.AttackPercent)
             {
-                skillMinDamage = Math.Round((double)(Player.player.atk * Skill.characterSkill[skillnumb].skillDamage) * 0.9);
-                skillMaxDamage = Math.Round((double)(Player.player.atk * Skill.characterSkill[skillnumb].skillDamage) * 1.1);
+                skillMinDamage = Math.Round((double)(Player.player.atk * Player.player.characterSkill[skillnumb].skillDamage) * 0.9);
+                skillMaxDamage = Math.Round((double)(Player.player.atk * Player.player.characterSkill[skillnumb].skillDamage) * 1.1);
 
                 int damage;
                 damage = rand.Next((int)skillMinDamage, (int)skillMaxDamage);
@@ -42,11 +42,11 @@ namespace TeamProject
         {
             if (type == Skill.SkillType.Defense)
             {
-                Player.player.def += Skill.characterSkill[skillnumb].skillDamage;
+                Player.player.def += Player.player.characterSkill[skillnumb].skillDamage;
             }
             else if (type == Skill.SkillType.DefensePercent)
             {
-                Player.player.def += Player.player.def * Skill.characterSkill[skillnumb].skillDamage / 100;
+                Player.player.def += Player.player.def * Player.player.characterSkill[skillnumb].skillDamage / 100;
             }
             else if (type == Skill.SkillType.Heal)
             {
@@ -55,23 +55,23 @@ namespace TeamProject
 
                 if (currentHp < Player.player.hp)
                 {
-                    resultHp += Skill.characterSkill[skillnumb].skillDamage;
+                    resultHp += Player.player.characterSkill[skillnumb].skillDamage;
 
                     if (resultHp > Player.player.hp)
                     {
-                        Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                        Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                         Console.WriteLine($"체력 스탯 변화 : {currentHp} ->{BattleScene.Current_HP}");
                     }
                     else
                     {
                         BattleScene.Current_HP = resultHp;
-                        Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                        Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                         Console.WriteLine($"체력 스탯 변화 : {currentHp} ->{resultHp}");
                     }
                 }
                 else
                 {
-                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                     Console.WriteLine($"체력 스탯 변화 : {currentHp} ->{resultHp}");
                 }
             }
@@ -82,40 +82,40 @@ namespace TeamProject
 
                 if (currentHp < Player.player.hp)
                 {
-                    resultHp += currentHp * Skill.characterSkill[skillnumb].skillDamage;
+                    resultHp += currentHp * Player.player.characterSkill[skillnumb].skillDamage;
 
                     if (resultHp > Player.player.hp)
                     {
-                        Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                        Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                         Console.WriteLine($"체력 스탯 변화 : {currentHp} ->{BattleScene.Current_HP}");
                     }
                     else
                     {
                         BattleScene.Current_HP = resultHp;
-                        Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                        Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                         Console.WriteLine($"체력 스탯 변화 : {currentHp} ->{resultHp}");
                     }
                 }
                 else
                 {
-                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                     Console.WriteLine($"체력 스탯 변화 : {currentHp} ->{resultHp}");
                 }
             }
             else if (type == Skill.SkillType.SupportAtk)
             {
                 int atk_now = Player.player.atk;
-                Player.player.atk += Skill.characterSkill[skillnumb].skillDamage;
+                Player.player.atk += Player.player.characterSkill[skillnumb].skillDamage;
 
-                Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                 Console.WriteLine($"공격력 스탯 변화 : {atk_now} ->{Player.player.atk}");
             }
             else if (type == Skill.SkillType.SupportDef)
             {
                 int def_now = Player.player.def;
-                Player.player.def += Skill.characterSkill[skillnumb].skillDamage;
+                Player.player.def += Player.player.characterSkill[skillnumb].skillDamage;
 
-                Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                 Console.WriteLine($"방어력 스탯 변화 : {def_now} ->{Player.player.def}");
             }
             else if (type == Skill.SkillType.SupportHP)
@@ -125,60 +125,60 @@ namespace TeamProject
                 
                 if(currentHp < Player.player.hp)
                 {
-                    resultHp += Skill.characterSkill[skillnumb].skillDamage;
+                    resultHp += Player.player.characterSkill[skillnumb].skillDamage;
 
                     if(resultHp > Player.player.hp)
                     {
-                        Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                        Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                         Console.WriteLine($"체력 스탯 변화 : {currentHp} ->{BattleScene.Current_HP}");
                     }
                     else
                     {
                         BattleScene.Current_HP = resultHp;
-                        Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                        Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                         Console.WriteLine($"체력 스탯 변화 : {currentHp} ->{resultHp}");
                     }              
                 }
                 else
                 {
-                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                     Console.WriteLine($"체력 스탯 변화 : {currentHp} ->{resultHp}");
                 }        
             }
             else
             {
-                if (Skill.characterSkill[skillnumb].skillname == "분신술")
+                if (Player.player.characterSkill[skillnumb].skillname == "분신술")
                 {
-                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                     BattleScene.Player_Extra_Avoide = 100;
                     Console.WriteLine($"회피율 100 상승");
 
 
                 }
-                else if (Skill.characterSkill[skillnumb].skillname == "불패의 신화")
+                else if (Player.player.characterSkill[skillnumb].skillname == "불패의 신화")
                 {
                     int atk_now = Player.player.atk;
                     int hp_now = BattleScene.Current_HP;
                     BattleScene.Current_HP += 10000;
                     Player.player.atk += 10000;
-                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                     BattleScene.Player_Extra_Avoide = 100;
                     Console.WriteLine($"공격력,체력 10000 상승");
                     Console.WriteLine($"공격력 스탯 변화 : {atk_now} ->{Player.player.atk}");
                     Console.WriteLine($"체력 스탯 변화 : {hp_now} -> {BattleScene.Current_HP}");
                 }
-                else if (Skill.characterSkill[skillnumb].skillname == "천하무적")
+                else if (Player.player.characterSkill[skillnumb].skillname == "천하무적")
                 {
 
-                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                     BattleScene.Player_Extra_Avoide = 100;
                     Console.WriteLine($"오라오라오라~\n");
 
                     for(int j=0; j<BattleScene.enemies.Count; j++)
                     {
-                        Console.WriteLine($"광역 스킬 천하무적으로 인하여 {BattleScene.enemies[j].Name}가 {Skill.characterSkill[skillnumb].skillDamage}X3 만큼 피해를 입었습니다.");
+                        Console.WriteLine($"광역 스킬 천하무적으로 인하여 {BattleScene.enemies[j].Name}가 {Player.player.characterSkill[skillnumb].skillDamage}X3 만큼 피해를 입었습니다.");
                         int currentEnemyHP = BattleScene.enemies[j].hp;
-                        BattleScene.enemies[j].hp -= 3 * Skill.characterSkill[skillnumb].skillDamage;
+                        BattleScene.enemies[j].hp -= 3 * Player.player.characterSkill[skillnumb].skillDamage;
 
                         if (BattleScene.enemies[j].hp <=0)
                         {
@@ -195,33 +195,33 @@ namespace TeamProject
                     }
                     
                 }
-                else if (Skill.characterSkill[skillnumb].skillname == "의협심")
+                else if (Player.player.characterSkill[skillnumb].skillname == "의협심")
                 {
                     int atk_now = Player.player.atk;
                     int hp_now = BattleScene.Current_HP;
                     BattleScene.Current_HP += 10000;
                     Player.player.atk += 10000;
-                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                     BattleScene.Player_Extra_Avoide = 100;
                     Console.WriteLine($"공격력,체력 10000 상승");
                     Console.WriteLine($"공격력 스탯 변화 : {atk_now} ->{Player.player.atk}");
                     Console.WriteLine($"체력 스탯 변화 : {hp_now} -> {BattleScene.Current_HP}");
                 }
-                else if (Skill.characterSkill[skillnumb].skillname == "민중의 영웅")
+                else if (Player.player.characterSkill[skillnumb].skillname == "민중의 영웅")
                 {
-                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                     BattleScene.Player_Extra_Avoide = 100;
                     Console.WriteLine($"회피율 상승 : 0 -> 100");
                 }
-                else if (Skill.characterSkill[skillnumb].skillname == "명의")
+                else if (Player.player.characterSkill[skillnumb].skillname == "명의")
                 {
-                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                     Console.WriteLine($"체력 회복 : {BattleScene.Current_HP} -> {Player.player.hp}");
                     BattleScene.Current_HP = Player.player.hp;
                 }
-                else if (Skill.characterSkill[skillnumb].skillname == "인술")
+                else if (Player.player.characterSkill[skillnumb].skillname == "인술")
                 {
-                    Console.WriteLine($"{Skill.characterSkill[skillnumb].skillname}!!");
+                    Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                     Console.WriteLine($"체력 회복 : {BattleScene.Current_HP} -> {Player.player.hp}");
                     BattleScene.Current_HP = Player.player.hp;
                     BattleScene.Player_Extra_Avoide = 100;
