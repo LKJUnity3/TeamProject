@@ -19,11 +19,11 @@ namespace TeamProject
         static void SoundPlayer()
         {
             WindowsMediaPlayer soundMenu = new WindowsMediaPlayer();
-            // 실행 파일이 있는 디렉토리의 sound 폴더 안에 있는 mainBGM.mp3 파일을 지정
-            string relativePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "sound", "mainBGM.mp3");
-            if (File.Exists(relativePath))
+            string baseFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory); // 현재 프로젝트의 경로
+            string playFolder = Directory.GetParent(baseFolder).Parent.Parent.Parent.FullName + @"\sound\mainBGM.mp3"; // 해당 경로에서 불필요한 부분 제거하고 원하는 폴더 추가
+            if (File.Exists(playFolder))
             {
-                soundMenu.URL = relativePath;
+                soundMenu.URL = playFolder;
                 soundMenu.settings.volume = 10;
                 while (true)
                 {
