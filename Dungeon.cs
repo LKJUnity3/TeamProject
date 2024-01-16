@@ -45,14 +45,15 @@ namespace TeamProject
         public static void DungeonChoiceMenu() // 12-1. 던전 난이도 선택
         {
             Console.Clear();
-            ShowHighlightedText("■ 던전 난이도 선택 ■");
+            ShowHighlightedText("[ 던전 난이도 선택 ]");
+            Console.WriteLine("");
             Console.WriteLine("다양한 난이도의 던전을 선택할 수 있습니다.");
             Console.WriteLine("");
-            Console.WriteLine("1. 삼국            | 체력 100 이상 권장  | 고려 전기에 중국 역사에서 발생한 국가 분열과 통일의 역동적인 시기 ");
-            Console.WriteLine("2. 조선            | 체력 180 이상 권장  | 안동김씨가 활개치던 그떄 그 시기, 진정한 헬조선의 시작 ");
-            Console.WriteLine("3. 대한민국(현대)  | 체력 200 이상 권장  | 저출산,젠더갈등,취업경쟁,국채 증가 등의 각종 지옥의 문이 열린 대한민국");
+            Console.WriteLine("[1] 삼국            | 체력 100 이상 권장  | 고려 전기에 중국 역사에서 발생한 국가 분열과 통일의 역동적인 시기 ");
+            Console.WriteLine("[2] 조선            | 체력 180 이상 권장  | 안동김씨가 활개치던 그떄 그 시기, 진정한 헬조선의 시작 ");
+            Console.WriteLine("[3] 대한민국(현대)  | 체력 200 이상 권장  | 저출산,젠더갈등,취업경쟁,국채 증가 등의 각종 지옥의 문이 열린 대한민국");
             Console.WriteLine("");
-            Console.WriteLine("0. 메인화면으로 돌아가기");
+            Console.WriteLine("[0] 메인화면으로 돌아가기");
             Console.WriteLine("");
 
             switch (ChoiceInput(0, 3))
