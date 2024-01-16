@@ -11,10 +11,10 @@ namespace TeamProject
         public static int Current_HP = 0;
         public static List<Enemy> enemies = new List<Enemy>();
         public static List<string> earnedList = new List<string>();
-        public static int remainEXP = 0;
+        public static int remainEXP = 0;             
         public static void Battle(int DungeonType)
         {
-
+            
             bool battle = false; // 배틀선택했는지
             DamageProcess damageProcess = new DamageProcess();//damageProcess class 생성
 
