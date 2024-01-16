@@ -16,9 +16,9 @@ namespace TeamProject
                 Player.NickName();
                 Player.player.GetJob();
                 Skill.SetSkill(Player.player.job);
+                Item.ItemSetting();
+                Item.PotionSetting();
             }            
-            Item.ItemSetting();
-            Item.PotionSetting();
             Scene.StartScene();
            
         }
@@ -55,28 +55,72 @@ namespace TeamProject
             {
                 if (File.Exists(mainSoundFolder) && !dungeonSound1 && !dungeonSound2 && !dungeonSound3)
                 {
-                    soundDungeon1.controls.stop();
-                    soundDungeon2.controls.stop();
-                    soundDungeon3.controls.stop();
-                    soundMenu.controls.play();
+                    try {
+                        soundDungeon1.controls.stop();
+                        soundDungeon2.controls.stop();
+                        soundDungeon3.controls.stop();
+                        soundMenu.controls.play();
+                    }
+                    catch 
+                    {
+                        Thread.Sleep(1000);
+                        soundDungeon1.controls.stop();
+                        Thread.Sleep(500);
+                        soundDungeon2.controls.stop();
+                        Thread.Sleep(500);
+                        soundDungeon3.controls.stop();
+                        Thread.Sleep(500);
+                        soundMenu.controls.play();
+                    }
+                    
                 }
                 else if (File.Exists(dungeonSoundFolder1) && dungeonSound1)
                 {
-                    soundMenu.controls.stop();
-                    soundDungeon1.controls.play();
-                    soundDungeon1.settings.autoStart = true;
+                    try
+                    {
+                        soundMenu.controls.stop();
+                        soundDungeon1.controls.play();
+                    }
+                    catch
+                    {
+                        Thread.Sleep(500);
+                        soundMenu.controls.stop();
+                        Thread.Sleep(500);
+                        soundDungeon1.controls.play();
+                    }
+                    
                 }
                 else if (File.Exists(dungeonSoundFolder2) && dungeonSound2)
                 {
-                    soundMenu.controls.stop();
-                    soundDungeon2.controls.play();
-                    soundDungeon2.settings.autoStart = true;
+                    try
+                    {
+                        soundMenu.controls.stop();
+                        soundDungeon2.controls.play();
+                    }
+                    catch
+                    {
+                        Thread.Sleep(500);
+                        soundMenu.controls.stop();
+                        Thread.Sleep(500);
+                        soundDungeon2.controls.play();
+                    }
+                    
                 }
                 else if (File.Exists(dungeonSoundFolder3) && dungeonSound3)
                 {
-                    soundMenu.controls.stop();
-                    soundDungeon3.controls.play();
-                    soundDungeon3.settings.autoStart = true;
+                    try 
+                    {
+                        soundMenu.controls.stop();
+                        soundDungeon3.controls.play();
+                    }
+                    catch
+                    {
+                        Thread.Sleep(500);
+                        soundMenu.controls.stop();
+                        Thread.Sleep(500);
+                        soundDungeon3.controls.play();
+                    }
+                    
                 }
                 Thread.Sleep(100);
             }
