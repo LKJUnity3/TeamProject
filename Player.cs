@@ -1,10 +1,12 @@
 ﻿using static TeamProject.Scene;
+using static TeamProject.Skill;
 
 namespace TeamProject
 {
     public class Player : stat
     {
         public JobList job;
+        public List<Skill_DataSet> characterSkill = new List<Skill_DataSet>(); //캐릭터가 소지한 스킬 정보
         public int Gold { get; set; }
         public int victim(int atk,int hp)
         {
