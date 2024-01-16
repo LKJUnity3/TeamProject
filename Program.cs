@@ -15,9 +15,9 @@ namespace TeamProject
                 Player.NickName();
                 Player.player.GetJob();
                 Skill.SetSkill(Player.player.job);
+                Item.ItemSetting();
+                Item.PotionSetting();
             }            
-            Item.ItemSetting();
-            Item.PotionSetting();
             Scene.StartScene();
            
         }
