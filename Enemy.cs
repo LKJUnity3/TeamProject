@@ -107,7 +107,9 @@
                 switch (Monster_type)
                 {
                     case 0:
+                    
                         Enemy Kim_sangmu = new Enemy("김상무", 20, 700, 120, 100);
+
                         enemies.Add(Kim_sangmu);
                         break;
                     case 1:
