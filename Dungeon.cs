@@ -58,7 +58,7 @@ namespace TeamProject
             // Program.cs 에서 만든 메인메뉴, 상태보기, 인벤토리, 상점, 던전 난이도 선택 , 던전입장 등을 구현하고 싶음
             {
                 case 0:
-
+                    Program.dungeonSound = false;
                     Scene.StartScene(); // 메인 메뉴로 나가기
                     break;
                 case 1:
