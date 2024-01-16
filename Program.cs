@@ -7,9 +7,9 @@ namespace TeamProject
         public static void Main(string[] args)
         {
             bool dataRun = false;
-            Task.Run(() => SoundPlayer());
+            Task.Run(() => SoundPlayer());//음악 제공
             Scene.StartPrintStartLogo();
-            dataRun = DataStore.DataSelect();
+            dataRun = DataStore.DataSelect();//신규 생성 선택 또는 불러오기 선택, 불러오기 데이터 없으면 신규 생성으로
             if(dataRun == false)
             {
                 Player.NickName();
