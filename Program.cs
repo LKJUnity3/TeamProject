@@ -39,9 +39,13 @@ namespace TeamProject
             string dungeonSoundFolder1 = baseFolder + @"\sound\dungeonBGM1.mp3"; // 던전 사운드 경로
             string dungeonSoundFolder2 = baseFolder + @"\sound\dungeonBGM2.mp3";
             string dungeonSoundFolder3 = baseFolder + @"\sound\dungeonBGM3.mp3";
+            soundMenu.settings.autoStart = false;
             soundMenu.URL = mainSoundFolder;
+            soundDungeon1.settings.autoStart = false;
             soundDungeon1.URL = dungeonSoundFolder1;
+            soundDungeon2.settings.autoStart = false;
             soundDungeon2.URL = dungeonSoundFolder2;
+            soundDungeon3.settings.autoStart = false;
             soundDungeon3.URL = dungeonSoundFolder3;
             soundMenu.settings.volume = 10;
             soundDungeon1.settings.volume = 10;
@@ -73,6 +77,24 @@ namespace TeamProject
                 }
                 Thread.Sleep(100);
             }
+        }
+
+        public static void SkillSound(string fileName, bool skillSoundSwich, int volume)
+        {            
+            WindowsMediaPlayer skillSound = new WindowsMediaPlayer();            
+            string baseFolder = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName;
+            string playFolder = baseFolder + $@"\sound\{fileName}.mp3";            
+            if (File.Exists(playFolder) && skillSoundSwich)
+            {
+                skillSound.URL = playFolder;
+                skillSound.settings.volume = volume;
+                skillSound.controls.play();                
+            }
+            else if(File.Exists(playFolder) && !skillSoundSwich)
+            {
+                skillSound.controls.stop();
+            }
+            Thread.Sleep(100);
         }
     }
 }
