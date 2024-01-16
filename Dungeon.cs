@@ -85,22 +85,9 @@ namespace TeamProject
         public static void StartDungeon(int DungeonType)
         {
                      
-            //switch (DungeonType)
-            //{
-            //    case 1:
-            //        // 삼국시대 스토리
-            //        Story.Chapter1();
-            //        break;
-            //    // 다음 던전이 추가되면 해당 던전 스토리를 호출
-            //    case 2:
-            //        Story.Chapter2();
-            //        break;
-            //    case 3:
-            //        Story.Chapter3();
-            //        break;
-            //}
+            
 
-            // 예시로 간단한 삼국(0) 부터 시작
+           // 예시로 간단한 삼국(0) 부터 시작
             BattleScene.Battle(DungeonType);
 
 
