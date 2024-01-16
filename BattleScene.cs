@@ -11,8 +11,7 @@ namespace TeamProject
         public static int Current_HP = 0;
         public static List<Enemy> enemies = new List<Enemy>();
         public static List<string> earnedList = new List<string>();
-        public static int remainEXP = 0;     
-        public static bool skillSoundOff;
+        public static int remainEXP = 0;             
         public static void Battle(int DungeonType)
         {
             
