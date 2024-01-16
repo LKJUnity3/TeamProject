@@ -34,6 +34,7 @@ namespace TeamProject
 
         public static bool DataSelect()
         {
+            Console.Clear();
             Console.WriteLine("데이터를 불러오시겠습니까?");
             Console.WriteLine("1. yes");
             Console.WriteLine("0. No");
