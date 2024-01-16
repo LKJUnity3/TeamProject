@@ -6,10 +6,15 @@ namespace TeamProject
     {
         public static void Main(string[] args)
         {
+            bool dataRun = false;
             //Task.Run(() => SoundPlayer());
-            Player.NickName();
-            Player.player.GetJob();
-            Skill.SetSkill(Player.player.job);
+            dataRun = DataStore.DataSelect();
+            if(dataRun == false)
+            {
+                Player.NickName();
+                Player.player.GetJob();
+                Skill.SetSkill(Player.player.job);
+            }            
             Item.ItemSetting();
             Item.PotionSetting();
             Scene.StartScene();
