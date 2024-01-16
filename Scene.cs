@@ -32,8 +32,7 @@
                     case (int)SceneType.STATUS: Player.PlayerStatus(); break;
                     case (int)SceneType.INVENTORY: Item.InvenMenu(); break;
                     case (int)SceneType.SHOP: Item.StoreMenu(); break;
-                    case (int)SceneType.DUNGEON:
-                        Program.dungeonSound = true;
+                    case (int)SceneType.DUNGEON:                        
                         Dungeon.DungeonChoiceMenu();
                         break;
                     default: StartScene(); break;
