@@ -11,6 +11,7 @@ namespace TeamProject
         public static int Current_HP = 0;
         public static List<Enemy> enemies = new List<Enemy>();
         public static List<string> earnedList = new List<string>();
+        public static int remainEXP = 0;
         public static void Battle(int DungeonType)
         {
 
@@ -28,8 +29,7 @@ namespace TeamProject
             //플레이어 변수 저장
 
             Current_HP = Player.player.hp;
-            int current_EXP = Player.player.exp;
-            int remainEXP = 0;
+            int current_EXP = Player.player.exp;            
             int num;
 
             int Current_Defense = Player.player.def;

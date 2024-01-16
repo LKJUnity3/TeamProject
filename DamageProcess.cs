@@ -187,6 +187,16 @@ namespace TeamProject
                             Console.ForegroundColor = ConsoleColor.DarkGray;
                             Console.WriteLine("Dead\n");
                             Console.ResetColor();
+                            Player.player.exp += BattleScene.enemies[j].lv;
+                            if (Player.player.exp > Player.player.fullExp)
+                            {
+                                int fullE = Player.player.fullExp;
+                                int e = Player.player.exp;
+                                BattleScene.remainEXP = e - fullE;
+                                Player.player.exp = Player.player.fullExp;
+                            }
+                            Player.player.Gold += BattleScene.enemies[j].dropGold;
+                            Enemy.ItemDrop();
                         }
                         else
                         {
