@@ -442,9 +442,11 @@ namespace TeamProject
                 Console.WriteLine("\n[내정보]");
                 Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
 
+                alive = enemies.Count;
                 //적 죽음, 변수 감소
                 for(int i=0; i<enemies.Count; i++)
                 {
+                    
                     if (enemies[i].hp <=0)
                     {
                         enemies[i].alive = false;
@@ -661,6 +663,7 @@ namespace TeamProject
                     switch (num)
                     {
                         case 0:
+                            Current_HP = lastHP;
                             BattleStart();
                             break;
                         default:
@@ -676,7 +679,6 @@ namespace TeamProject
                     Thread.Sleep(1000);
                     goto enemyPhase;
                 }
-                Current_HP = lastHP;
             }
             void Battleresult()
             {

@@ -15,10 +15,10 @@ namespace TeamProject
                 Story.Prologue();
                 Player.NickName();
                 Player.player.GetJob();
-                Skill.SetSkill(Player.player.job);
-                Item.ItemSetting();
-                Item.PotionSetting();
-            }            
+                Skill.SetSkill(Player.player.job); 
+            }
+            Item.ItemSetting();
+            Item.PotionSetting();
             Scene.StartScene();
            
         }
