@@ -32,7 +32,7 @@ namespace TeamProject
             Player.player = JsonConvert.DeserializeObject<Player>(json);
         }
 
-        public static bool DataSelect()
+        public static bool DataSelect()//데이터 불러오기 선택 창
         {
             Console.Clear();
             Console.WriteLine("데이터를 불러오시겠습니까?");
@@ -55,7 +55,7 @@ namespace TeamProject
                     {
                         DataLoad();
                     }
-                    catch
+                    catch//불러올 데이터가 없으면 예외 처리, 신규 캐릭터 생성으로 진행됨
                     {
                         Console.WriteLine("이전에 저장한 데이터가 없습니다. 신규 캐릭터를 생성하겠습니다");
                         Thread.Sleep(600);
