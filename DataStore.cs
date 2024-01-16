@@ -50,7 +50,17 @@ namespace TeamProject
                 }
                 else if(dataNumb ==1)
                 {
-                    DataLoad();
+                    try
+                    {
+                        DataLoad();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("이전에 저장한 데이터가 없습니다. 신규 캐릭터를 생성하겠습니다");
+                        Thread.Sleep(600);
+                        return false;
+                    }
+
                     return true;
                 }
                 else
