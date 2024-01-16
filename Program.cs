@@ -7,7 +7,7 @@ namespace TeamProject
         public static void Main(string[] args)
         {
             bool dataRun = false;
-            //Task.Run(() => SoundPlayer());
+            Task.Run(() => SoundPlayer());
             dataRun = DataStore.DataSelect();
             if(dataRun == false)
             {
