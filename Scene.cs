@@ -14,6 +14,8 @@
 
         public static void StartScene()
         {
+            DataStore.DataSave();
+
             Console.Clear();
             Console.WriteLine("대한민국에 오신 여러분 환영합니다.");
             Console.WriteLine("이제 전투를 시작할 수 있습니다.");

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TeamProject
 {
@@ -141,9 +142,9 @@ namespace TeamProject
                 Console.WriteLine("[내정보]");
                 Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
                 Console.WriteLine("\n[스킬 리스트]\n");
-                for (int i = 0; i < Skill.characterSkill.Count; i++)
+                for (int i = 0; i < Player.player.characterSkill.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}.{Skill.characterSkill[i].skillname} | {Skill.characterSkill[i].skillDamage} | {Skill.characterSkill[i].skillInfo}");
+                    Console.WriteLine($"{i + 1}.{Player.player.characterSkill[i].skillname} | {Player.player.characterSkill[i].skillDamage} | {Player.player.characterSkill[i].skillInfo}");
                 }
                 Console.WriteLine("\n[0] 취소");
                 Console.WriteLine("\n스킬을 선택해주세요.");
@@ -156,7 +157,7 @@ namespace TeamProject
                     {
                         goto battle; //스킬창 취소 시 플레이어 페이지로 이동
                     }
-                    else if (0 < num && num <= Skill.characterSkill.Count)
+                    else if (0 < num && num <= Player.player.characterSkill.Count)
                     {
                         SkillPhase(num - 1);
 
@@ -290,11 +291,11 @@ namespace TeamProject
             }
             void SkillPhase(int skillnumber) //kcw 스킬 페이지
             {
-                if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Attack)
+                if (Player.player.characterSkill[skillnumber].skilltype == Skill.SkillType.Attack)
                 {
                     goto skillphaseSelectEnemy;
                 }
-                else if(Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.AttackPercent)
+                else if(Player.player.characterSkill[skillnumber].skilltype == Skill.SkillType.AttackPercent)
                 {
                     goto skillphaseSelectEnemy;
                 }
@@ -325,7 +326,7 @@ namespace TeamProject
                 Console.WriteLine("[내정보]");
                 Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
                 Console.WriteLine("\n[선택된 스킬 정보]");
-                Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname} | {Skill.characterSkill[skillnumber].skillDamage} | {Skill.characterSkill[skillnumber].skillInfo}");
+                Console.WriteLine($"{Player.player.characterSkill[skillnumber].skillname} | {Player.player.characterSkill[skillnumber].skillDamage} | {Player.player.characterSkill[skillnumber].skillInfo}");
                 Console.WriteLine("\n\n[0] 취소");
                 Console.WriteLine("\n스킬 공격할 대상을 선택해주세요.");
                 Console.Write(">>> ");
@@ -360,17 +361,17 @@ namespace TeamProject
                 Console.WriteLine("[스킬 발현]\n");
                 Console.WriteLine("");
                 Console.WriteLine("\n[사용한 스킬]");
-                Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname} | {Skill.characterSkill[skillnumber].skillDamage} | {Skill.characterSkill[skillnumber].skillInfo}\n");
+                Console.WriteLine($"{Player.player.characterSkill[skillnumber].skillname} | {Player.player.characterSkill[skillnumber].skillDamage} | {Player.player.characterSkill[skillnumber].skillInfo}\n");
 
 
                 //skill 효과 적용 추가
                 //skill 데미지 추가 필요
-                if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Attack || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.AttackPercent)
+                if (Player.player.characterSkill[skillnumber].skilltype == Skill.SkillType.Attack || Player.player.characterSkill[skillnumber].skilltype == Skill.SkillType.AttackPercent)
                 {
-                    int atk = DamageProcess.SkillAttackEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+                    int atk = DamageProcess.SkillAttackEffect(Player.player.characterSkill[skillnumber].skilltype, skillnumber);
                     Current_enemy_hp = enemies[num - 1].hp;
                     enemies[num - 1].Victim(atk);
-                    Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}으로 공격!");
+                    Console.WriteLine($"{Player.player.characterSkill[skillnumber].skillname}으로 공격!");
                     Console.WriteLine($"Lv.{enemies[num - 1].lv} {enemies[num - 1].Name}가 {atk} 데미지를 받았습니다");
                     if (enemies[num - 1].hp <= 0)
                     {
@@ -378,31 +379,41 @@ namespace TeamProject
                         Console.ForegroundColor = ConsoleColor.DarkGray;
                         Console.WriteLine("Dead");
                         Console.ResetColor();
+                        Player.player.exp += enemies[num - 1].lv;
+                        if (Player.player.exp > Player.player.fullExp)
+                        {
+                            int fullE = Player.player.fullExp;
+                            int e = Player.player.exp;
+                            remainEXP = e - fullE;
+                            Player.player.exp = Player.player.fullExp;
+                        }
+                        Player.player.Gold += enemies[num - 1].dropGold;
+                        Enemy.ItemDrop();
                     }
                     else
                     { 
                         Console.WriteLine($"HP {Current_enemy_hp} -> {enemies[num - 1].hp}");
                     }
                 }
-                else if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Defense || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.DefensePercent)
+                else if (Player.player.characterSkill[skillnumber].skilltype == Skill.SkillType.Defense || Player.player.characterSkill[skillnumber].skilltype == Skill.SkillType.DefensePercent)
                 {
-                    DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+                    DamageProcess.SkillEffect(Player.player.characterSkill[skillnumber].skilltype, skillnumber);
 
-                    Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}!!");
+                    Console.WriteLine($"{Player.player.characterSkill[skillnumber].skillname}!!");
                     Console.WriteLine($"방어 스탯 변화 : {Current_Defense} ->{Player.player.def}");
 
                 }
-                else if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Heal || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.HealPercent)
+                else if (Player.player.characterSkill[skillnumber].skilltype == Skill.SkillType.Heal || Player.player.characterSkill[skillnumber].skilltype == Skill.SkillType.HealPercent)
                 {
-                    DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+                    DamageProcess.SkillEffect(Player.player.characterSkill[skillnumber].skilltype, skillnumber);
                 }
-                else if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.SupportAtk || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.SupportDef || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.SupportHP)
+                else if (Player.player.characterSkill[skillnumber].skilltype == Skill.SkillType.SupportAtk || Player.player.characterSkill[skillnumber].skilltype == Skill.SkillType.SupportDef || Player.player.characterSkill[skillnumber].skilltype == Skill.SkillType.SupportHP)
                 {
-                    DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+                    DamageProcess.SkillEffect(Player.player.characterSkill[skillnumber].skilltype, skillnumber);
                 }
                 else //특수 스킬
                 {
-                    DamageProcess.SkillEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
+                    DamageProcess.SkillEffect(Player.player.characterSkill[skillnumber].skilltype, skillnumber);
                 }
 
                 Console.WriteLine("\n[내정보]");

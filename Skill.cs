@@ -37,7 +37,6 @@ namespace TeamProject
             new Skill_DataSet(SkillType.Special, "명의", "모든 체력을 즉시 회복하고 다음 체력 회복 스킬부터는 효과 2배 상승", 0, stat.JobList.약사,StageType.All),
             new Skill_DataSet(SkillType.Special, "인술", "모든 체력을 즉시 회복하고 적으로부터 공격을 받지 아니함", 0, stat.JobList.약사,StageType.All),
         };
-        public static List<Skill_DataSet> characterSkill = new List<Skill_DataSet>(); // 캐릭터가 소지한 skill
 
         public enum StageType //stage가 삼국시대, 조선, 한국, 전부해당으로 구성
         {
@@ -90,7 +89,7 @@ namespace TeamProject
             {
                 if (skilldatabase[i].jobName == jobName || skilldatabase[i].jobName == stat.JobList.All)
                 {
-                    characterSkill.Add(skilldatabase[i]);
+                    Player.player.characterSkill.Add(skilldatabase[i]);
                 }
             }
         }
