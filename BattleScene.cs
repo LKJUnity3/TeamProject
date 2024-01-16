@@ -619,6 +619,8 @@ namespace TeamProject
                 {
                     isDmg = 0;
                 }
+            enemyPhase:
+                Console.Clear();
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine("[ Battle!! ]\n");
                 Console.ResetColor();
@@ -640,7 +642,7 @@ namespace TeamProject
                 if (Current_HP > 0)
                 {
                     Console.WriteLine("HP " + Current_HP + " -> " + lastHP);
-                    Current_HP = lastHP;
+                    
                 }
                 else
                 {
@@ -649,7 +651,7 @@ namespace TeamProject
                 }
                 Console.WriteLine("\n[0] 다음");
                 Console.WriteLine("\n원하는 행동을 입력해주세요.");
-            enemyPhase:
+            
                 Console.Write(">>> ");
                 string index = Console.ReadLine();
                 Player.player.def = Current_Defense; // kcw 만약 스킬을 사용했으면 다음 플레이어 턴에 방어력 복귀
@@ -662,6 +664,9 @@ namespace TeamProject
                             BattleStart();
                             break;
                         default:
+                            Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                            Thread.Sleep(1000);
+                            goto enemyPhase;
                             break;
                     }
                 }
@@ -671,12 +676,14 @@ namespace TeamProject
                     Thread.Sleep(1000);
                     goto enemyPhase;
                 }
+                Current_HP = lastHP;
             }
             void Battleresult()
             {
-                Console.Clear();
+                
 
             Battleresult:
+                Console.Clear();
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine("[ Battle!! - Result ]\n");
                 Console.ResetColor();
@@ -731,7 +738,6 @@ namespace TeamProject
                     Console.WriteLine("\nLv." + Player.player.lv + " " + Player.player.Name);
                     Console.WriteLine("HP " + Player.player.hp + " -> " + Current_HP);
                 }
-                else { }
                 Console.WriteLine("\n[0] 다음");
                 Console.Write("\n>>> ");
                 string index = Console.ReadLine();
@@ -739,7 +745,11 @@ namespace TeamProject
                 bool isInt = int.TryParse(index, out num);
                 if (isInt)
                 {
-                    switch (num) { case 0: Program.dungeonSound1 = false; Program.dungeonSound2 = false; Program.dungeonSound3 = false; Scene.StartScene(); break; default: break; }
+                    switch (num) { case 0: Program.dungeonSound1 = false; Program.dungeonSound2 = false; Program.dungeonSound3 = false; Scene.StartScene(); break; 
+                        default:
+                            Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                            Thread.Sleep(1000);
+                            goto Battleresult; }
                 }
                 else
                 {
