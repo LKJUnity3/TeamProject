@@ -107,14 +107,14 @@ namespace TeamProject
                         InvenEquipMenu();
                         break;
                     default:
-                        Console.WriteLine("잘못 입력하셨습니다.");
+                        Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
                         Thread.Sleep(1000);
                         goto invenMenu;
                 }
             }
             else
             {
-                Console.WriteLine("잘못 입력하셨습니다.");
+                Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
                 Thread.Sleep(1000);
                 goto invenMenu;
             }
@@ -169,7 +169,7 @@ namespace TeamProject
                         }
                         else
                         {
-                            Console.WriteLine("잘못 입력하셨습니다.");
+                            Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
                             Thread.Sleep(1000);
                         }
                         goto invenEquipMenu;
@@ -177,7 +177,7 @@ namespace TeamProject
             }
             else
             {
-                Console.WriteLine("잘못 입력하셨습니다.");
+                Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
                 Thread.Sleep(1000);
                 goto invenEquipMenu;
             }
@@ -242,14 +242,14 @@ namespace TeamProject
                         StorePurchaseMenu();
                         break;
                     default:
-                        Console.WriteLine("잘못 입력하셨습니다.");
+                        Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
                         Thread.Sleep(1000);
                         goto storeMenu;
                 }
             }
             else
             {
-                Console.WriteLine("잘못 입력하셨습니다.");
+                Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
                 Thread.Sleep(1000);
                 goto storeMenu;
             }
@@ -330,7 +330,7 @@ namespace TeamProject
                         }
                         else
                         {
-                            Console.WriteLine("잘못 입력하셨습니다.");
+                            Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
                             Thread.Sleep(1000);
                         }
                         goto storePurchaseMenu;
@@ -338,7 +338,7 @@ namespace TeamProject
             }
             else
             {
-                Console.WriteLine("잘못 입력하셨습니다.");
+                Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
                 Thread.Sleep(1000);
                 goto storePurchaseMenu;
             }

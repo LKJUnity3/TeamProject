@@ -96,7 +96,7 @@ namespace TeamProject
             player.Name = Console.ReadLine();
             if (string.IsNullOrEmpty(player.Name))
             {
-                Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                Console.WriteLine("이름을 입력해주세요");
                 Thread.Sleep(1000);
                 NickName();
             }
