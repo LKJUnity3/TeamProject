@@ -36,8 +36,9 @@ namespace TeamProject
         {
             Console.Clear();
             Console.WriteLine("데이터를 불러오시겠습니까?");
-            Console.WriteLine("1. yes");
-            Console.WriteLine("0. No");
+            Console.WriteLine("");
+            Console.WriteLine("[0] 새로하기");
+            Console.WriteLine("[1] 이어하기");
             
         dataChoose:
             Console.Write("\n>>");

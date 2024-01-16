@@ -77,7 +77,7 @@ namespace TeamProject
         invenMenu:
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("■ 인벤토리 ■");
+            Console.WriteLine("[ 인벤토리 ]");
             Console.ResetColor();
             Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
             Console.WriteLine("[장비 아이템 목록]");
@@ -125,7 +125,7 @@ namespace TeamProject
             invenEquipMenu:
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("■ 인벤토리 - 장착관리 ■");
+            Console.WriteLine("[ 인벤토리 - 장착관리 ]");
             Console.ResetColor();
             Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
             Console.WriteLine("[장비 아이템 목록]");
