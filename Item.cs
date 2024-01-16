@@ -30,8 +30,10 @@ namespace TeamProject
             items.Add(new Item("수련자 갑옷", 0, 5, 0, "수련에 도움을 주는 갑옷입니다.", 1000));
             items.Add(new Item("무쇠갑옷", 0, 9, 0, "무쇠로 만들어져 튼튼한 갑옷입니다.", 2000));
             items.Add(new Item("스파르타의 갑옷", 0, 15, 0, "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.", 3500));
+            items.Add(new Item("두정갑", 0, 20, 10, "최후의 갑옷", 8000));
+            items.Add(new Item("곤룡포", 10000, 10000, 10000, "왕 혹은 누군가의 위엄", 1983415));
             items.Add(new Item("주먹도끼", 2, 0, 0, "이거 지금 시대가 아니지 않나?", 100));
-            items.Add(new Item("허임", 10, 0, 0, "여기가 문제로군...", 3000));
+            items.Add(new Item("허임", 10, 0, 10, "여기가 문제로군...", 3000)); // 허준 말고 허임
             items.Add(new Item("목봉", 15, 0, 0, "내가 진짜 홍...", 5000)); // 홍길동 보고 생각
             items.Add(new Item("어궁구", 30, 0, 0, "이는 사람이 쓸 수있는 물건이 아니다.", 10000)); // 태조 이성계를 보고 생각
             items.Add(new Item("신검", 20, 10, 0, "세상에 아무것도 베지 않을 수 있는 검", 10000)); // 김유신 장군을 보고 생각
@@ -41,9 +43,9 @@ namespace TeamProject
         public static List<Item> usePotions = new List<Item>();
         public static void PotionSetting()
         {
-            potions.Add(new Item("주먹밥", 0, 0, ((int)(player.hp * 0.3f)), "어우 짜! 누가 여기 소금을 이렇게..", 300));
-            potions.Add(new Item("북어", 0, 0, ((int)(player.hp * 0.6f)), "어푸어푸 아아아아", 300));
-            potions.Add(new Item("미숫가루", 0, 0, player.hp, "물이 아니라 길", 5000));
+            potions.Add(new Item("주먹밥", 0, 0, ((int)(player.hp * 0.2f)), "어우 짜! 누가 여기 소금을 이렇게..", 300));
+            potions.Add(new Item("북어", 0, 0, ((int)(player.hp * 0.4f)), "어푸어푸 아아아아", 300));
+            potions.Add(new Item("미숫가루", 0, 0, player.hp, "물이 아니라 길", 7000));
         }
 
         
@@ -252,8 +254,6 @@ namespace TeamProject
                 goto storeMenu;
             }
         }
-
-
         // 구매 및 판매 사용 O
         static void StorePurchaseMenu()
         {
