@@ -61,7 +61,6 @@ namespace TeamProject
                     Program.dungeonSound1 = false;
                     Program.dungeonSound2 = false;
                     Program.dungeonSound3 = false;
-                    Story.Prologue();
                     Scene.StartScene();
                     break;
                 case 1:
