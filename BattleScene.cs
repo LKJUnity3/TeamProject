@@ -455,7 +455,7 @@ namespace TeamProject
             }
 
 
-            // 아이템 페이지
+            // 소모 아이템 페이지
             void ItemPhase()
             {
             itemPhase:
@@ -707,7 +707,7 @@ namespace TeamProject
                 bool isInt = int.TryParse(index, out num);
                 if (isInt)
                 {
-                    switch (num) { case 0: Scene.StartScene(); break; default: break; }
+                    switch (num) { case 0: Program.dungeonSound = false; Scene.StartScene(); break; default: break; }
                 }
                 else
                 {

@@ -58,6 +58,7 @@ namespace TeamProject
             switch (ChoiceInput(0, 3))
             {
                 case 0:
+                    Program.dungeonSound = false;
                     Scene.StartScene();
                     break;
                 case 1:
