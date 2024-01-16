@@ -721,7 +721,7 @@ namespace TeamProject
                 bool isInt = int.TryParse(index, out num);
                 if (isInt)
                 {
-                    switch (num) { case 0: Program.dungeonSound = false; Scene.StartScene(); break; default: break; }
+                    switch (num) { case 0: Program.dungeonSound1 = false; Program.dungeonSound2 = false; Program.dungeonSound3 = false; Scene.StartScene(); break; default: break; }
                 }
                 else
                 {
