@@ -6,7 +6,7 @@ namespace TeamProject
     {
         public static void Main(string[] args)
         {
-            Task.Run(() => SoundPlayer());
+            //Task.Run(() => SoundPlayer());
             Player.NickName();
             Player.player.GetJob();
             Skill.SetSkill(Player.player.job);
