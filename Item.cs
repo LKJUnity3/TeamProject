@@ -27,9 +27,9 @@ namespace TeamProject
         public static List<Item> equipItems = new List<Item>(); // 장착 가능한 아이템 리스트
         public static void ItemSetting()
         {
-            items.Add(new Item("수련자 갑옷", 0, 5, 0, "수련에 도움을 주는 갑옷입니다.", 1000));
-            items.Add(new Item("무쇠갑옷", 0, 9, 0, "무쇠로 만들어져 튼튼한 갑옷입니다.", 2000));
-            items.Add(new Item("스파르타의 갑옷", 0, 15, 0, "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.", 3500));
+            items.Add(new Item("찰갑", 0, 5, 3, "수련에 도움을 주는 갑옷입니다.", 1000));
+            items.Add(new Item("황칠갑", 0, 10, 5, "무쇠로 만들어져 튼튼한 갑옷입니다.", 1500));
+            items.Add(new Item("판갑", 0, 15, 5, "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.", 3000));
             items.Add(new Item("두정갑", 0, 20, 10, "최후의 갑옷", 8000));
             items.Add(new Item("곤룡포", 10000, 10000, 10000, "왕 혹은 누군가의 위엄", 1983415));
             items.Add(new Item("주먹도끼", 2, 0, 0, "이거 지금 시대가 아니지 않나?", 100));
@@ -207,7 +207,7 @@ namespace TeamProject
             storeMenu:
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("■ 상점 ■");
+            Console.WriteLine("[ 상점 ]");
             Console.ResetColor();
             Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.\n");
             Console.WriteLine("[보유 골드]");
@@ -260,7 +260,7 @@ namespace TeamProject
             storePurchaseMenu:
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("■ 상점 ■");
+            Console.WriteLine("[ 상점 - 아이템 구매 ]");
             Console.ResetColor();
             Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.\n");
             Console.WriteLine("[보유 골드]");

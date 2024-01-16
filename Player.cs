@@ -62,11 +62,13 @@ namespace TeamProject
         {
         playerStatus:
             Console.Clear();
-            Console.WriteLine("상태 보기");
-            Console.WriteLine("캐릭터의 정보가 표시됩니다.");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("[ 상태 보기 ]");
+            Console.ResetColor();
+            Console.WriteLine("\n캐릭터의 정보가 표시됩니다.");
             player.Status();
             Console.WriteLine("\n[0] 나가기");
-            Console.Write("원하시는 행동을 입력해주세요.\n>>> ");
+            Console.Write("\n원하시는 행동을 입력해주세요.\n>>> ");
             string index = Console.ReadLine();
             int num;
             bool isInt = int.TryParse(index, out num);
@@ -79,7 +81,9 @@ namespace TeamProject
                     default: Console.WriteLine("잘못 입력하셨습니다."); Thread.Sleep(600); goto playerStatus;
                 }
             }
-            Console.WriteLine("잘못 입력하셨습니다."); Thread.Sleep(600); goto playerStatus;
+            Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+            Thread.Sleep(1000);
+            goto playerStatus;
         }
 
         //캐릭터 이름 설정
@@ -90,6 +94,12 @@ namespace TeamProject
             Console.WriteLine("원하시는 이름을 설정해주세요.");
             Console.Write(">>> ");
             player.Name = Console.ReadLine();
+            if (string.IsNullOrEmpty(player.Name))
+            {
+                Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                Thread.Sleep(1000);
+                NickName();
+            }
         }
 
 
@@ -98,7 +108,9 @@ namespace TeamProject
         {
             GetJob:
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("[ 캐 릭 터 선 택 ]\n\n");
+            Console.ResetColor();
             Console.WriteLine("[1] 김유신(검사) \n 공격력 : 50 | 방어력 : 30 | 체력 : 400 | 소지골드 3000 \n");
             // 각 캐릭터를 설정할 시 , 캐릭터에 대한 소개와 넣어보고 싶어요!
             Console.WriteLine("[2] 이성계(궁수) \n 공격력 : 45 | 방어력 : 20 | 체력 : 350 | 소지골드 7000 \n");
@@ -136,13 +148,18 @@ namespace TeamProject
                             setStatus(JobList.약사, 1, 10, 40, 600, 1500, 0, 10);
                             break;
                         }
-                    default: goto GetJob;
+                    default:
+                        Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                        Thread.Sleep(1000);
+                        goto GetJob;
 
                 }
 
             }
             else
             {
+                Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                Thread.Sleep(1000);
                 goto GetJob;
             }
         }

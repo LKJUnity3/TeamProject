@@ -21,7 +21,7 @@
             Console.WriteLine("대한민국에 오신 여러분 환영합니다.");
             Console.WriteLine("이제 전투를 시작할 수 있습니다.");
             Console.WriteLine("\n[1] 상태 보기\n[2] 인벤 토리\n[3] 상점\n[4] 던전");
-            Console.Write("원하시는 행동을 입력해주세요.\n>>> ");
+            Console.Write("\n원하시는 행동을 입력해주세요.\n>>> ");
             string index = Console.ReadLine();
             int num;
             bool isInt = int.TryParse(index, out num);
@@ -32,41 +32,48 @@
                     case (int)SceneType.STATUS: Player.PlayerStatus(); break;
                     case (int)SceneType.INVENTORY: Item.InvenMenu(); break;
                     case (int)SceneType.SHOP: Item.StoreMenu(); break;
-                    case (int)SceneType.DUNGEON:                        
-                        Dungeon.DungeonChoiceMenu();
+                    case (int)SceneType.DUNGEON: Dungeon.DungeonChoiceMenu(); break;
+                    default:
+                        Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                        Thread.Sleep(1000);
+                        StartScene(); 
                         break;
-                    default: StartScene(); break;
                 }
             }
-
-           
+            else
+            {
+                Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                Thread.Sleep(1000);
+                StartScene();
+            }
         }
 
         public static void StartPrintStartLogo()
         {
-            Console.WriteLine("                   Z.   .          ....Z.           ");
-            Console.WriteLine("         .     ....?.~:.~+++7?7++=:.:~,~....   . .  ");
-            Console.WriteLine("        .,..,,,,....,::.:,..~~.~~. :,,::, ...,,,. .,");
-            Console.WriteLine("        .MM,:..:.~.,:.~..:~.~.~.~:,.~.~,.~.:~.:.MN..");
-            Console.WriteLine("           ,MMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMM8MMMM,  ");
-            Console.WriteLine("            .NMM..,:=I77$77IZZ$ZZ777777I=:,..MMM.   ");
-            Console.WriteLine("            . .OZZZ:Z??:??OZ==:==$8??~?IZ:ZZOM...   ");
-            Console.WriteLine("     .,...~I:.,,.=~.,.:,.,..:..:.~.~. ~.=~,.,:.7~..... ");
-            Console.WriteLine("      .M8,...,:..: ,.~=.,: ,,..~,.~.,:.:.~. .~....NM.");
-            Console.WriteLine("         .$ZZ7MM7MMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMMM");
-            Console.WriteLine("         ::..Z:?~,?~=?=,=?~,+,,+?,,?+,~+,,I::++M:.");
-            Console.WriteLine("         ,....~:~,:?=:~+:~+~..?..:~..?.~?7~,~~=~~.");
-            Console.WriteLine("          ..,.+,I,,=+,:D,.~:,,D==++==N::??:,?,:..       ");
-            Console.WriteLine("          :,~+~...==OOMOO==O?NOO=?OOMOZ?+. ..=.~.       ");
-            Console.WriteLine("   ..  .,7:=,I,+,?:I,=:7,~I~.......~I~,I:=,I:?,+,I,~:7,.");
-            Console.WriteLine("   .=.=.? = ?.~.+:~++~,?~. .. . .. .:?:~=+::+=~.?.= ?.=.=,");
-            Console.WriteLine("   .... ... ....=...,... ?::::.::::?....,...=.... .........");
-            Console.WriteLine("  ....................... ~~~~~~~~~~=.............  ........ ");
-            Console.WriteLine("");
+            Console.WriteLine("                                                                ");
+            Console.WriteLine("                   Z.   .          ....Z.                       ");
+            Console.WriteLine("         .     ....?.~:.~+++7?7++=:.:~,~....   . .              ");
+            Console.WriteLine("        .,..,,,,....,::.:,..~~.~~. :,,::, ...,,,. .,            ");
+            Console.WriteLine("        .MM,:..:.~.,:.~..:~.~.~.~:,.~.~,.~.:~.:.MN..            ");
+            Console.WriteLine("           ,MMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMM8MMMM,              ");
+            Console.WriteLine("            .NMM..,:=I77$77IZZ$ZZ777777I=:,..MMM.               ");
+            Console.WriteLine("            . .OZZZ:Z??:??OZ==:==$8??~?IZ:ZZOM...               ");
+            Console.WriteLine("     .,...~I:.,,.=~.,.:,.,..:..:.~.~. ~.=~,.,:.7~.....          ");
+            Console.WriteLine("      .M8,...,:..: ,.~=.,: ,,..~,.~.,:.:.~. .~....NM.           ");
+            Console.WriteLine("         .$ZZ7MM7MMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMMM             ");
+            Console.WriteLine("         ::..Z:?~,?~=?=,=?~,+,,+?,,?+,~+,,I::++M:.              ");
+            Console.WriteLine("         ,....~:~,:?=:~+:~+~..?..:~..?.~?7~,~~=~~.              ");
+            Console.WriteLine("          ..,.+,I,,=+,:D,.~:,,D==++==N::??:,?,:..               ");
+            Console.WriteLine("          :,~+~...==OOMOO==O?NOO=?OOMOZ?+. ..=.~.               ");
+            Console.WriteLine("   ..  .,7:=,I,+,?:I,=:7,~I~.......~I~,I:=,I:?,+,I,~:7,.        ");
+            Console.WriteLine("   .=.=.? = ?.~.+:~++~,?~. .. . .. .:?:~=+::+=~.?.= ?.=.=,      ");
+            Console.WriteLine("   .... ... ....=...,... ?::::.::::?....,...=.... .........     ");
+            Console.WriteLine("  ....................... ~~~~~~~~~~=.............  ........    ");
+            Console.WriteLine("                                                                ");
             Console.WriteLine("================================================================");
-            Console.WriteLine("        Start :  환생의 길, 시대를 넘어서       ");
+            Console.WriteLine("               Start :  환생의 길, 시대를 넘어서                ");
             Console.WriteLine("================================================================");
-            Console.ReadKey();
+            Console.ReadKey(true);
         }
 
         public static void EndingScene()
