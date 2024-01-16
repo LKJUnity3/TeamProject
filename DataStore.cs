@@ -34,14 +34,13 @@ namespace TeamProject
 
         public static bool DataSelect()//데이터 불러오기 선택 창
         {
+        dataChoose:
             Console.Clear();
             Console.WriteLine("데이터를 불러오시겠습니까?");
             Console.WriteLine("");
             Console.WriteLine("[0] 새로하기");
             Console.WriteLine("[1] 이어하기");
-            
-        dataChoose:
-            Console.Write("\n>>");
+            Console.Write("\n원하시는 행동을 입력해주세요.\n>>> ");
             string dataSelect = Console.ReadLine();
             int dataNumb;
             if(int.TryParse(dataSelect, out dataNumb))
@@ -59,7 +58,7 @@ namespace TeamProject
                     catch//불러올 데이터가 없으면 예외 처리, 신규 캐릭터 생성으로 진행됨
                     {
                         Console.WriteLine("이전에 저장한 데이터가 없습니다. 신규 캐릭터를 생성하겠습니다");
-                        Thread.Sleep(600);
+                        Thread.Sleep(1000);
                         return false;
                     }
 
@@ -68,12 +67,14 @@ namespace TeamProject
                 else
                 {
                     Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                    Thread.Sleep(1000);
                     goto dataChoose;
                 }
             }
             else
             {
                 Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                Thread.Sleep(1000);
                 goto dataChoose;
             }
         }
