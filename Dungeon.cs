@@ -40,43 +40,7 @@ namespace TeamProject
             Console.WriteLine(text);
             Console.ResetColor();
         }
-
-        public static void DungeonMenu()
-        {
-            Console.Clear();
-            ShowHighlightedText("■ 던전 입장 ■");
-            Console.WriteLine("이곳에서 던전으로 들어가기 전 다음 활동을 할 수 있습니다.");
-            Console.WriteLine("");
-            Console.WriteLine("1. 상태 보기");
-            Console.WriteLine("2. 인벤토리");
-            Console.WriteLine("3. 상점");
-            Console.WriteLine("4. 던전 입장");
-            Console.WriteLine("0. 메인 화면으로 나가기");
-            Console.WriteLine("");
-
-            switch (ChoiceInput(0, 4))
-            // Program.cs 에서 만든 메인메뉴, 상태보기, 인벤토리, 상점, 던전 난이도 선택 , 던전입장 등을 구현하고 싶음
-            {
-                case 0:
-                    Program.dungeonSound = false;
-                    Scene.StartScene(); // 메인 메뉴로 나가기
-                    break;
-                case 1:
-                    Player.PlayerStatus(); // 상태 보기
-                    break;
-                case 2:
-                    Item.InvenMenu(); // 인벤토리
-                    break;
-                case 3:
-                    Item.StoreMenu(); // 상점
-                    break;
-                case 4:
-                    DungeonChoiceMenu(); // 던전 난이도 선택
-                    break;
-            }
-        }
-
-
+      
 
         public static void DungeonChoiceMenu() // 12-1. 던전 난이도 선택
         {
@@ -84,17 +48,17 @@ namespace TeamProject
             ShowHighlightedText("■ 던전 난이도 선택 ■");
             Console.WriteLine("다양한 난이도의 던전을 선택할 수 있습니다.");
             Console.WriteLine("");
-            Console.WriteLine("1. 삼국            | 체력 100 이상 권장  | ");
+            Console.WriteLine("1. 삼국            | 체력 100 이상 권장  | 고려 전기에 중국 역사에서 발생한 국가 분열과 통일의 역동적인 시기 ");
             Console.WriteLine("2. 조선            | 체력 180 이상 권장  | 안동김씨가 활개치던 그떄 그 시기, 진정한 헬조선의 시작 ");
             Console.WriteLine("3. 대한민국(현대)  | 체력 200 이상 권장  | 저출산,젠더갈등,취업경쟁,국채 증가 등의 각종 지옥의 문이 열린 대한민국");
             Console.WriteLine("");
-            Console.WriteLine("0. 던전 입구로 돌아가기");
+            Console.WriteLine("0. 메인화면으로 돌아가기");
             Console.WriteLine("");
 
             switch (ChoiceInput(0, 3))
             {
                 case 0:
-                    DungeonMenu();
+                    Scene.StartScene();
                     break;
                 case 1:
                     EnterDungeon(0);
@@ -118,7 +82,7 @@ namespace TeamProject
                 Console.WriteLine("");
                 Console.WriteLine("아무키나 누르면 던전 입구로 돌아갑니다.");
                 Console.ReadLine();
-                DungeonMenu();
+                DungeonChoiceMenu();
                 return;
             }
 
