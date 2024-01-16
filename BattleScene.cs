@@ -651,15 +651,31 @@ namespace TeamProject
                 if (alive <= 0)
                 {
                     Console.WriteLine("Victory");
-                    Console.WriteLine("\n던전에서 몬스터 " + enemies.Count + "마리를 잡았습니다.");                                                                                                                                           
-                    if (Player.player.fullExp == Player.player.exp)
+                    Console.WriteLine("\n던전에서 몬스터 " + enemies.Count + "마리를 잡았습니다.");
+                    while (Player.player.fullExp == Player.player.exp)
                     {
                         Console.WriteLine("\nLv." + Player.player.lv + " " + Player.player.Name + " -> " + "Lv." + (Player.player.lv + 1) + " " + Player.player.Name);
                         Player.LevelUp();
                         Player.player.exp = 0;
                         Player.player.exp += remainEXP;
+                        remainEXP = 0;
+                        if(Player.player.exp > Player.player.fullExp)
+                        {
+                            int fullE = Player.player.fullExp;
+                            int e = Player.player.exp;
+                            remainEXP += e - fullE;
+                            Player.player.exp = Player.player.fullExp;
+                            if(Player.player.fullExp == Player.player.exp)
+                            {
+                                Console.WriteLine("\nLv." + Player.player.lv + " " + Player.player.Name + " -> " + "Lv." + (Player.player.lv + 1) + " " + Player.player.Name);
+                                Player.LevelUp();
+                                Player.player.exp = 0;
+                                Player.player.exp += remainEXP;
+                                remainEXP = 0;
+                            }                            
+                        }
                     }
-                    else if(Player.player.fullExp != Player.player.exp)
+                    if(Player.player.fullExp != Player.player.exp)
                     {
                         Console.WriteLine("\nLv." + Player.player.lv + " " + Player.player.Name);
                     }                    
