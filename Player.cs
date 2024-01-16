@@ -90,11 +90,11 @@ namespace TeamProject
             GetJob:
             Console.Clear();
             Console.WriteLine("[ 캐 릭 터 선 택 ]\n\n");
-            Console.WriteLine("[1] 김유신(검사) \n 공격력 : 180 | 방어력 : 150 | 체력 : 250 | 소지골드 2000 \n");
+            Console.WriteLine("[1] 김유신(검사) \n 공격력 : 50 | 방어력 : 30 | 체력 : 400 | 소지골드 3000 \n");
             // 각 캐릭터를 설정할 시 , 캐릭터에 대한 소개와 넣어보고 싶어요!
-            Console.WriteLine("[2] 이성계(궁수) \n 공격력 : 150 | 방어력 : 200 | 체력 : 200 | 소지골드 2500 \n");
-            Console.WriteLine("[3] 홍길동(주술사) \n 공격력 : 180 | 방어력 : 180 | 체력 : 200 | 소지골드 3000 \n");
-            Console.WriteLine("[4] 허준(약사) \n 공격력 : 180 | 방어력 : 180 | 체력 : 200 | 소지골드 3000 \n");
+            Console.WriteLine("[2] 이성계(궁수) \n 공격력 : 45 | 방어력 : 20 | 체력 : 350 | 소지골드 7000 \n");
+            Console.WriteLine("[3] 홍길동(주술사) \n 공격력 : 40 | 방어력 : 30 | 체력 : 450 | 소지골드 800 \n");
+            Console.WriteLine("[4] 허준(약사) \n 공격력 : 10 | 방어력 : 40 | 체력 : 600 | 소지골드 1500 \n");
             Console.WriteLine("\n원하시는 캐릭터를 선택하세요.");
             Console.Write(">>> ");
 
@@ -109,22 +109,22 @@ namespace TeamProject
                     case 1:
                         {
                             // job, lv, atck, def, hp, gold
-                            setStatus(JobList.검사, 1, 180, 150, 250, 2000, 0, 10);
+                            setStatus(JobList.검사, 1, 50, 30, 400, 3000, 0, 10);
                             break;
                         }
                     case 2:
                         {
-                            setStatus(JobList.궁수, 1, 150, 200, 200, 2500, 0, 10);
+                            setStatus(JobList.궁수, 1, 45, 20, 350, 7000, 0, 10);
                             break;
                         }
                     case 3:
                         {
-                            setStatus(JobList.주술사, 1, 180, 180, 200, 3000, 0, 10);
+                            setStatus(JobList.주술사, 1, 40, 30, 450, 800, 0, 10);
                             break;
                         }
                     case 4:
                         {
-                            setStatus(JobList.약사, 1, 180, 180, 200, 3000, 0, 10);
+                            setStatus(JobList.약사, 1, 10, 40, 600, 1500, 0, 10);
                             break;
                         }
                     default: goto GetJob;
@@ -141,8 +141,8 @@ namespace TeamProject
         public static void LevelUp()
         {
             player.lv += 1;
-            player.atk += 1;
-            player.def += 1;
+            player.atk += player.lv * (int)(player.atk * 0.02f);
+            player.def += player.lv * (int)(player.def * 0.02f);
             player.fullExp += 15 + player.lv * 5;
             player.exp = 0;
             WindowsMediaPlayer soundMenu = new WindowsMediaPlayer();
