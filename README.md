@@ -21,6 +21,7 @@ Visual Studio 를 이용해서 C#으로 제작한 프로그램입니다.
 * C#
 * .NET 8.0
 * Windows
+* Nugat 패키지
 
 ## 주요기능
 
