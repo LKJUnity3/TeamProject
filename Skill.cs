@@ -61,13 +61,11 @@ namespace TeamProject
         }
         public class Skill_DataSet
         {
-            public SkillType skilltype;
+            public SkillType skilltype;// 스킬 타입 저장
             public string skillname;
             public string skillInfo;
             public int skillDamage;
-            public stat.JobList jobName;
-            //stat.JobType jobName; //파일이름.enum명칭 변수명 선언가능
-            // 검사, 궁수, 주술사, 힐러, 전부로 구분된 enum의 상수값을 받기 위한 변수
+            public stat.JobList jobName;//스킬을 사용할 수 있는 직업, 저장을 위한 변수
             StageType stagetype;//삼국시대, 조선, 대한민국, 전부로 구분된 enum의 상수값을 받기 위한 변수
 
             public Skill_DataSet(SkillType type, string name, string Info, int statusNumber, stat.JobList jobName, StageType stage)

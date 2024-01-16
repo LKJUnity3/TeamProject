@@ -16,9 +16,9 @@ namespace TeamProject
         {
 
             bool battle = false; // 배틀선택했는지
-            DamageProcess damageProcess = new DamageProcess();
+            DamageProcess damageProcess = new DamageProcess();//damageProcess class 생성
 
-            switch (DungeonType)
+            switch (DungeonType)//던전 타입에 따른 적 셋팅
             {
                 case 0: enemies = Enemy.SamGuk_EnemySetting();break;
                 case 1: enemies = Enemy.Josun_EnemySetting();break;
@@ -28,17 +28,19 @@ namespace TeamProject
             int alive = enemies.Count;
             //플레이어 변수 저장
 
-            Current_HP = Player.player.hp;
+            Current_HP = Player.player.hp;//던전 입장, player의 최대 체력 -> 현재 체력
             int current_EXP = Player.player.exp;            
             int num;
 
-            int Current_Defense = Player.player.def;
-            int Current_Attack = Player.player.atk;
-            int existingGold = Player.player.Gold;
+            int Current_Defense = Player.player.def;//던전 입장, player의 최대 방어력 -> 현재 방어력
+            int Current_Attack = Player.player.atk;//던전 입장, player의 최대 공격력 -> 현재 공격력
+            int existingGold = Player.player.Gold;//던전 입장, player의 골드
+            
             // 적 변수 저장.
             int Current_enemy_hp;
             bool enemyItemDrop = false;            
-            int selectDropItem = 0;            
+            int selectDropItem = 0;    
+            
             // 어태커 빅팀 정보저장
             int indexHP = 0;
             double MinDmg = Math.Round((double)Player.player.atk * 0.9);
@@ -46,6 +48,7 @@ namespace TeamProject
             Random random = new Random();
             BattleStart();
 
+            //배틀을 진행하게 되면 첫 화면
             void BattleStart()
             { 
             battle:
@@ -120,11 +123,12 @@ namespace TeamProject
                     goto battle;
                 }
 
+                //스킬 선택 창
             skillLook:
                 Console.Clear();
                 indexHP = Current_HP;
                 Console.WriteLine("Battle!!\n");
-                for (int i = 0; i < enemies.Count; i++)
+                for (int i = 0; i < enemies.Count; i++)//적 정보 나열
                 {
                     Console.Write((i + 1) + " ");
                     if (enemies[i].alive)
@@ -142,6 +146,8 @@ namespace TeamProject
                 Console.WriteLine("[내정보]");
                 Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
                 Console.WriteLine("\n[스킬 리스트]\n");
+
+                //스킬 정보 나열
                 for (int i = 0; i < Player.player.characterSkill.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}.{Player.player.characterSkill[i].skillname} | {Player.player.characterSkill[i].skillDamage} | {Player.player.characterSkill[i].skillInfo}");
@@ -149,6 +155,8 @@ namespace TeamProject
                 Console.WriteLine("\n[0] 취소");
                 Console.WriteLine("\n스킬을 선택해주세요.");
                 Console.Write(">>> ");
+
+                //스킬 선택
                 index = Console.ReadLine();
                 isInt = int.TryParse(index, out num);
                 if (isInt)
@@ -291,11 +299,11 @@ namespace TeamProject
             }
             void SkillPhase(int skillnumber) //kcw 스킬 페이지
             {
-                if (Player.player.characterSkill[skillnumber].skilltype == Skill.SkillType.Attack)
+                if (Player.player.characterSkill[skillnumber].skilltype == Skill.SkillType.Attack)//공격 스킬 선택
                 {
                     goto skillphaseSelectEnemy;
                 }
-                else if(Player.player.characterSkill[skillnumber].skilltype == Skill.SkillType.AttackPercent)
+                else if(Player.player.characterSkill[skillnumber].skilltype == Skill.SkillType.AttackPercent)//공격% 스킬 선택
                 {
                     goto skillphaseSelectEnemy;
                 }
@@ -315,7 +323,7 @@ namespace TeamProject
                     {
                         Console.WriteLine("Lv." + enemies[i].lv + " " + enemies[i].Name + " HP " + enemies[i].hp);
                     }
-                    else
+                    else//적이 죽으면 hp 대신 Dead 표시
                     {
                         Console.ForegroundColor = ConsoleColor.DarkGray;
                         Console.WriteLine("Lv." + enemies[i].lv + " " + enemies[i].Name + " Dead ");
@@ -330,6 +338,8 @@ namespace TeamProject
                 Console.WriteLine("\n\n[0] 취소");
                 Console.WriteLine("\n스킬 공격할 대상을 선택해주세요.");
                 Console.Write(">>> ");
+
+                //공격 스킬 이용 대상 선택
                 string index = Console.ReadLine();
                 bool isInt = int.TryParse(index, out num);
                 if (isInt)
@@ -356,6 +366,7 @@ namespace TeamProject
                 goto skillphaseSelectEnemy;
 
 
+                //스킬 효과 발현 UI
             skillResult:
                 Console.Clear();
                 Console.WriteLine("[스킬 발현]\n");
@@ -364,13 +375,15 @@ namespace TeamProject
                 Console.WriteLine($"{Player.player.characterSkill[skillnumber].skillname} | {Player.player.characterSkill[skillnumber].skillDamage} | {Player.player.characterSkill[skillnumber].skillInfo}\n");
 
 
-                //skill 효과 적용 추가
-                //skill 데미지 추가 필요
+                //skill 효과에 따른 적용 및 UI 표시
                 if (Player.player.characterSkill[skillnumber].skilltype == Skill.SkillType.Attack || Player.player.characterSkill[skillnumber].skilltype == Skill.SkillType.AttackPercent)
                 {
+                    //스킬 데미지 계산 -> atk에 입력
                     int atk = DamageProcess.SkillAttackEffect(Player.player.characterSkill[skillnumber].skilltype, skillnumber);
                     Current_enemy_hp = enemies[num - 1].hp;
                     enemies[num - 1].Victim(atk);
+
+                    //스킬 데미지 적용 표현
                     Console.WriteLine($"{Player.player.characterSkill[skillnumber].skillname}으로 공격!");
                     Console.WriteLine($"Lv.{enemies[num - 1].lv} {enemies[num - 1].Name}가 {atk} 데미지를 받았습니다");
                     if (enemies[num - 1].hp <= 0)
@@ -419,6 +432,7 @@ namespace TeamProject
                 Console.WriteLine("\n[내정보]");
                 Console.WriteLine("Lv." + Player.player.lv + " " + Player.player.Name + " (" + Player.player.job + ")");
 
+                //적 죽음, 변수 감소
                 for(int i=0; i<enemies.Count; i++)
                 {
                     if (enemies[i].hp <=0)

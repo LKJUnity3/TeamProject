@@ -6,11 +6,11 @@ namespace TeamProject
 {
     public class Player : stat
     {
-        public JobList job;
-        public List<Skill_DataSet> characterSkill = new List<Skill_DataSet>(); //캐릭터가 소지한 스킬 정보\
+        public JobList job;//캐릭터가 소지하고 있는 직업, enum으로 선언
+        public List<Skill_DataSet> characterSkill = new List<Skill_DataSet>(); //캐릭터가 소지한 스킬 정보
         
-        public int Gold { get; set; }
-        public int victim(int atk,int hp)
+        public int Gold { get; set; }//돈, 골드
+        public int victim(int atk,int hp)//데미지 계산
         {
             int isDamage = atk - def;
             if (isDamage < 0)
@@ -26,6 +26,7 @@ namespace TeamProject
             return hp;
         }
 
+        //스탯 설정
         public void setStatus(JobList job, int lv, int atk, int def, int hp, int gold, int exp, int fullExp)
         {
             player.atk = atk;
@@ -37,6 +38,8 @@ namespace TeamProject
             player.exp = exp;
             player.fullExp = fullExp;
         }
+
+        //스탯 UI
         public void Status()
         {
             Console.WriteLine("Lv." + lv);
@@ -51,7 +54,10 @@ namespace TeamProject
             Console.WriteLine("Gold   : " + Gold);
         }
 
+        //캐릭터 생성
         public static Player player = new Player();
+        
+        //상태보기 화면
         public static void PlayerStatus()
         {
         playerStatus:
@@ -75,6 +81,8 @@ namespace TeamProject
             }
             Console.WriteLine("잘못 입력하셨습니다."); Thread.Sleep(600); goto playerStatus;
         }
+
+        //캐릭터 이름 설정
         public static void NickName()
         {
             Console.Clear();
@@ -85,6 +93,7 @@ namespace TeamProject
         }
 
 
+        //캐릭터 직업 설정
         public  void GetJob()
         {
             GetJob:
@@ -104,7 +113,7 @@ namespace TeamProject
 
             if (IsCorrect && num > 0 && num <= System.Enum.GetValues(typeof(JobList)).Length)
             {
-                switch (num)
+                switch (num)//캐릭터의 직업과 초기 스탯 입력
                 {
                     case 1:
                         {
