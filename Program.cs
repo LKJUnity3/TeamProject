@@ -8,6 +8,7 @@ namespace TeamProject
         {
             bool dataRun = false;
             Task.Run(() => SoundPlayer());
+            Scene.StartPrintStartLogo();
             dataRun = DataStore.DataSelect();
             if(dataRun == false)
             {

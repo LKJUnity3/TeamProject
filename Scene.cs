@@ -14,7 +14,6 @@
 
         public static void StartScene()
         {
-            StartPrintStartLogo();
             DataStore.DataSave();
 
             Console.Clear();
