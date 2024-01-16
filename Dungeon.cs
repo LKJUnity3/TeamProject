@@ -62,22 +62,56 @@ namespace TeamProject
                     Program.dungeonSound1 = false;
                     Program.dungeonSound2 = false;
                     Program.dungeonSound3 = false;
+                    Story.Prologue();
                     Scene.StartScene();
                     break;
                 case 1:
                     Program.dungeonSound1 = true;
+                    Story.Chapter1();
                     EnterDungeon(0);
                     break;
                 case 2:
                     Program.dungeonSound2 = true;
+                    Story.Chapter2();
                     EnterDungeon(1);
                     break;
                 case 3:
                     Program.dungeonSound3 = true;
+                    Story.Chapter3();
                     EnterDungeon(2);
                     break;
             }
 
+        }
+        public static void StartDungeon(int DungeonType)
+        {
+                     
+            //switch (DungeonType)
+            //{
+            //    case 1:
+            //        // 삼국시대 스토리
+            //        Story.Chapter1();
+            //        break;
+            //    // 다음 던전이 추가되면 해당 던전 스토리를 호출
+            //    case 2:
+            //        Story.Chapter2();
+            //        break;
+            //    case 3:
+            //        Story.Chapter3();
+            //        break;
+            //}
+
+            // 예시로 간단한 삼국(0) 부터 시작
+            BattleScene.Battle(DungeonType);
+
+
+            // 던전 클리어 후 다음 스테이지로 이동하거나 게임을 종료하는 등의 로직을 추가가능
+            Console.WriteLine($" {DungeonType} 던전 클리어!");
+
+            // 다음 던전로 이동
+            int nextStage = DungeonType + 1;
+            Console.WriteLine($"다음 스테이지로 이동합니다: {nextDungeon}");           
+            StartDungeon(nextDungeon);
         }
 
         public static void EnterDungeon(int DungeonType)
@@ -99,20 +133,6 @@ namespace TeamProject
             StartDungeon(DungeonType); // 삼국(0)부터 시작
         }
 
-        public static void StartDungeon(int DungeonType)
-        {
-
-            // 예시로 간단한 삼국(0) 부터 시작
-            BattleScene.Battle(DungeonType);
-
-            // 던전 클리어 후 다음 스테이지로 이동하거나 게임을 종료하는 등의 로직을 추가할 수 있습니다.
-            Console.WriteLine($" {DungeonType} 던전 클리어!");
-
-            // 다음 던전로 이동
-            int nextStage = DungeonType + 1;
-            Console.WriteLine($"다음 스테이지로 이동합니다: {nextDungeon}");
-            StartDungeon(nextDungeon);
-        }
 
         public static int GetRequiredHpForDungeon(int dungeonNumber)
         {

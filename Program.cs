@@ -12,6 +12,7 @@ namespace TeamProject
             dataRun = DataStore.DataSelect();//신규 생성 선택 또는 불러오기 선택, 불러오기 데이터 없으면 신규 생성으로
             if(dataRun == false)
             {
+                Story.Prologue();
                 Player.NickName();
                 Player.player.GetJob();
                 Skill.SetSkill(Player.player.job);
