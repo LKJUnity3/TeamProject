@@ -64,16 +64,19 @@ namespace TeamProject
                 {
                     soundMenu.controls.stop();
                     soundDungeon1.controls.play();
+                    soundDungeon1.settings.autoStart = true;
                 }
                 else if (File.Exists(dungeonSoundFolder2) && dungeonSound2)
                 {
                     soundMenu.controls.stop();
                     soundDungeon2.controls.play();
+                    soundDungeon2.settings.autoStart = true;
                 }
                 else if (File.Exists(dungeonSoundFolder3) && dungeonSound3)
                 {
                     soundMenu.controls.stop();
                     soundDungeon3.controls.play();
+                    soundDungeon3.settings.autoStart = true;
                 }
                 Thread.Sleep(100);
             }
