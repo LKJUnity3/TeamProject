@@ -67,17 +67,17 @@ namespace TeamProject
                     break;
                 case 1:
                     Program.dungeonSound1 = true;
-                    Story.Chapter1();
+                    Story.Chapter1();                    
                     EnterDungeon(0);
                     break;
                 case 2:
                     Program.dungeonSound2 = true;
-                    Story.Chapter2();
+                    Story.Chapter2();                    
                     EnterDungeon(1);
                     break;
                 case 3:
                     Program.dungeonSound3 = true;
-                    Story.Chapter3();
+                    Story.Chapter3();                    
                     EnterDungeon(2);
                     break;
             }
