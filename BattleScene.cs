@@ -276,7 +276,7 @@ namespace TeamProject
                         if (enemies[num - 1].alive)
                         {
                             Current_enemy_hp = enemies[num - 1].hp;                            
-                            enemies[num - 1].hp = damageProcess.PlayerAttack(Player.player.atk, Current_enemy_hp, Enemy_Extra_Avoide, out float isDamage, out bool criticalTrue, out bool avoidanceTrue);
+                            enemies[num - 1].hp = damageProcess.PlayerAttack(Player.player.atk, Current_enemy_hp, Enemy_Extra_Avoide, enemies[num-1].def, out float isDamage, out bool criticalTrue, out bool avoidanceTrue);
                             if (avoidanceTrue == true && criticalTrue == false)
                             {
                                 playerPhase(num, (int)isDamage, 1);                                

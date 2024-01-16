@@ -271,7 +271,7 @@ namespace TeamProject
 
             if (isDamage < 0)
             {
-                isDamage = 0;
+                isDamage = (int)Math.Round(atk *0.15);
             }
             hp -= isDamage;
             if (hp < 0)
@@ -282,14 +282,14 @@ namespace TeamProject
         }
 
         //캐릭터의 공격 계산
-        public int PlayerAttack(float atk, int hp, int ExtraAvoid, out float isDamage, out bool criticalTrue, out bool avoidanceTrue)
+        public int PlayerAttack(float atk, int hp, int ExtraAvoid,int def, out float isDamage, out bool criticalTrue, out bool avoidanceTrue)
         {
             //최소, 최대 데미지
             double MinDmg = Math.Round((double)Player.player.atk * 0.9);
             double MaxDmg = Math.Round((double)Player.player.atk * 1.1);
 
             atk = new Random().Next((int)MinDmg, (int)MaxDmg);
-            isDamage = atk;
+            isDamage = atk - def;
             criticalTrue = false;
 
             //크리티컬 값 계산
@@ -298,6 +298,12 @@ namespace TeamProject
             //적 회피 계산
             avoidanceTrue = false;
             int avoidanceAtk = Avoidance((int)isDamage, ExtraAvoid, ref avoidanceTrue);
+
+            if (isDamage <= 0)
+            {
+                isDamage = (int)Math.Round(atk * 0.15);
+            }
+
 
             if (criticalTrue == true && avoidanceTrue == false)
             {
