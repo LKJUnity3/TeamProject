@@ -7,7 +7,8 @@ namespace TeamProject
     public class Player : stat
     {
         public JobList job;
-        public List<Skill_DataSet> characterSkill = new List<Skill_DataSet>(); //캐릭터가 소지한 스킬 정보
+        public List<Skill_DataSet> characterSkill = new List<Skill_DataSet>(); //캐릭터가 소지한 스킬 정보\
+        
         public int Gold { get; set; }
         public int victim(int atk,int hp)
         {
@@ -77,14 +78,14 @@ namespace TeamProject
         public static void NickName()
         {
             Console.Clear();
-            Console.WriteLine("스파르타 던전에 오신 여러분 환영합니다.");
+            Console.WriteLine("대한민국 던전에 오신 여러분 환영합니다.");
             Console.WriteLine("원하시는 이름을 설정해주세요.");
             Console.Write(">>> ");
             player.Name = Console.ReadLine();
         }
 
 
-        public void GetJob()
+        public  void GetJob()
         {
             GetJob:
             Console.Clear();

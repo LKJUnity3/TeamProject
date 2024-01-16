@@ -18,6 +18,7 @@ namespace TeamProject
             Item.ItemSetting();
             Item.PotionSetting();
             Scene.StartScene();
+           
         }
 
 
