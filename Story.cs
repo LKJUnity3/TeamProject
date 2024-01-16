@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TeamProject
 {
-    ipublic class Story
+    public class Story
     {
         // Prologue: 게임 개발자의 억울한 죽음과 환생 기회
         public static async Task Prologue()
