@@ -368,11 +368,21 @@ namespace TeamProject
                 if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Attack || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.AttackPercent)
                 {
                     int atk = DamageProcess.SkillAttackEffect(Skill.characterSkill[skillnumber].skilltype, skillnumber);
-                    Current_enemy_hp = enemies[num-1].hp;
+                    Current_enemy_hp = enemies[num - 1].hp;
                     enemies[num - 1].Victim(atk);
                     Console.WriteLine($"{Skill.characterSkill[skillnumber].skillname}으로 공격!");
-                    Console.WriteLine($"Lv.{enemies[num - 1].lv} {enemies[num - 1].Name}가 {Skill.characterSkill[skillnumber].skillDamage} 데미지를 받았습니다");
-                    Console.WriteLine($"HP {Current_enemy_hp} -> {enemies[num - 1].hp}");
+                    Console.WriteLine($"Lv.{enemies[num - 1].lv} {enemies[num - 1].Name}가 {atk} 데미지를 받았습니다");
+                    if (enemies[num - 1].hp <= 0)
+                    {
+                        Console.Write($"HP {Current_enemy_hp} -> ");
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.WriteLine("Dead");
+                        Console.ResetColor();
+                    }
+                    else
+                    { 
+                        Console.WriteLine($"HP {Current_enemy_hp} -> {enemies[num - 1].hp}");
+                    }
                 }
                 else if (Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.Defense || Skill.characterSkill[skillnumber].skilltype == Skill.SkillType.DefensePercent)
                 {
