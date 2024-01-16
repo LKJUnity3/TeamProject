@@ -161,6 +161,7 @@ namespace TeamProject
                 }
                 else if (Player.player.characterSkill[skillnumb].skillname == "불패의 신화")//스탯 상승
                 {
+                    Program.SkillSound("bulpeasinhwa", true, 15);
                     int atk_now = Player.player.atk;
                     int hp_now = BattleScene.Current_HP;
                     BattleScene.Current_HP += 10000;
@@ -173,7 +174,7 @@ namespace TeamProject
                 }
                 else if (Player.player.characterSkill[skillnumb].skillname == "천하무적")//광범위 연속 공격
                 {
-
+                    Program.SkillSound("oraora", true, 30);
                     Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                     BattleScene.Player_Extra_Avoide = 100;
                     Console.WriteLine($"오라오라오라~\n");
@@ -223,12 +224,14 @@ namespace TeamProject
                 }
                 else if (Player.player.characterSkill[skillnumb].skillname == "민중의 영웅")//회피율 100 상승
                 {
+                    Program.SkillSound("hero", true, 5);
                     Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                     BattleScene.Player_Extra_Avoide = 100;
                     Console.WriteLine($"회피율 상승 : 0 -> 100");
                 }
                 else if (Player.player.characterSkill[skillnumb].skillname == "명의")//체력 회복
                 {
+                    Program.SkillSound("goodDoctor", true, 20);
                     Console.WriteLine($"{Player.player.characterSkill[skillnumb].skillname}!!");
                     Console.WriteLine($"체력 회복 : {BattleScene.Current_HP} -> {Player.player.hp}");
                     BattleScene.Current_HP = Player.player.hp;

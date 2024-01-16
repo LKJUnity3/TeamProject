@@ -154,14 +154,14 @@ namespace TeamProject
             player.def += player.lv * (int)(player.def * 0.02f);
             player.fullExp += 15 + player.lv * 5;
             player.exp = 0;
-            WindowsMediaPlayer soundMenu = new WindowsMediaPlayer();
+            WindowsMediaPlayer soundLevelUp = new WindowsMediaPlayer();
             string baseFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory); // 현재 프로젝트의 경로
             string playFolder = Directory.GetParent(baseFolder).Parent.Parent.Parent.FullName + @"\sound\LevelUp.wav"; // 해당 경로에서 불필요한 부분 제거하고 원하는 폴더 추가
             if (File.Exists(playFolder))
             {
-                soundMenu.URL = playFolder;
-                soundMenu.settings.volume = 10;
-                soundMenu.controls.play();
+                soundLevelUp.URL = playFolder;
+                soundLevelUp.settings.volume = 10;
+                soundLevelUp.controls.play();
                 Thread.Sleep(100);
             }
         }

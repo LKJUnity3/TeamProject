@@ -73,5 +73,23 @@ namespace TeamProject
                 Thread.Sleep(100);
             }
         }
+
+        public static void SkillSound(string fileName, bool skillSoundSwich, int volume)
+        {            
+            WindowsMediaPlayer skillSound = new WindowsMediaPlayer();            
+            string baseFolder = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName;
+            string playFolder = baseFolder + $@"\sound\{fileName}.mp3";            
+            if (File.Exists(playFolder) && skillSoundSwich)
+            {
+                skillSound.URL = playFolder;
+                skillSound.settings.volume = volume;
+                skillSound.controls.play();                
+            }
+            else if(File.Exists(playFolder) && !skillSoundSwich)
+            {
+                skillSound.controls.stop();
+            }
+            Thread.Sleep(100);
+        }
     }
 }
