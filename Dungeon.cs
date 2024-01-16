@@ -20,23 +20,22 @@ namespace TeamProject
         }
         public static int ChoiceInput(int fst, int last) // 선택지 입력 메서드
         {
-            Console.WriteLine();
             int cp = Console.CursorTop;
             string input = Console.ReadLine();
             int choice;
             while (!(int.TryParse(input, out choice)) || choice < fst || choice > last)
             {
-                Console.SetCursorPosition(0, cp);
-                Console.WriteLine("잘못된 입력입니다.");
-                Console.Write("                    \r");
-                input = Console.ReadLine();
+                Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                Thread.Sleep(1000);
+                DungeonChoiceMenu();
+                //input = Console.ReadLine();
             }
             return choice;
         }
 
         public static void ShowHighlightedText(string text)
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine(text);
             Console.ResetColor();
         }
@@ -55,7 +54,7 @@ namespace TeamProject
             Console.WriteLine("");
             Console.WriteLine("[0] 메인화면으로 돌아가기");
             Console.WriteLine("");
-
+            Console.Write("원하시는 행동을 입력해주세요.\n>>> ");
             switch (ChoiceInput(0, 3))
             {
                 case 0:

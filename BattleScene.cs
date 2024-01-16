@@ -53,7 +53,9 @@ namespace TeamProject
             { 
             battle:
                 Console.Clear();
-                Console.WriteLine("Battle!!\n");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("[ Battle!! ]\n");
+                Console.ResetColor();
                 if (battle == false)
                 {
                     for (int i = 0; i < enemies.Count; i++)
@@ -111,15 +113,15 @@ namespace TeamProject
                             }
                             break;
                         default:
-                            Console.WriteLine("잘못된 입력입니다.");
-                            Thread.Sleep(600);
+                            Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                            Thread.Sleep(1000);
                             goto battle;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("잘못된 입력입니다.");
-                    Thread.Sleep(600);
+                    Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                    Thread.Sleep(1000);
                     goto battle;
                 }
 
@@ -127,7 +129,9 @@ namespace TeamProject
             skillLook:
                 Console.Clear();
                 indexHP = Current_HP;
-                Console.WriteLine("Battle!!\n");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("[ Battle!! ]\n");
+                Console.ResetColor();
                 for (int i = 0; i < enemies.Count; i++)//적 정보 나열
                 {
                     Console.Write((i + 1) + " ");
@@ -171,15 +175,17 @@ namespace TeamProject
 
                     }
                 }
-                Console.WriteLine("잘못된 입력입니다.");
-                Thread.Sleep(600);
+                Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                Thread.Sleep(1000);
                 goto skillLook;
 
             // 소모 아이템 사용
             itemLook:
                 Console.Clear();
                 indexHP = Current_HP;
-                Console.WriteLine("Battle!!\n");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("[ Battle!! ]\n");
+                Console.ResetColor();
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     if (enemies[i].alive)
@@ -220,8 +226,8 @@ namespace TeamProject
                         ItemPhase();
                     }
                 }
-                Console.WriteLine("잘못된 입력입니다.");
-                Thread.Sleep(600);
+                Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                Thread.Sleep(1000);
                 goto itemLook;
             }
 
@@ -240,7 +246,9 @@ namespace TeamProject
         battlephase:
                 Console.Clear();
                 indexHP = Current_HP;
-                Console.WriteLine("Battle!!\n");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("[ Battle!! ]\n");
+                Console.ResetColor();
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     Console.Write((i + 1) + " ");
@@ -293,8 +301,8 @@ namespace TeamProject
 
                     }
                 }
-                Console.WriteLine("잘못된 입력입니다.");
-                Thread.Sleep(600);
+                Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                Thread.Sleep(1000);
                 goto battlephase;
             }
             void SkillPhase(int skillnumber) //kcw 스킬 페이지
@@ -315,7 +323,9 @@ namespace TeamProject
 
             skillphaseSelectEnemy:
                 Console.Clear();
-                Console.WriteLine("Battle!!\n");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("[ Battle!! ]\n");
+                Console.ResetColor();
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     Console.Write((i + 1) + " ");
@@ -361,8 +371,8 @@ namespace TeamProject
 
                     }
                 }
-                Console.WriteLine("잘못된 입력입니다.");
-                Thread.Sleep(600);
+                Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                Thread.Sleep(1000);
                 goto skillphaseSelectEnemy;
 
 
@@ -455,15 +465,15 @@ namespace TeamProject
                     }
                     else
                     {
-                        Console.WriteLine("잘못된 입력입니다.");
-                        Thread.Sleep(600);
+                        Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                        Thread.Sleep(1000);
                         goto skillResult;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("잘못된 입력입니다.");
-                    Thread.Sleep(600);
+                    Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                    Thread.Sleep(1000);
                     goto skillResult;
                 }
             }
@@ -474,7 +484,9 @@ namespace TeamProject
             {
             itemPhase:
                 Console.Clear();
-                Console.WriteLine("Battle!!\n");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("[ Battle!! ]\n");
+                Console.ResetColor();
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     if (enemies[i].alive)
@@ -506,13 +518,13 @@ namespace TeamProject
                             EnemyPhase();
                             break;
                         default:
-                            Console.WriteLine("잘못된 입력입니다.");
-                            Thread.Sleep(600);
+                            Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                            Thread.Sleep(1000);
                             goto itemPhase;
                     }
                 }
-                Console.WriteLine("잘못된 입력입니다.");
-                Thread.Sleep(600);
+                Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                Thread.Sleep(1000);
                 goto itemPhase;
             }
 
@@ -522,7 +534,9 @@ namespace TeamProject
             playerPhase:
                 Console.Clear();
                 int number = enemy_list - 1;
-                Console.WriteLine("Battle!!");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("[ Battle!! ]\n");
+                Console.ResetColor();
                 Console.WriteLine("\n" + Player.player.Name + "의 공격!");
                 if (avoidanceOrcri == 1)
                 {
@@ -579,8 +593,8 @@ namespace TeamProject
                 }
                 else
                 {
-                    Console.WriteLine("잘못된 입력입니다.");
-                    Thread.Sleep(600);
+                    Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                    Thread.Sleep(1000);
                     goto playerPhase;
                 }
             }
@@ -604,8 +618,10 @@ namespace TeamProject
                 if (isDmg < 0)
                 {
                     isDmg = 0;
-                }                
-                Console.WriteLine("Battle!!");
+                }
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("[ Battle!! ]\n");
+                Console.ResetColor();
                 Console.WriteLine("Lv." + enemies[number].lv + " " + enemies[number].Name + "의 공격!");
                 if (enemyCriticalTrue == true && enemyAvoidanceTrue == false)
                 {
@@ -651,8 +667,8 @@ namespace TeamProject
                 }
                 else
                 {
-                    Console.WriteLine("잘못된 입력입니다.");
-                    Thread.Sleep(600);
+                    Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                    Thread.Sleep(1000);
                     goto enemyPhase;
                 }
             }
@@ -661,7 +677,9 @@ namespace TeamProject
                 Console.Clear();
 
             Battleresult:
-                Console.WriteLine("Battle!! - Result");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("[ Battle!! - Result ]\n");
+                Console.ResetColor();
                 if (alive <= 0)
                 {
                     Console.WriteLine("Victory");
@@ -725,6 +743,8 @@ namespace TeamProject
                 }
                 else
                 {
+                    Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                    Thread.Sleep(1000);
                     goto Battleresult;
                 }
             }
