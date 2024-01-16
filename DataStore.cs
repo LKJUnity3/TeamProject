@@ -31,5 +31,39 @@ namespace TeamProject
             // JSON 문자열로부터 아이템 리스트를 역직렬화
             Player.player = JsonConvert.DeserializeObject<Player>(json);
         }
+
+        public static bool DataSelect()
+        {
+            Console.WriteLine("데이터를 불러오시겠습니까?");
+            Console.WriteLine("1. yes");
+            Console.WriteLine("0. No");
+            
+        dataChoose:
+            Console.Write("\n>>");
+            string dataSelect = Console.ReadLine();
+            int dataNumb;
+            if(int.TryParse(dataSelect, out dataNumb))
+            {
+                if(dataNumb ==0)
+                {
+                    return false;
+                }
+                else if(dataNumb ==1)
+                {
+                    DataLoad();
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                    goto dataChoose;
+                }
+            }
+            else
+            {
+                Console.WriteLine("잘못 입력하셨습니다.다시 입력해주세요");
+                goto dataChoose;
+            }
+        }
     }
 }
