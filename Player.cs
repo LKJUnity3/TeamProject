@@ -1,4 +1,5 @@
-﻿using static TeamProject.Scene;
+﻿using WMPLib;
+using static TeamProject.Scene;
 using static TeamProject.Skill;
 
 namespace TeamProject
@@ -143,6 +144,16 @@ namespace TeamProject
             player.def += 1;
             player.fullExp += 15 + player.lv * 5;
             player.exp = 0;
+            WindowsMediaPlayer soundMenu = new WindowsMediaPlayer();
+            string baseFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory);
+            string playFolder = Directory.GetParent(baseFolder).Parent.Parent.Parent.FullName + @"\sound\LevelUp.wav";
+            if (File.Exists(playFolder))
+            {
+                soundMenu.URL = playFolder;
+                soundMenu.settings.volume = 20;
+                soundMenu.controls.play();
+                Thread.Sleep(100);
+            }
         }
     }
 }
