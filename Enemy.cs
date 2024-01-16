@@ -135,7 +135,7 @@
         {
             int randomItem = new Random().Next(1, 100);            
             int selectDropItem = new Random().Next(0, Item.potions.Count);            
-            if (randomItem <= 100)
+            if (randomItem <= 40)
             {                                
                 Item.potions[selectDropItem].ConsumItem++;
                 BattleScene.earnedList.Add(Item.potions[selectDropItem].Name);

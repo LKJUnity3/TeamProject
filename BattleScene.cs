@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TeamProject
 {
@@ -378,6 +379,16 @@ namespace TeamProject
                         Console.ForegroundColor = ConsoleColor.DarkGray;
                         Console.WriteLine("Dead");
                         Console.ResetColor();
+                        Player.player.exp += enemies[num - 1].lv;
+                        if (Player.player.exp > Player.player.fullExp)
+                        {
+                            int fullE = Player.player.fullExp;
+                            int e = Player.player.exp;
+                            remainEXP = e - fullE;
+                            Player.player.exp = Player.player.fullExp;
+                        }
+                        Player.player.Gold += enemies[num - 1].dropGold;
+                        Enemy.ItemDrop();
                     }
                     else
                     { 
