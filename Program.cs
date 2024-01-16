@@ -23,26 +23,32 @@ namespace TeamProject
         }
 
 
+        // 사운드 설정
+        public static bool dungeonSound = false;
         static void SoundPlayer()
         {
             WindowsMediaPlayer soundMenu = new WindowsMediaPlayer();
-            string baseFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory); // 현재 프로젝트의 경로
-            string playFolder = Directory.GetParent(baseFolder).Parent.Parent.Parent.FullName + @"\sound\mainBGM.mp3"; // 해당 경로에서 불필요한 부분 제거하고 원하는 폴더 추가
-            if (File.Exists(playFolder))
+            WindowsMediaPlayer soundDungeon = new WindowsMediaPlayer();
+            string baseFolder = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName; // 현재 TeamProject 경로 
+            string mainSoundFolder = baseFolder + @"\sound\mainBGM.mp3"; // 메인 사운드 경로
+            string dungeonSoundFolder = baseFolder + @"\sound\dungeonBGM.mp3"; // 던전 사운드 경로
+            soundMenu.URL = mainSoundFolder;
+            soundDungeon.URL = dungeonSoundFolder;
+            soundMenu.settings.volume = 10;
+            soundDungeon.settings.volume = 10;
+            while (true)
             {
-                soundMenu.URL = playFolder;
-                soundMenu.settings.volume = 10;
-                while (true)
+                if (File.Exists(mainSoundFolder) && !dungeonSound)
                 {
+                    soundDungeon.controls.stop();
                     soundMenu.controls.play();
-                    Thread.Sleep(100);
                 }
-            }
-            else
-            {
-                Console.WriteLine("파일을 불러오지 못하였습니다. 2초 뒤 종료합니다.");
-                Thread.Sleep(2000);
-                Environment.Exit(0);
+                else if (File.Exists(dungeonSoundFolder) && dungeonSound)
+                {
+                    soundMenu.controls.stop();
+                    soundDungeon.controls.play();
+                }
+                Thread.Sleep(100);
             }
         }
     }
