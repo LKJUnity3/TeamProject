@@ -299,6 +299,12 @@ namespace TeamProject
             avoidanceTrue = false;
             int avoidanceAtk = Avoidance((int)isDamage, ExtraAvoid, ref avoidanceTrue);
 
+            if (isDamage <= 0)
+            {
+                isDamage = (int)Math.Round(atk * 0.15);
+            }
+
+
             if (criticalTrue == true && avoidanceTrue == false)
             {
                 isDamage = criticalAtk;
