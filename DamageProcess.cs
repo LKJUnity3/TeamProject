@@ -183,7 +183,10 @@ namespace TeamProject
                         if (BattleScene.enemies[j].hp <=0)
                         {
                             BattleScene.enemies[j].hp = 0;
-                            Console.WriteLine($"Lv.{BattleScene.enemies[j].lv} {BattleScene.enemies[j].Name}    HP : {currentEnemyHP} -> Dead\n");
+                            Console.Write($"Lv.{BattleScene.enemies[j].lv} {BattleScene.enemies[j].Name}    HP : {currentEnemyHP} -> ");
+                            Console.ForegroundColor = ConsoleColor.DarkGray;
+                            Console.WriteLine("Dead\n");
+                            Console.ResetColor();
                         }
                         else
                         {
